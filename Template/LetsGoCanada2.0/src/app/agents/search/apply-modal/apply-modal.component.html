@@ -1,0 +1,100 @@
+    <div class="modal-header">
+      <h5 class="modal-title font-weight-bold text-uppercase" id="exampleModalLabel">Application</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <ng-container *ngIf="!applicant">
+
+        <div class="form-row">
+          <div class="form-group col-md-9">
+            <mat-form-field class="example-full-width">
+              <input matInput #searchModal placeholder="i.g: name, passport number ...">
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-1">
+            <button id="searchButton" class="btn btn-rose mat-raised-button" (click)="searchApplicant()">
+              <i class="material-icons">search</i>
+              <div class="mat-button-ripple mat-ripple" matripple=""></div>
+              <div class="mat-button-focus-overlay"></div>
+            </button>
+          </div>
+          <div class="form-group col-md-1  ml-4">
+            <button id="searchButton" mat-raised-button class="btn btn-rose mat-raised-button"
+              (click)="clear(searchModal)">
+              <i class="material-icons">clear</i>
+            </button>
+          </div>
+        </div>
+
+
+
+        <div class="card limitedHeightApplicants">
+          <table class="table table-responsive">
+            <mat-radio-group [(ngModel)]="applicantId">
+              <tr>
+                <th class="text-uppercase">Applicant</th>
+                <th class="text-uppercase">Phone</th>
+                <th class="text-uppercase">Passport</th>
+              </tr>
+              <tr *ngFor="let applicant of applicantResult">
+                <a [routerLink]="'../profile/'+applicant.applicantId">
+                  <td class="profile-link" style="width: 45%">{{applicant.firstName}} {{applicant.lastName}}
+                  </td>
+                </a>
+                <td style="width: 19%">{{applicant.phone}}</td>
+                <td style="width: 20%">{{applicant.passportNumber}}</td>
+                <td style="width: 10%" class="td-actions text-center">
+                  <mat-radio-button [value]="applicant.applicantId"></mat-radio-button>
+                </td>
+              </tr>
+            </mat-radio-group>
+          </table>
+        </div>
+      </ng-container>
+
+
+    </div>
+
+    <table class="table table-sm ml-1 table-responsive">
+      <tr>
+        <th class="text-center text-uppercase">Season</th>
+        <th class="text-center text-uppercase">Start</th>
+        <th class="text-center text-uppercase">End</th>
+        <th class="text-center text-uppercase">Deadlines</th>
+        <th class="text-center text-uppercase">campus</th>
+        <th class="text-center text-uppercase">Co-op required</th>
+      </tr>
+      <tr *ngFor="let date of terms">
+        <td width="15%" class="text-center">
+          {{date==null ? "TBD" : getTermById(date.termId)}}
+        </td>
+        <td width="15%" class="text-center start-col">
+          {{date == null ? "TBD" : date.startDate | date: 'MMM/yyyy'}}
+        </td>
+        <td width="15%" class="text-center end-col">
+          {{date == null ? "TBD" : date.endDate | date: 'MMM/yyyy'}}
+        </td>
+        <td width="25%" class="text-center padding-off">
+          {{date == null ? "TBD" : date.submissionDate | date}}
+        </td>
+        <td width="10%" class="text-center padding-off">
+          {{date == null || date.campus == null ? "TBD" : date.campus?.campusName}}
+        </td>
+        <td width="10%" class="text-center coop-col">
+          {{date == null ? "TBD" : (date.isCoopRequired == false ? "No" : "Yes")}}
+        </td>
+        <td width="15%" class="text-center">
+          <button [disabled]="!date.programStatus"
+            [ngClass]="{'btn-success': date.programStatus, 'btn-rose': !date.programStatus}"
+            class="btn btn-square mat-raised-button smallBtn" mat-raised-button=""
+            (click)="getProgramPerTermId(date.programPerTermId); setNewApplication()">
+            <span class="material-icons">done</span>
+            <div class="mat-button-ripple mat-ripple" matripple=""></div>
+          </button>
+
+        </td>
+      </tr>
+    </table>

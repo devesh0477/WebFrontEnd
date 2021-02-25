@@ -1,0 +1,164 @@
+<!-- start Advanced Search -->
+<div class="card">
+  <div class="card-header card-header-icon card-header-rose">
+    <div class="card-icon">
+      <i class="material-icons">youtube_searched_for</i>
+    </div>
+
+    <h4 i18n="the screen title (Edit Profile)" class="card-title float-left">Advanced Search</h4>
+  </div>
+
+  <div class="row col-xl-11 col-md-11 col-sm-11 margin-left">
+    <div class="col-xl-4 col-md-4 col-sm-4">
+
+
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="School" name="school" [(ngModel)]="selectedSchool" multiple #schoolSelected="ngModel">
+          <mat-option *ngFor="let school of schoolNameList" [value]=school.schoolId>
+            {{school.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xl-4 col-md-4 col-sm-4">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Discipline" name="discipline" [(ngModel)]="selectedDisciplines" multiple
+          #disciplinesSelected="ngModel">
+          <mat-option *ngFor="let discipline of programDisciplines" [value]=discipline.name>
+            {{discipline.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xl-4 col-md-4 col-sm-4">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Program Levels" name="level" [(ngModel)]="selectedLevels" multiple
+          #levelsSelected="ngModel">
+          <mat-option *ngFor="let level of programLevels" [value]=level.name>
+            {{level.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="row col-xl-11 col-md-11 col-sm-11 margin-left">
+    <div class="col-xl-4 col-md-4 col-sm-4">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Intakes" name="intake" [(ngModel)]="selectedIntakes" multiple
+          #intakesSelected="ngModel">
+          <mat-option *ngFor="let intake of programIntakes" [value]=intake.termId>
+            {{ intake.season }} {{intake.year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xl-4 col-md-4 col-sm-4">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Province" name="provinces" [(ngModel)]="selectedProvinces" multiple
+          #provincessSelected="ngModel">
+          <mat-option *ngFor="let province of provinces" [value]=province.provinceId>
+            {{province.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xl-4 col-md-4 col-sm-4">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="City" name="cities" [(ngModel)]="selectedCities" multiple #citiesSelected="ngModel">
+          <mat-option *ngFor="let city of cities" [value]=city.cityId>
+            {{city.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row col-xl-11 col-md-11 col-sm-11 d-flex margin-button justify-content-end">
+    <div class="col-xl-4 col-md-4 col-sm-4">
+      <button class="btn btn-rose mr-4" (click)="searchProgram()">
+        <i class="material-icons">search</i>
+        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+        <div class="mat-button-focus-overlay"></div>
+      </button>
+      <button class="btn btn-rose"
+        (click)="deselectAll(intakesSelected, schoolSelected, levelsSelected, disciplinesSelected, provincessSelected, citiesSelected)">
+        <i class="material-icons">clear</i>
+      </button>
+    </div>
+  </div>
+
+</div>
+<!-- end Advanced Search -->
+<span *ngIf="!schoolsSearch; else hasPrograms">
+  <img src="./assets/img/spinner.gif">
+</span>
+<ng-container hasPrograms>
+  <div class="card limitedHeight" *ngFor="let school of schoolsSearch; let i = index" attr.id="cardPrograms{{i}}">
+    <div class="card-header header">
+      {{school.school[0].name}}
+      <span>
+        <a attr.id="buttonProgramsM{{i}}" (click)="showMore(i)" class="float-right buttonShow font-weight-bold"><i
+            class="material-icons">add</i></a>
+        <a attr.id="buttonProgramsL{{i}}" (click)="showLess(i);" class="float-right buttonHide font-weight-bold"><i
+            class="material-icons">minimize</i></a>
+      </span>
+    </div>
+    <div class="card ml-3 programCard" id="hideOver" *ngFor="let program of school.school[0].programs">
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-3 my-auto">
+            <img class="img-fluid img-thumbnail imgLogo" [src]="getLogo(schoolNameList[i].schoolId)" alt="Logo">
+          </div>
+          <div class="col-6">
+
+            <div class="row">
+              <div class="col text-left font-weight-bold content_header">{{program.name | uppercase}}</div>
+              <div class="w-100"></div>
+              <div class="col text-left font-weight-bold">Type of Program:</div>
+              <div class="col text-left">{{program.typeOfProgram}}</div>
+              <div class="w-100"></div>
+            </div>
+
+            <div class="row" *ngFor="let price of program.applicationCosts">
+              <div *ngIf="price.visible" class="col text-left font-weight-bold">{{price?.concept?.conceptName}}</div>
+              <div *ngIf="price.visible" class="col text-left">{{price?.amount | currency:"CAD"}}</div>
+              <div class="w-100"></div>
+            </div>
+
+          </div>
+
+          <div class="col-3 my-auto">
+            <div class="row justify-content-center">
+              <button (click)="getProgramId(program.programId)" type="button"
+                class="btn btn-rose btn-round mat-raised-button" data-toggle="modal" data-target="#termsModal"><span
+                  class="mat-button-wrapper"><i class="material-icons" id="applyIcon">done_outline</i> Apply </span>
+              </button>
+            </div>
+            <div class="row justify-content-center">
+              <a href="program/{{program.programId}}" class="btn btn-rose btn-round mat-raised-button"><span
+                  class="mat-button-wrapper"><i class="material-icons">add</i> Info </span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- modal start -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 700px;">
+      <app-apply-modal [terms]="terms"></app-apply-modal>
+    </div>
+  </div>
+</div>
+<!-- modal end -->

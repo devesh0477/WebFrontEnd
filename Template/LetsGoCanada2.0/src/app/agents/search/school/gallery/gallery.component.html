@@ -1,0 +1,34 @@
+<!-- Banner-->
+<img class="d-block w-100 pt-4 mt-2 img-fluid" *ngIf="!backgroundImage" src="./assets/img/image_placeholder.jpg"
+  alt="Background Image">
+<div class="height">
+  <img class="img-fit" *ngIf="backgroundImage" src="{{backgroundImage}}" alt="Background Image">
+</div>
+
+<!-- thumbnail List-->
+<ol class="cardThumbs mx-auto">
+  <li *ngFor="let school of schools; let i = index">
+    <img class="img mr-3 img-thumbnail" id="thumb" (click)="openModal(); currentSlide(i)" src={{school.mediaLocation}}>
+  </li>
+</ol>
+
+<!-- Modal for carousel -->
+<div class="modal" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg bigSize">
+    <div class="modal-content">
+      <i class="material-icons close" (click)="closeModal()">close</i>
+
+      <!-- carousel -->
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
+        <div class="carousel-inner">
+          <div class="schoolGallery" *ngFor="let school of schools">
+            <img class="d-block w-100 img-gallery" src={{school.mediaLocation}}>
+          </div>
+
+          <!-- controls Next and Previous -->
+          <a *ngIf="this.slideIndex > 0" class="prev" (click)="plusSlides(-1)">&#10094;</a>
+          <a *ngIf="this.slides.length-1 > this.slideIndex" class="next" (click)="plusSlides(1)">&#10095;</a>
+        </div>
+      </div>
+    </div>
+  </div>

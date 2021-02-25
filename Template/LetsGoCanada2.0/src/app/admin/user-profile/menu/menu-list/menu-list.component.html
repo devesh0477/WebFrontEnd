@@ -1,0 +1,82 @@
+<div class="row">
+	<div class="col-md-12 mr-auto ml-auto">
+		<div class="card">
+			<div class="card-header card-header-rose card-header-icon">
+				<div class="card-icon">
+					<i class="material-icons">list</i>
+				</div>
+				<h4 class="card-title">Menu List</h4>
+			</div>
+			<div class="row" *ngIf="!menuList">
+				<div class="col-md-10 center-align">
+					<p>
+						This is the new title
+					</p>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row justify-content-center">
+					<div class="col-md-10" *ngIf="menuList">						
+						<div class="table-responsive">
+							<table class="table">
+								<thead class="text-primary">
+									<tr>
+										<th>
+											Name
+										</th>
+										<th>
+											Description
+										</th>
+										<th class="center-align">
+											Type
+										</th>
+										<th class="center-align">
+											Icon Type
+										</th>
+										<th>
+											Collapse
+										</th>
+										<th class="center-align">
+											Actions
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let men of pageOfItems; let i = index">
+										<td>
+											{{men.title}}
+										</td>
+										<td>
+											{{men.description}}
+										</td>
+										<td class="center-align">
+											{{men.type}}
+										</td>
+										<td class="center-align">
+											<a class="btn btn-link btn-primary btn-just-icon not-active">
+												<i class="material-icons">{{men.icontype}}</i>
+											</a>
+										</td>
+										<td>
+											{{men.collapse}}
+										</td>
+										<td class="td-actions center-align">
+											<button mat-raised-button type="button" class="btn btn-info btn-link"
+												matTooltip="Edit" (click)="editMenu(men)">
+												<i class="material-icons">edit</i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="d-flex justify-content-center mt-4">
+							<jw-pagination [items]="menuList" [pageSize]="10" (changePage)="onChangePage($event)">
+							</jw-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

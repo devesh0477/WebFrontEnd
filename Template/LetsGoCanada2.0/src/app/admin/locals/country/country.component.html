@@ -1,0 +1,61 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <app-country-search (newSearch)="getFilteredCountry($event)"></app-country-search>
+
+    <app-country-edit [countryToEdit]="selectedCountry" [countries]="countryList"
+      (newCountriesList)="onChangePage($event)"></app-country-edit>
+
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">list</i>
+          </div>
+          <h4 i18n="the card title (Terms)" class="card-title ">Country List</h4>
+        </div>
+
+        <span class="mx-auto" *ngIf="!countryList; else table">
+          <img src="./assets/img/spinner.gif">
+        </span>
+
+        <ng-container table>
+          <div class="table-responsive">
+
+            <div class="card-body mr-5 ml-5">
+              <table class="table">
+                <thead *ngIf="countryList">
+                  <tr>
+                    <th *ngFor="let header of tableHeader" scope="col" class="text-center">{{ header }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let country of pageOfItems | slice:0:10">
+                    <td class="text-center">{{country.name}}</td>
+                    <td class="text-center">{{country.phoneCode}}</td>
+                    <td class="text-center">
+                      <button (click)="selectCountry(country)" type="button" rel="tooltip"
+                        class="btn btn-success btn-link">
+                        <i class="material-icons">edit</i>
+                      </button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+              <jw-pagination [items]="countryList" [pageSize]="10" (changePage)="onChangePage($event)">
+              </jw-pagination>
+            </div>
+
+          </div>
+        </ng-container>
+
+      </div>
+
+    </div>
+  </div>
+</div>

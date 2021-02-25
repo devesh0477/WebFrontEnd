@@ -1,0 +1,83 @@
+.form-inline {
+    min-width: 700px;
+}
+
+
+#calendarIcon {
+    font-size: 40px;
+}
+
+.timeAvg {
+    margin-bottom: 2px;
+    margin-top: 0px;
+    margin-left: -26px;
+    font-size: smaller;
+    max-width: 15px;
+    display: inline-block;
+    text-overflow: ellipsis-word;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #00abd4;
+}
+
+.timeDesc {
+    line-height: 1;
+    margin-left: -50px;
+    font-size: 11px;
+
+}
+
+.mat-option:hover {
+    background: #ec407a !important;
+    color: white;
+}
+
+#applyIcon {
+    font-size: 10px;
+}
+
+#searchButton {
+    padding: 7px 7px !important;
+    margin: 0 5px 0px 2px !important;
+}
+
+#searchButton1 {
+    padding: 7px 15px !important;
+    margin: 0 5px 0px 2px !important;
+}
+
+.titleColor {
+    color: #074099 !important;
+}
+
+.buttonPosition {
+    padding-bottom: 10px;
+    padding-top: 1.5em !important;
+    padding-right: 5px;
+    padding-left: 22px;
+}
+
+.limitedHeightApplicants {
+    height: 15em;
+    overflow-y: hidden;
+}
+
+.profile-link {
+    color: black;
+}
+
+.profile-link:hover {
+    font-weight: bolder;
+    color: #ec407a
+}
+
+/* .card .card-body {
+    padding: .9375rem 5px !important;
+} */
+
+.smallBtn {
+    font-size: 1% !important;
+    width: 1% !important;
+    padding: 10px 30px 10px 11px !important;
+    margin: auto !important;
+}

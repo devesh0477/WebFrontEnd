@@ -1,0 +1,152 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">User Management</h4>
+					</div>
+					<div class="card-body">
+						<!-- <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"> -->
+						<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" id="userForm">
+							<br>
+							<div class="row">
+								<div class="col-sm-12 col-md-5 col-lg-3 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" id="title" name="title" #firstName="ngModel" matInput
+											placeholder="First Name" i18n-placeholder
+											[ngClass]="{'is-invalid':firstName.errors && firstName.touched}"
+											[(ngModel)]="user.lgcpersonal.firstName" minlength="4" required>
+
+
+										<!-- <mat-error i18n="the warning message (Title required)"
+											*ngIf="titleName.errors && titleName.touched || titleName.errors && titleName.untouched">
+											Menu Name required
+										</mat-error> -->
+
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 col-lg-3 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="description" #laName="ngModel" matInput
+											placeholder="Last Name" i18n-placeholder
+											[(ngModel)]="user.lgcpersonal.lastName" required>
+
+
+										<!-- <mat-error i18n="the warning message (Description required)"
+											*ngIf="descMenu.errors && descMenu.touched || descMenu.errors && descMenu.untouched">
+											Description required.
+										</mat-error> -->
+
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 col-lg-3 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="email" name="mail" matInput placeholder="Email" i18n-placeholder
+											[(ngModel)]="user.email" required>
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+							<div class="row justify-content-center aline-center-horizon">
+								<div class="col-sm-12 col-md-5 col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Role" i18n-placeholder name="role" #roleId="ngModel"
+											[(ngModel)]="user.roleId" required>
+											<mat-option *ngFor="let role of roleList" [value]="role.rolId">
+												{{ role.name }}
+											</mat-option>
+										</mat-select>
+
+										<!-- <mat-error i18n="the warning message (Type required)"
+											*ngIf="menType.errors && menType.touched || menType.errors && menType.untouched">
+											Type required
+										</mat-error> -->
+
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="salutation" matInput placeholder="Salutation"
+											i18n-placeholder [(ngModel)]="user.lgcpersonal.salutation">
+
+									</mat-form-field>
+
+								</div>
+
+								<div class="col-sm-12 col-md-5 col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Citizenship" i18n-placeholder name="citizen"
+											#citizenship="ngModel" [(ngModel)]="user.lgcpersonal.citizenship" required>
+
+											<mat-option *ngFor="let item of countries" [value]="item.countryId">
+												{{item.name}}
+											</mat-option>
+										</mat-select>
+										<!-- <mat-error i18n="the warning message (Type required)"
+											*ngIf="menType.errors && menType.touched || menType.errors && menType.untouched">
+											Type required
+										</mat-error> -->
+
+									</mat-form-field>
+								</div>
+
+							</div>
+							<br>
+							<div class="row justify-content-center aline-center-horizon">
+
+								<div class="col-sm-12 col-md-5 col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="phone" matInput placeholder="Phone" i18n-placeholder
+											[(ngModel)]="user.lgcpersonal.phone">
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="passport" matInput placeholder="Pastport"
+											i18n-placeholder [(ngModel)]="user.lgcpersonal.passportNo">
+
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 col-lg-3 ml-auto mr-auto">
+									<div class="togglebutton">
+										<label style="color: #757575">
+											Active:
+											<input type="checkbox" checked="" name="active" [(ngModel)]="user.active">
+											<span class="toggle"></span>
+
+										</label>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row justify-content-center">
+								<div class="col-md-11 right-align py-3">
+									<!-- (click)="saveMenu()" -->
+									<button mat-raised-button type="submit" class="btn btn-rose">
+										<i class="material-icons">save</i>
+										{{btnName}}
+									</button>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+
+				<app-users-list (userSelected)="setUser($event)"></app-users-list>
+			</div>
+		</div>
+	</div>
+</div>

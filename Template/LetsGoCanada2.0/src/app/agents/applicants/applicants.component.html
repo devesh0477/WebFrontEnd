@@ -1,0 +1,228 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+
+		<div *ngIf="loading" style="z-index: 100; position: fixed; width: 100px; margin-left: 40%; margin-top: 20%;">
+			<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+		</div>
+
+		<ng-container *ngIf="this.applicant == null">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header card-header-icon card-header-rose">
+							<div class="card-icon">
+								<i class="material-icons">assignment</i>
+							</div>
+							<h4 class="card-title ">Applicants Search</h4>
+						</div>
+						<div class="card-body">
+							<form [formGroup]="searchType">
+								<br>
+								<div class="row">
+									<div class="col-lg-3 ml-auto mr-auto">
+										<mat-form-field class="example-full-width">
+											<input matInput placeholder="Search" i18n-placeholder name="search"
+												id="search" formControlName="search" type="text">
+										</mat-form-field>
+									</div>
+									<div class="col-lg-3 ml-auto mr-auto">
+										<mat-form-field class="example-full-width">
+											<input matInput placeholder="Applicant Id" i18n-placeholder
+												name="applicantId" id="applicantId" formControlName="applicantId"
+												type="number">
+										</mat-form-field>
+									</div>
+									<div class="col-lg-3 ml-auto mr-auto">
+										<mat-form-field class="example-full-width">
+											<input matInput placeholder="City" i18n-placeholder name="city" id="city"
+												formControlName="city" type="text">
+										</mat-form-field>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 ml-auto mr-auto">
+										<mat-form-field class="example-full-width">
+											<input matInput placeholder="Province" i18n-placeholder name="province"
+												formControlName="province" id="province" type="text">
+										</mat-form-field>
+									</div>
+									<div class="col-lg-3 ml-auto mr-auto">
+										<mat-form-field>
+											<mat-select multiple placeholder="Country" i18n-placeholder name="country"
+												formControlName="country" id="country"
+												(valueChange)="onCountryChange($event)">
+												<mat-option *ngFor="let cou of countryList" [value]="cou.countryId">
+													{{ cou.name }}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+									<div class="col-lg-3 ml-auto mr-auto">
+										<mat-form-field>
+											<mat-select multiple placeholder="Agency" i18n-placeholder name="agency"
+												formControlName="agency" id="agency"
+												(valueChange)="selectAgencyChange($event)">
+												<mat-option *ngFor="let agency of agencyList" [value]="agency.id">
+													{{ agency.name }}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 ml-auto mr-auto">
+
+										<mat-form-field>
+											<mat-select multiple placeholder="Branch" i18n-placeholder name="branch"
+												formControlName="branch" id="branch"
+												(valueChange)="selectBranchChange($event)">
+												<mat-option *ngFor="let branch of branchList" [value]="branch.id">
+													{{ branch.name }}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+
+									<div class="col-lg-3 ml-auto mr-auto">
+										<mat-form-field>
+											<mat-select multiple placeholder="Agent" i18n-placeholder name="agent"
+												formControlName="agent" id="agent"
+												(valueChange)="selectAgentChange($event)">
+												<mat-option *ngFor="let agent of agentList" [value]="agent.id">
+													{{ agent.name }}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+									<div class="col-lg-3 ml-auto mr-auto"></div>
+								</div>
+
+								<!-- <div class="card-footer"> -->
+								<div class="row">
+									<div class="d-sm-none d-md-block col-md-3 col-lg-3 ml-auto mr-auto"></div>
+									<div class="d-sm-none d-md-block col-md-3 col-lg-3 ml-auto mr-auto"></div>
+									<div class="col-sm-3 col-md-12 col-lg-3 ml-auto mr-auto right-align">
+										<button mat-raised-button type="button" class="btn btn-fill btn-rose mr-3"
+											(click)="createNewApplicant()">
+											<i class="material-icons">add</i>
+											Create
+										</button>
+										<button [disabled]="isSearching" mat-raised-button type="button"
+											class="btn btn-fill btn-rose" (click)="searchApplicant()">
+											<i class="material-icons fa-spin" *ngIf="isSearching">refresh</i>
+											<i class="material-icons" *ngIf="!isSearching">search</i>
+											Search
+										</button>
+									</div>
+								</div>
+								<!-- </div> -->
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+
+
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-icon card-header-rose">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<h4 class="card-title ">Applicants</h4>
+					</div>
+					<div class="card-body">
+						<div class="row justify-content-center">
+							<div class="col-md-11">
+								<div class="table-responsive">
+									<table class="table">
+										<thead class="text-primary">
+											<tr>
+												<th>
+													ID
+												</th>
+												<th>
+													Name
+												<th>
+													Email
+												</th>
+												<th>
+													Phone
+												</th>
+												<th>
+													City
+												</th>
+												<th class="text-center">
+													Complete
+												</th>
+												<th class="text-center">
+													Actions
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let row of pageOfItems">
+												<!-- <tr *ngFor="let row of applicantList"> -->
+												<td>{{row.applicantId}}</td>
+												<td>{{row.firstName}} {{row.lastName}}</td>
+												<td>{{row.email}}</td>
+												<td>{{row.phone}}</td>
+												<td>{{row.city}}</td>
+												<td class="text-center">
+													<!-- {{row.profileComplete}} -->
+													<i class="material-icons primary" *ngIf="row.profileComplete"
+														style="color: #00bcd4;">done</i>
+													<i class="material-icons" *ngIf="!row.profileComplete"
+														style="color: red;">clear</i>
+												</td>
+												<td class="td-actions text-center">
+													<button (click)="editApplicant(row.applicantId)" type="button"
+														rel="tooltip" class="btn btn-success btn-link">
+														<i class="material-icons">edit</i>
+													</button>
+
+													<button mat-raised-button type="button"
+														(click)="downloadDocument(row)" class="btn btn-info btn-link"
+														matTooltip="Document Information">
+														<i class="material-icons">get_app</i>
+													</button>
+
+													<button mat-raised-button type="button"
+														(click)="downloadAttachments(row)"
+														class="btn btn-success btn-link"
+														matTooltip="Document Attachments">
+														<i class="material-icons">archive</i>
+													</button>
+
+
+												</td>
+
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+								<div class="d-flex justify-content-center mt-4">
+									<jw-pagination [items]="applicantList" [pageSize]="10"
+										(changePage)="onChangePage($event)">
+									</jw-pagination>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,62 @@
+<div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+  <div class="card">
+    <div class="card-header card-header-rose card-header-icon">
+      <div class="card-icon">
+        <i class="material-icons">list_alt</i>
+      </div>
+      <h4 class="card-title">Add Program</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="addProgramForm">
+
+        <div class="row ml-5">
+
+          <div class="col-xl-5 col-md-5 col-sm-12" hidden>
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Id" formControlName="Id">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-5 col-md-5 col-sm-12" hidden>
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="campusId" formControlName="campusId">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-5 col-md-5 col-sm-12">
+            <mat-form-field>
+              <mat-select placeholder="Select a program" formControlName="programId">
+                <mat-option *ngFor="let program of schoolPrograms" [value]=program.programId>
+                  {{program.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-6 col-md-6 col-sm-12 ml-3 special-margin-top">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Special Name" formControlName="specialName">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row float-right mr-5">
+          <div class="col-xl-4 col-md-4 col-sm-4 float-right mr-5 d-flex">
+            <a mat-raised-button (click)="clearField()" class="btn btn-rose">
+              Cancel
+            </a>
+            <button [disabled]="onPopUpDoing('submit')" mat-raised-button (click)="onSubmit()" class="btn btn-rose">
+              <i class="material-icons fa-spin" *ngIf="onPopUpDoing('submit')">refresh</i>
+              Save
+            </button>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

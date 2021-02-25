@@ -1,0 +1,113 @@
+<!-- <div class="main-content">
+    <div class="container-fluid">
+        <div class="row justify-content-center mt-2">
+            <div class="card col-md-6 col-lg-6 col-xl-5 m-4">
+                <app-country [countries]="countryList"></app-country>
+            </div>
+            <div class="card col-md-5 col-lg-5 col-xl-5 m-4">
+                <app-province [provinces]="provinceList" [countries]="countryList"></app-province>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-2">
+            <div class="card col-md-5 col-lg-5 col-xl-5 m-4">
+                <app-city [cities]="cityList" [provinces]="provinceList"></app-city>
+            </div>
+            <div class="card col-md-5 col-lg-5 col-xl-5 m-4">
+                <app-language [languages]="languageList"></app-language>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-3 col-md-6 col-sm-6 ml-auto mr-auto">
+                <div class="card card-stats">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">language</i>
+                        </div>
+                        <a routerLink="/countries" class="card-title">
+                            <h3>Countries</h3>
+                        </a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 ml-auto mr-auto">
+                <div class="card card-stats">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">map</i>
+                        </div>
+                        <a routerLink="/provinces" class="card-title">
+                            <h3>Provinces</h3>
+                        </a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 ml-auto mr-auto">
+                <div class="card card-stats">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">place</i>
+                        </div>
+                        <a routerLink="/cities" class="card-title">
+                            <h3>Cities</h3>
+                        </a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 ml-auto mr-auto">
+                <div class="card card-stats">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">translate</i>
+                        </div>
+                        <a routerLink="/languages" class="card-title">
+                            <h3>Languages</h3>
+                        </a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 ml-auto mr-auto">
+                <div class="card card-stats">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">not_interested</i>
+                        </div>
+                        <a routerLink="/banned-countries" class="card-title">
+                            <h3>Banned Countries</h3>
+                        </a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

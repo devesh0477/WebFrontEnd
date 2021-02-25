@@ -1,0 +1,1258 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 mr-auto ml-auto">
+				<!--      Wizard container        -->
+				<div class="wizard-container">
+					<div class="card card-wizard" data-color="rose" id="wizardProfile">
+						<form [formGroup]="type" id="type">
+							<!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+							<div class="card-header text-center">
+								<h3 i18n="title|title for the profile template@@temProfileId" class="card-title">
+									Build Your Profile
+								</h3>
+								<h5 i18n="subtitle|subtitle for more about you@@profileSubTitId"
+									class="card-description">This
+									information will let us know more about you.</h5>
+							</div>
+							<div class="wizard-navigation">
+								<ul class="nav nav-pills">
+									<li class="nav-item">
+										<a i18n="basi@@basicAnchorId" class="nav-link active" href="#basic"
+											data-toggle="tab" role="tab">
+											Basic
+										</a>
+									</li>
+									<li class="nav-item">
+										<a i18n="Education|Education section@@educationSecId" class="nav-link"
+											href="#education" data-toggle="tab" role="tab">
+											Education
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#language" data-toggle="tab" role="tab">
+											Language
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#background" data-toggle="tab" role="tab">
+											Background
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#documents" data-toggle="tab" role="tab">
+											Documents
+										</a>
+									</li>
+								</ul>
+							</div>
+							<div class="card-body">
+								<div class="tab-content">
+									<!-- Start Basic Information Form -->
+									<div class="tab-pane active" id="basic">
+										<h5 class="info-text font-weight-bold">
+											Let's start with the basic information
+										</h5>
+
+										<div class="row">
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">face</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label"
+														[ngClass]="displayFieldCss(type, 'firstName')">
+														<input type="text" id="firstname" name="firstname" matInput
+															placeholder="First Name" i18n-placeholder
+															formControlName="firstName" required>
+														<mat-error *ngIf="emailFormControl.hasError('required')">
+															First Name is required
+														</mat-error>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">record_voice_over</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width">
+														<input type="text" name="middlename" matInput id="middlename"
+															placeholder="Middle Name" i18n-placeholder
+															formControlName="middleName">
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">face</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label"
+														[ngClass]="displayFieldCss(type, 'lastName')">
+														<input type="text" id="lastname" name="lastname" matInput
+															placeholder="Last Name" i18n-placeholder
+															formControlName="lastName" required>
+														<mat-error *ngIf="emailFormControl.hasError('required')">
+															Last Name is required
+														</mat-error>
+													</mat-form-field>
+												</div>
+											</div>
+
+										</div>
+
+										<div class="row">
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">calendar_today</i>
+														</span>
+													</div>
+													<mat-form-field [ngClass]="displayFieldCss(type, 'dob')">
+														<input matInput [matDatepicker]="picker" id="dob" name="dob"
+															[min]="minDate" [max]="maxDate" formControlName="dob"
+															i18n-placeholder maxlength="10" placeholder="Date of Birth"
+															(click)="picker.open()" required>
+														<mat-datepicker-toggle matSuffix [for]="picker">
+														</mat-datepicker-toggle>
+														<mat-datepicker #picker></mat-datepicker>
+														<mat-error *ngIf="emailFormControl.hasError('required')">
+															Date of Birth is required
+														</mat-error>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">record_voice_over</i>
+														</span>
+													</div>
+
+													<mat-form-field class="example-full-width">
+														<mat-select matInput placeholder="Country of Citizenship"
+															i18n-placeholder formControlName="countryCitizen"
+															id="countryCitizen" name="countryCitizen"
+															(valueChange)="selectCountryChange($event)" required>
+															<mat-option *ngFor="let country of countries"
+																[value]="country.countryId">
+																{{ country.name }}
+															</mat-option>
+														</mat-select>
+														<mat-error *ngIf="!this.type.controls.countryCitizen.value">
+															Country of Citizenship is required
+														</mat-error>
+
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">account_box</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width">
+														<input matInput placeholder="Passport Number" i18n-placeholder
+															formControlName="passportNumber" type="text"
+															id="passportNumber" name="passportNumber" required>
+														<mat-error *ngIf="emailFormControl.hasError('required')">
+															Date of Birth is required
+														</mat-error>
+													</mat-form-field>
+												</div>
+											</div>
+										</div>
+
+										<div class="row valign-wrapper">
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">record_voice_over</i>
+														</span>
+													</div>
+
+													<mat-form-field class="example-full-width">
+														<mat-select matInput placeholder="Marital Status"
+															i18n-placeholder id="maritaStatus" name="maritaStatus"
+															formControlName="maritaStatus" required>
+															<mat-option *ngFor="let mari of marital"
+																[value]="mari.name">
+																{{ mari.name }}
+															</mat-option>
+														</mat-select>
+
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-8">
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="input-group form-control-lg">
+															<div [ngClass]="{'other-padd': !otherGender}" class="input-group-prepend">
+																<span class="input-group-text">
+																	<i class="material-icons">wc</i>
+																</span>
+															</div>
+															<label
+																class="col-sm-6 col-md-3 col-lg-2 label-checkbox mt-4 pt-1 pl-0">
+																Gender
+															</label>
+															<div class="col-sm-6 col-md-7 col-lg-9 checkbox-radios pt-1">
+																<div class="form-check-inline pt-2 pr-2">
+																	<label class="form-check-label pt-3">
+																		<input class="form-check-input" type="radio"
+																			name="gender" value="male" checked="true"
+																			formControlName="gender" (change)="onMaFeChange()">
+																		Male
+																		<span class="circle">
+																			<span class="check"></span>
+																		</span>
+																	</label>
+																</div>
+																<div class="form-check-inline pt-2 px-2">
+																	<label class="form-check-label pt-3">
+																		<input class="form-check-input" type="radio"
+																			name="gender" value="female"
+																			formControlName="gender" (change)="onMaFeChange()">
+																		Female
+																		<span class="circle">
+																			<span class="check"></span>
+																		</span>
+																	</label>
+																</div>
+																<div class="form-check-inline px-2">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="radio"
+																			name="gender" value="other"
+																			formControlName="gender" (change)="onOtherChange()" >
+																		Other
+																		<span class="circle">
+																			<span class="check"></span>
+																		</span>
+																	</label>
+																</div>
+																<div *ngIf="otherGender" class="form-check-inline">
+																	<mat-form-field class="example-full-width">
+																		<input matInput i18n-placeholder
+																			type="text" formControlName="otherName"
+																			id="otherName" name="otherName">
+																	</mat-form-field>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="row">
+											<div class="col-lg-12 text-left">
+												<h5 class="info-text font-weight-bold">Address Information</h5>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">home</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="addressProfile" matInput
+															id="addressProfile" placeholder="Address" i18n-placeholder
+															formControlName="addressProfile">
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="city" matInput id="city"
+															placeholder="City / Town" i18n-placeholder
+															formControlName="city">
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="province" matInput id="province"
+															placeholder="Province / State" i18n-placeholder
+															formControlName="province">
+													</mat-form-field>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group form-control-lg">
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="material-icons">mail</i>
+															</span>
+														</div>
+														<mat-form-field class="example-full-width has-label"
+															[ngClass]="displayFieldCss(type, 'email')">
+															<input type="text" id="email" name="email" matInput
+																placeholder="Email" i18n-placeholder
+																formControlName="email" required
+																(focusout)="emailChange()" (change)="emailChange()">
+															<mat-error *ngIf="emailFormControl.hasError('required')">
+																Email is required
+															</mat-error>
+															<mat-error
+																*ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+																Please enter a valid email address
+															</mat-error>
+														</mat-form-field>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+													<mat-form-field>
+														<mat-select placeholder="Country" i18n-placeholder
+															name="countryProfile" formControlName="countryProfile"
+															id="countryProfile" required>
+															<mat-option *ngFor="let coun of countries"
+																[value]="coun.countryId">
+																{{ coun.name }}
+															</mat-option>
+														</mat-select>
+														<mat-error *ngIf="emailFormControl.hasError('required')">
+															Country is required
+														</mat-error>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group form-control-lg">
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="material-icons">phone_iphone</i>
+															</span>
+														</div>
+														<mat-form-field class="example-full-width has-label">
+															<input type="text" name="phone" matInput id="phone"
+																placeholder="Phone Number" i18n-placeholder
+																formControlName="phone">
+														</mat-form-field>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group form-control-lg">
+														<div class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="material-icons">mail</i>
+															</span>
+														</div>
+														<mat-form-field class="example-full-width has-label">
+															<input type="text" name="zipcode" matInput id="zipcode"
+																placeholder="Zip Code" i18n-placeholder
+																formControlName="zipcode">
+														</mat-form-field>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- Fin Basic -->
+
+									<!-- Education summary form -->
+
+									<div class="tab-pane" id="education">
+										<h5 class="info-text font-weight-bold"> Education History </h5>
+
+										<div class="row">
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">face</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label testy"
+														[ngClass]="{'has-feedback':validateControls===true}">
+														<input type="text" name="instituName"
+															formControlName="instituName" matInput id="instituName"
+															placeholder="Institute Name" i18n-placeholder required>
+														<!-- *ngIf="!this.type.controls.instituName.value" -->
+														<mat-error *ngIf="validateControls">
+															Institute Name required
+														</mat-error>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+
+													<mat-form-field class="testy">
+														<mat-select placeholder="Level of Education Achieved"
+															name="levEducation" formControlName="levEducation"
+															i18n-placeholder required>
+															<mat-option *ngFor="let level of educationLevels"
+																[value]="level.educationTypeId">
+																{{ level.name }}
+															</mat-option>
+														</mat-select>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+
+													<mat-form-field class="testy">
+														<mat-select placeholder="Country of Institution"
+															i18n-placeholder name="counInstitu"
+															formControlName="counInstitu" required>
+															<mat-option *ngFor="let cou of countries"
+																[value]="cou.countryId">
+																{{ cou.name }}
+															</mat-option>
+														</mat-select>
+													</mat-form-field>
+												</div>
+											</div>
+
+										</div>
+
+										<div class="row">
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="eduProvince"
+															formControlName="eduProvince" matInput id="eduProvince"
+															placeholder="Province" i18n-placeholder>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="eduCity" formControlName="eduCity"
+															matInput id="eduCity" placeholder="City" i18n-placeholder>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">account_balance</i>
+														</span>
+													</div>
+
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="primarylanguage" matInput
+															id="primarylanguage" formControlName="primarylanguage"
+															placeholder="Primary Language of Instruction"
+															i18n-placeholder>
+													</mat-form-field>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">calendar_today</i>
+														</span>
+													</div>
+													<mat-form-field>
+														<input matInput [matDatepicker]="attendaFromDate"
+															placeholder="Attended Institution From" name="attendFrom"
+															formControlName="attendFrom" i18n-placeholder
+															(click)="attendaFromDate.open()">
+														<mat-datepicker-toggle matSuffix [for]="attendaFromDate">
+														</mat-datepicker-toggle>
+														<mat-datepicker #attendaFromDate></mat-datepicker>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">calendar_today</i>
+														</span>
+													</div>
+													<mat-form-field>
+														<input matInput [matDatepicker]="attendaToDate"
+															placeholder="Attended Institution To" i18n-placeholder
+															formControlName="attendTo" (click)="attendaToDate.open()">
+														<mat-datepicker-toggle matSuffix [for]="attendaToDate">
+														</mat-datepicker-toggle>
+														<mat-datepicker #attendaToDate></mat-datepicker>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">account_balance</i>
+														</span>
+													</div>
+
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="degreeName" matInput id="degreeName"
+															formControlName="degree" placeholder="Degree Awarded"
+															i18n-placeholder>
+													</mat-form-field>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="eduAddress"
+															formControlName="eduAddress" matInput id="eduAddress"
+															placeholder="Address" i18n-placeholder>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">list_alt</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="eduPostal" formControlName="eduPostal"
+															matInput id="eduPostal" placeholder="Postal Code"
+															i18n-placeholder>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg"
+													style="padding-left: 1em; align-items: flex-end;">
+													<div class="form-check">
+														<label class="form-check-label">
+															<input class="form-check-input" type="checkbox"
+																[checked]="isMostRecentStudy"
+																(change)="checkRecentSchool($event)"
+																name="isRecentSchool" formControlName="isRecentSchool">
+															This is the most recent school.
+															<span class="form-check-sign">
+																<span class="check"></span>
+															</span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">map</i>
+														</span>
+													</div>
+
+													<mat-form-field>
+														<mat-select placeholder="Grading Scheme" name="gradeScheme"
+															formControlName="gradeScheme" i18n-placeholder>
+															<mat-option *ngFor="let grade of gradeSchemeList"
+																[value]="grade.scaleId">
+																{{ grade.sacaleName }}
+															</mat-option>
+														</mat-select>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg">
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="material-icons">list_alt</i>
+														</span>
+													</div>
+													<mat-form-field class="example-full-width has-label">
+														<input type="text" name="gradeAverage"
+															formControlName="gradeAverage" matInput id="gradeAverage"
+															placeholder="Grade Average" i18n-placeholder>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<div class="col-sm-4">
+												<div class="input-group form-control-lg"
+													style="padding-left: 1em; align-items: flex-end;">
+													<div class="form-check">
+														<label class="form-check-label">
+															<input class="form-check-input" type="checkbox"
+																[checked]="isgraduatedStudy"
+																(change)="checkGraduatedSchool($event)"
+																name="isGraduated" formControlName="isGraduated">
+															Are you graduated from this school.
+															<span class="form-check-sign">
+																<span class="check"></span>
+															</span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-4 offset-sm-8">
+												<div class="input-group form-control-lg col-lg-2 ml-auto">
+
+													<!-- <button mat-raised-button mat-min-fab (click)="addNewStudy()"
+														class="btn btn-info btn-just-icon btn-round" matTooltip="{{butname}}">
+														<i class="material-icons">{{butname}}</i>
+													</button>
+													
+												</div>
+												<div class="input-group form-control-lg col-lg-2 ml-auto"> -->
+
+													<button mat-raised-button mat-min-fab (click)="addNewStudy()"
+														class="btn btn-info btn-just-icon btn-round"
+														matTooltip="{{butname}}">
+														<i class="material-icons">{{butname}}</i>
+													</button>
+
+												</div>
+											</div>
+										</div>
+
+										<!-- </div> -->
+
+										<div *ngIf="profile.education_list && profile.education_list.length > 0">
+											<div class="ml-4 mr-5" id="accordion" role="tablist"
+												*ngFor="let educa of profile.education_list; let i = index">
+												<div class="card-collapse">
+													<div class="card-header" role="tab" id="heading{{i}}">
+														<h5 class="mb-0">
+															<a class="collapsed" data-toggle="collapse"
+																href="#{{educa.idHtml}}" aria-expanded="false"
+																aria-controls="collapseOne">
+																<strong>{{educa.educationLevel}}</strong>
+																<i class="material-icons">keyboard_arrow_down</i>
+															</a>
+														</h5>
+													</div>
+													<div id="{{educa.idHtml}}" class="collapse" role="tabpanel"
+														aria-labelledby="headingOne" data-parent="#accordion">
+														<div class="card-body">
+															<div class="row">
+																<div class="col-sm-11 col-md-11 col-lg-11">
+																	<a id="{{educa.idHtml}}" name="{{educa.idHtml}}"
+																		matTooltip="Click to Edit" href="#"
+																		style="color: darkslategray;"
+																		(click)="editStudyInfo($event)">
+																		<div class="row">
+																			<div class="col-sm-4">
+																				<h6>
+																					<strong>{{educa.schoolName}}</strong>
+																				</h6>
+																				<h6><strong>{{educa.degree}}</strong>
+																				</h6>
+																			</div>
+
+																			<div class="col-sm-6">
+																				<h6>Level of Education:
+																					<strong>{{educa.educationType}}</strong>
+																				</h6>
+																				<h6>{{educa.countryName}}</h6>
+																				<h6><strong>Attended from</strong>
+																					{{educa.startDate | date}}
+																					<strong>to</strong>
+																					{{educa.endDate | date}}</h6>
+																			</div>
+																		</div>
+																	</a>
+																</div>
+																<div class="col-sm-1 col-md-1 col-lg-1 text-center">
+																	<button mat-raised-button mat-min-fab
+																		(click)="showMessage(i)" matTooltip="Remove"
+																		class="btn btn-danger btn-just-icon btn-round">
+																		<i class="material-icons">remove</i>
+																	</button>
+																</div>
+															</div>
+
+
+														</div>
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+
+									<!-- End Education Summary -->
+
+									<!-- Languages Scores -->
+
+									<div class="tab-pane" id="language">
+
+										<div class="row">
+											<div class="col-sm-12">
+												<h5 class="info-text font-weight-bold"> Language Scores </h5>
+											</div>
+										</div>
+
+										<div class="row ml-auto mr-auto" style="align-items: center;">
+											<!-- <div class="col-sm-5 ml-auto mr-auto">
+												<mat-form-field [ngClass]="displayFieldCss(type, 'nativeLang')">
+													<mat-select placeholder="Mother Tongue" i18n-placeholder
+														name="nativeLang" id="nativeLang" formControlName="nativeLang"
+														required>
+														<mat-option *ngFor="let lang of nativeLanguages"
+															[value]="lang.code">
+															{{ lang.description }}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div> -->
+
+											<div class="col-sm-3 ml-auto">
+												<mat-form-field>
+													<mat-select placeholder="English Test Type" i18n-placeholder
+														name="typeTest" id="typeTest"
+														(valueChange)="typeTestChangeHandler($event)"
+														formControlName="typeTest">
+														<mat-option *ngFor="let type of testList" [value]="type.id">
+															{{ type.name }}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+
+
+											<div class="col-sm-2 mr-auto mr-auto checkbox-radios valign-wrapper">
+												<span class="margin-left" style="padding-top: .4rem;">Did you take the
+													computer test ?</span>
+												<div class="form-check margin-right">
+													<label class="form-check-label">
+														<input class="form-check-input" type="checkbox" value=""
+															name="computerBased" formControlName="computerBased"
+															[checked]="isComputerTest"
+															(change)="checkComputerTest($event)">
+														<span class="form-check-sign">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+											</div>
+
+										</div>
+
+										<div *ngIf="profile.language && profile.language.testName && profile.language.testName != 'not'"
+											class="row justify-content-center">
+											<div class="col-lg-3">
+												<mat-form-field class="example-full-width has-label">
+													<input type="number" name="totalScore" matInput id="totalScore"
+														placeholder="Total Score" i18n-placeholder
+														formControlName="totalScore">
+												</mat-form-field>
+
+												<mat-form-field class="example-full-width has-label">
+													<input type="number" name="readScore" matInput id="readScore"
+														placeholder="Reading Score" i18n-placeholder
+														formControlName="readScore">
+												</mat-form-field>
+											</div>
+
+											<div class="col-lg-3">
+												<mat-form-field class="example-full-width has-label">
+													<input type="number" name="listeScore" matInput id="listeScore"
+														placeholder="Listening Score" i18n-placeholder
+														formControlName="listeScore">
+												</mat-form-field>
+
+												<mat-form-field class="example-full-width has-label">
+													<input type="number" name="speakScore" matInput id="speakScore"
+														placeholder="Speaking Score" i18n-placeholder
+														formControlName="speakScore">
+												</mat-form-field>
+											</div>
+
+											<div class="col-lg-3">
+												<mat-form-field class="example-full-width has-label">
+													<input type="number" name="writeScore" matInput id="writeScore"
+														placeholder="Writing Score" i18n-placeholder
+														formControlName="writeScore">
+												</mat-form-field>
+
+												<mat-form-field>
+													<input matInput [matDatepicker]="testDate" placeholder="Test Date"
+														i18n-placeholder id="dateTest" name="dateTest"
+														formControlName="dateTest" (click)="testDate.open()">
+													<mat-datepicker-toggle matSuffix [for]="testDate">
+													</mat-datepicker-toggle>
+													<mat-datepicker #testDate></mat-datepicker>
+													<mat-error *ngIf="emailFormControl.hasError('required')">
+														Invalid Format
+													</mat-error>
+												</mat-form-field>
+											</div>
+
+										</div>
+
+									</div>
+
+									<!-- End Languages Scores -->
+
+									<!-- Background Page -->
+
+									<div class="tab-pane" id="background">
+										<div class="row justify-content-center">
+											<div class="col-lg-12">
+												<h5 class="info-text font-weight-bold">Background Information</h5>
+											</div>
+
+											<div class="col-lg-10">
+												<!-- <div class="row"> -->
+												<p>Have you ever applied for any type of immigration into
+													Canada/USA? (e.g. New Express Entry)</p>
+												<!-- <div class="col-sm-12 checkbox-radios"> -->
+
+
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="appliedVisaCan" value="true"
+															formControlName="appliedVisaCan">
+														Yes
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="appliedVisaCan" value="false"
+															formControlName="appliedVisaCan">
+														No
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+													<br /><br />
+												</div>
+												<!-- </div> -->
+												<!-- </div> -->
+
+											</div>
+
+
+											<div class="col-lg-10">
+
+												<p>Have you ever been refused a Visa for Canada/USA or any other
+													country?</p>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="prev_Visa_Rejection" value="true"
+															formControlName="prev_Visa_Rejection">
+														Yes
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="prev_Visa_Rejection" value="false"
+															formControlName="prev_Visa_Rejection" checked>
+														No
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+													<br /><br />
+												</div>
+
+											</div>
+
+											<div class="col-lg-10">
+
+												<p>Were you ever removed from Canada/USA or any other country?</p>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio" name="radios3"
+															id="radios5" value="true">
+														Yes
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio" name="radios3"
+															id="radios6" value="false" checked>
+														No
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+													<br /><br />
+												</div>
+
+											</div>
+
+											<div class="col-lg-10">
+
+												<p>Have you ever visited Canada/USA before?</p>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="visitedCanUSA" id="radios7" value="true"
+															formControlName="visitedCanUSA">
+														Yes
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="visitedCanUSA" id="radios8" value="false"
+															formControlName="visitedCanUSA" checked>
+														No
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+													<br /><br />
+												</div>
+
+											</div>
+
+											<div class="col-lg-10">
+
+												<p>Are you currently residing in Canada or the USA?</p>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="residingCanUSA" id="radios9" value="true"
+															formControlName="residingCanUSA">
+														Yes
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="residingCanUSA" id="radios10" value="false"
+															formControlName="residingCanUSA" checked>
+														No
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+													<br /><br />
+												</div>
+
+											</div>
+
+											<div class="col-lg-10">
+
+												<p>Do you have a valid Canadian study permit or visitor visa?</p>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="validCanStayPermit" id="radios11" value="true"
+															formControlName="validCanStayPermit">
+														Yes
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="validCanStayPermit" id="radios12" value="false"
+															formControlName="validCanStayPermit" checked>
+														No
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+													<br /><br />
+												</div>
+
+											</div>
+
+											<div class="col-lg-10">
+
+												<p>Do you have a valid US study visa or visitor visa?</p>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="validUSAStayPermit" id="radios11" value="true"
+															formControlName="validUSAStayPermit">
+														Yes
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+												</div>
+												<div class="form-check form-check-radio">
+													<label class="form-check-label">
+														<input class="form-check-input" type="radio"
+															name="validUSAStayPermit" id="radios11" value="false"
+															formControlName="validUSAStayPermit" checked>
+														No
+														<span class="circle">
+															<span class="check"></span>
+														</span>
+													</label>
+													<br /><br />
+												</div>
+
+											</div>
+
+											<div class="col-lg-10">
+
+												<mat-form-field class="example-full-width has-label"
+													[ngClass]="displayFieldCss(type, 'backComments')">
+													<textarea matInput rows="2" name="backComments"
+														formControlName="backComments" i18n-placeholder
+														placeholder="Provide us a comment if you answer YES in any of those questions."
+														required></textarea>
+												</mat-form-field>
+
+											</div>
+
+										</div>
+									</div>
+
+									<!-- End Background -->
+
+									<!-- Documents -->
+
+									<div class="tab-pane" id="documents">
+										<div class="row">
+											<div class="col-lg-12">
+												<h5 class="info-text font-weight-bold">Upload Documents</h5>
+											</div>
+										</div>
+
+
+										<div class="row">
+											<div *ngFor="let docu of profile.documentList; let i=index"
+												class="col-lg-3 col-md-6 col-sm-12">
+												<!-- <div *ngIf="d==0" class="row"> -->
+												<!-- <div > -->
+												<div class="card card-pricing ">
+													<h6 class="card-category">{{docu.doctype}}</h6>
+													<div class="card-body">
+														<div class="card-icon icon-rose ">
+															<i *ngIf="docu.documentLocation"
+																class="material-icons">folder_special</i>
+															<i *ngIf="!docu.documentLocation"
+																class="material-icons">folder_open</i>
+														</div>
+														<!-- <h3 class="card-title">29$</h3> -->
+														<br>
+														<p class="card-description">{{docu.documentDescription}}</p>
+													</div>
+													<p>
+														<a *ngIf="docu.documentLocation" class="card-description"
+															href="#" (click)="downloadDocument($event, i)">
+															<i class="material-icons">search </i>
+															View Document</a>
+													</p>
+													<p>
+														<a *ngIf="docu.documentLocation" class="card-description"
+															href="#" (click)="deleteDocument($event, i)">
+															<i class="material-icons">delete </i>
+															Delete Document</a>
+													</p>
+													<div class="card-footer justify-content-center ">
+														<div class="fileinput-preview fileinput-exists thumbnail">
+														</div>
+														<div>
+															<span *ngIf="docu.documentLocation"
+																class="btn btn-success btn-round btn-file">
+																<span class="fileinput-new">
+																	<i *ngIf="docu.documentLocation"
+																		class="material-icons">done </i>
+																	<!-- <i *ngIf="!docu.documentLocation" class="material-icons">touch_app </i> -->
+																	Choose Document</span>
+																<!-- <span class="fileinput-exists">Change</span> -->
+																<input type="file" name="{{docu.doctype}}-{{i}}"
+																	accept="application/pdf"
+																	(change)="onDocumentChange($event, i)" />
+															</span>
+
+															<span *ngIf="!docu.documentLocation"
+																class="btn btn-rose btn-round btn-file">
+																<span class="fileinput-new">
+																	<!-- <i *ngIf="docu.documentLocation" class="material-icons">done </i> -->
+																	<i *ngIf="!docu.documentLocation"
+																		class="material-icons">touch_app </i>
+																	Choose Document</span>
+																<!-- <span class="fileinput-exists">Change</span> -->
+																<input type="file" name="{{docu.doctype}}-{{i}}"
+																	accept="application/pdf"
+																	(change)="onDocumentChange($event, i)" />
+															</span>
+														</div>
+													</div>
+												</div>
+												<!-- </div> -->
+												<!-- </div> -->
+											</div>
+										</div>
+
+									</div>
+
+									<!-- End Documents -->
+
+								</div>
+
+								<div class="row">
+									<div class="col-sm-12 col-md-6 col-lg-4 pl-4">
+										<div class="input-group form-control-lg pl-4 ml-1">
+											<input type="button"
+												class="btn btn-previous btn-fill btn-default btn-wd disabled"
+												name="previous" value="Previous">
+										</div>
+									</div>
+
+									<div class="col-sm-12 col-md-6 col-lg-4">
+										<div class="input-group form-control-lg">
+
+										</div>
+									</div>
+
+									<div class="col-sm-12 col-md-6 col-lg-4 text-right">
+										<div class="col-md-11 form-control-lg pr-3">
+											<input type="button" class="btn btn-next btn-fill btn-rose btn-wd"
+												name="next" value="Save & Next" (click)="saveTempInfo()">
+
+										</div>
+									</div>
+								</div>
+
+								<!-- <div class="row">
+									<div class="col-lg-3 col-md-6 col-sm-12 mr-auto">
+										<input type="button"
+											class="btn btn-previous btn-fill btn-default btn-wd disabled"
+											name="previous" value="Previous">
+									</div>
+									<div class="col-lg-3 col-md-6 col-sm-12 mr-auto"></div>
+									<div class="col-lg-3 col-md-6 col-sm-12 ml-auto">
+										<input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next"
+											value="Save & Next" (click)="saveTempInfo()">
+										 [disabled]="!this.type.controls.countryCitizen.value"
+										 <input type="submit" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish"
+											value="Finish" style="display: none;">
+									</div>
+									<div class="clearfix"></div>
+								</div> -->
+
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- wizard container -->
+			</div>
+		</div>
+	</div>
+</div>

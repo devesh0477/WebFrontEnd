@@ -1,0 +1,94 @@
+<div class="row">
+	<div class="col-sm-12">
+		<h5 class="info-text font-weight-bold"> Language Scores </h5>
+	</div>
+</div>
+<form [formGroup]="profileLanguage">
+	<div class="row ml-auto mr-auto" style="align-items: center;">
+		<!-- <div class="col-sm-5 ml-auto mr-auto">
+    <mat-form-field [ngClass]="displayFieldCss(type, 'nativeLang')">
+      <mat-select placeholder="Mother Tongue" i18n-placeholder
+        name="nativeLang" id="nativeLang" formControlName="nativeLang"
+        required>
+        <mat-option *ngFor="let lang of nativeLanguages"
+          [value]="lang.code">
+          {{ lang.description }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div> -->
+
+		<div class="col-sm-3 ml-auto">
+			<mat-form-field>
+				<mat-select placeholder="English Test Type" i18n-placeholder name="typeTest" id="typeTest"
+					(valueChange)="typeTestChangeHandler($event)" formControlName="typeTest">
+					<mat-option *ngFor="let type of testList" [value]="type.id">
+						{{type.id}} - {{ type.name }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+
+		<div class="col-sm-3 mr-auto mr-auto checkbox-radios valign-wrapper">
+			<span style="padding-top: .4rem; padding-right: .4rem;">Did you take the
+				computer test?</span>
+			<div class="form-check">
+				<label class="form-check-label">
+					<input class="form-check-input" type="checkbox" value="" name="computerBased"
+						formControlName="computerBased" [checked]="isComputerTest" (change)="checkComputerTest($event)">
+					<span class="form-check-sign">
+						<span class="check"></span>
+					</span>
+				</label>
+			</div>
+		</div>
+
+	</div>
+
+	<div *ngIf="profile.language && profile.language.testName && profile.language.testName != 'not'"
+		class="row justify-content-center">
+		<div class="col-lg-3">
+			<mat-form-field class="example-full-width has-label">
+				<input type="number" name="totalScore" matInput id="totalScore" placeholder="Total Score"
+					i18n-placeholder formControlName="totalScore">
+			</mat-form-field>
+
+			<mat-form-field class="example-full-width has-label">
+				<input type="number" name="readScore" matInput id="readScore" placeholder="Reading Score"
+					i18n-placeholder formControlName="readScore">
+			</mat-form-field>
+		</div>
+
+		<div class="col-lg-3">
+			<mat-form-field class="example-full-width has-label">
+				<input type="number" name="listeScore" matInput id="listeScore" placeholder="Listening Score"
+					i18n-placeholder formControlName="listeScore">
+			</mat-form-field>
+
+			<mat-form-field class="example-full-width has-label">
+				<input type="number" name="speakScore" matInput id="speakScore" placeholder="Speaking Score"
+					i18n-placeholder formControlName="speakScore">
+			</mat-form-field>
+		</div>
+
+		<div class="col-lg-3">
+			<mat-form-field class="example-full-width has-label">
+				<input type="number" name="writeScore" matInput id="writeScore" placeholder="Writing Score"
+					i18n-placeholder formControlName="writeScore">
+			</mat-form-field>
+
+			<mat-form-field>
+				<input matInput [matDatepicker]="testDate" placeholder="Test Date" i18n-placeholder id="dateTest"
+					name="dateTest" formControlName="dateTest" (click)="testDate.open()">
+				<mat-datepicker-toggle matSuffix [for]="testDate">
+				</mat-datepicker-toggle>
+				<mat-datepicker #testDate></mat-datepicker>
+				<mat-error *ngIf="emailFormControl.hasError('required')">
+					Invalid Format
+				</mat-error>
+			</mat-form-field>
+		</div>
+
+	</div>
+</form>

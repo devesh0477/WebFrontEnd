@@ -1,0 +1,21 @@
+#carouselExampleIndicators img { 
+    float: left;
+    display: inline;
+    max-height: 90px;
+}
+
+.carouselImgVAligned { 
+    padding: 34px 0;
+}
+
+#logoCarousel {
+    background-color: white; width: 850px; margin: 0 auto; margin-top:100px; border-radius: 5px;
+}
+
+#carouselExampleIndicators {
+    padding: 15px
+}
+
+.carousel-inner {
+    position: relative;
+}

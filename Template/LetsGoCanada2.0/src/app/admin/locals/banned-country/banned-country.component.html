@@ -1,0 +1,59 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-xl-12 mx-auto">
+        <div class="card">
+          <div class="card-header card-header-icon card-header-rose">
+            <div class="card-icon">
+              <i class="material-icons">not_interested</i>
+            </div>
+            <h4 i18n="the screen title (Edit Profile)" class="card-title">Edit Banned Countries
+            </h4>
+          </div>
+          <div class="card-body">
+
+            <form [formGroup]="bannedForm" (ngSubmit)="onSubmit()" #banForm="ngForm">
+
+
+              <div class="row mx-auto">
+                <div class="col-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-select placeholder="Select School" formControlName="schoolId">
+                      <mat-option *ngFor="let school of schools" [value]=school.schoolId>
+                        {{school.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-select placeholder="Select Country" formControlName="countryId" multiple #coutrySelect>
+                      <mat-option [value]="0" (click)="toggleAllSelection()">All Countries</mat-option>
+                      <mat-option *ngFor="let country of countries" [value]=country.countryId>
+                        {{country.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="row justify-content-end mx-3">
+                <button [disabled]="loading" type="submit" class="btn btn-rose justify-content-end">
+                  <i class="material-icons fa-spin" *ngIf="loading">refresh</i>
+                  Add
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-basic-table [configTable]="configTable" (deleteObjectSelected)="deleteBannedCountry($event)"></app-basic-table>
+
+  </div>
+</div>

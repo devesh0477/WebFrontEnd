@@ -1,0 +1,106 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">Sub Menu Management</h4>
+					</div>
+					<div class="card-body">
+						<form #submenuForm="ngForm" (ngSubmit)="onSubmit(submenuForm)" id="submenuForm">
+							<br>
+							<div class="row justify-content-center">
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Menu" i18n-placeholder name="menuid"
+											[(ngModel)]="submenu.menuId">
+											<mat-option *ngFor="let menu of menuList" [value]="menu.menuId">
+												{{ menu.title }}
+											</mat-option>
+											<!-- <mat-option value="list_all">list all</mat-option> -->
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="title" #titleSubMenu="ngModel" matInput
+											placeholder="Title" i18n-placeholder [(ngModel)]="submenu.title" required>
+
+										<mat-error i18n="the warning message (Description required)"
+											*ngIf="titleSubMenu.errors && titleSubMenu.touched || titleSubMenu.errors && titleSubMenu.untouched">
+											Title required.
+										</mat-error>
+
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+							<div class="row justify-content-center aline-center-horizon">
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="description" matInput placeholder="Description"
+											i18n-placeholder [(ngModel)]="submenu.description">
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="path" matInput placeholder="Path" i18n-placeholder
+											[(ngModel)]="submenu.path">
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+							<div class="row justify-content-center aline-center-horizon">
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="ab" matInput placeholder="Ab" i18n-placeholder
+											[(ngModel)]="submenu.ab">
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<div class="togglebutton">
+										<label style="color: #757575">
+											Visible:
+											<input type="checkbox" checked="" name="visible"
+												[(ngModel)]="submenu.visible">
+											<span class="toggle"></span>
+
+										</label>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row justify-content-center">
+								<div class="col-md-11 right-align pt-3 pb-3">
+									<!-- (click)="saveMenu()" -->
+									<button mat-raised-button type="button" class="btn btn-danger mr-3"
+										(click)="clearForm()">
+										Cancel
+									</button>
+									<button [disabled]="isSearching" mat-raised-button type="submit"
+										class="btn btn-rose">
+										<i class="material-icons fa-spin" *ngIf="isSearching">refresh</i>
+										{{btnName}}
+									</button>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- The table that shows all the records for the menu (menuSeleccionado)="setMenu($event)" -->
+				<app-sub-menu-list (subMenuSelected)="setSubMenu($event)"></app-sub-menu-list>
+			</div>
+		</div>
+	</div>
+</div>

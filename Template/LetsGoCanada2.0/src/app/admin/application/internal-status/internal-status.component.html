@@ -1,0 +1,84 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">Internal Status Management</h4>
+					</div>
+					<div class="card-body">
+						<form #statusmenuForm="ngForm" (ngSubmit)="onSubmit(statusmenuForm)" id="statusmenuForm">
+							<br>
+							<div class="row justify-content-center">
+								<div class="col-sm-12 col-md-3 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="title" #statusName="ngModel" matInput
+											placeholder="Name" i18n-placeholder [(ngModel)]="internalStatus.name"
+											required>
+
+										<!-- <mat-error i18n="the warning message (Description required)"
+											*ngIf="statusName.errors && statusName.touched || statusName.errors && statusName.untouched">
+											Title required.
+										</mat-error> -->
+
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-3 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="Description" #statusDescription="ngModel" matInput
+											placeholder="Description" i18n-placeholder
+											[(ngModel)]="internalStatus.description" required>
+
+										<!-- <mat-error i18n="the warning message (Description required)"
+											*ngIf="statusDescription.errors && statusDescription.touched || statusDescription.errors && statusDescription.untouched">
+											Title required.
+										</mat-error> -->
+
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-3 mr-auto ml-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Status" i18n-placeholder name="statusId"
+											[(ngModel)]="internalStatus.statusId" required>
+											<mat-option *ngFor="let status of statusList" [value]="status.statusId">
+												{{ status.name }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+							</div>
+							<br>
+
+							<div class="row justify-content-center">
+								<div class="col-md-11 right-align pt-3 pb-3">
+									<!-- (click)="saveMenu()" -->
+									<button mat-raised-button type="button" class="btn btn-danger mr-3"
+										(click)="clearForm(statusmenuForm)">
+										Cancel
+									</button>
+									<button [disabled]="isSearching" mat-raised-button type="submit"
+										class="btn btn-rose">
+										<i class="material-icons fa-spin" *ngIf="isSearching">refresh</i>
+										{{btnName}}
+									</button>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- The table that shows all the records for the menu (subMenuSelected)="setSubMenu($event)" -->
+				<app-internal-status-list (internalStatusSelected)="setInternalStatusSelected($event)">
+				</app-internal-status-list>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,93 @@
+<div class="row">
+	<div class="col-md-12 mr-auto ml-auto">
+		<div class="card">
+			<div class="card-header card-header-rose card-header-icon">
+				<div class="card-icon">
+					<i class="material-icons">list</i>
+				</div>
+				<h4 class="card-title">Payment Gateway List</h4>
+			</div>
+			<div class="row" *ngIf="!paymentHistoryList">
+				<div class="col-md-11 center-align">
+					<p>
+						No payment history available
+					</p>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row justify-content-center">
+
+					<span class="mx-auto" *ngIf="tableSpinner; else table">
+						<img src="./assets/img/spinner.gif">
+					</span>
+
+					<ng-container table>
+						<div class="col-md-11">
+							<div class="table-responsive">
+								<table class="table">
+									<thead *ngIf="!tableSpinner" class="text-primary">
+										<tr>
+											<th>
+												Payment Id
+											</th>
+											<th>
+												Previous State
+											</th>
+											<th>
+												Current State
+											</th>
+											<th>
+												Date
+											</th>
+											<th>
+												Login
+											</th>
+											<th style="max-width: 40rem;">
+												Information
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let item of paymentHistoryList | paginate: config">
+											<td>
+												{{item.paymentId}}
+											</td>
+											<td>
+												{{item.previousStateNavigation.stateName}}
+											</td>
+											<td>
+												{{item.currentStateNavigation.stateName}}
+											</td>
+											<td>
+												{{item.date | date: 'MM/dd/yyyy'}}
+											</td>
+											<td>
+												{{item.loginId}}
+											</td>
+											<td style="max-width: 40rem;">
+												{{item.actions}}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="d-flex justify-content-center mt-4">
+								<!-- <jw-pagination [items]="paymentHistoryList" [pageSize]="10"
+								(changePage)="onChangePage($event)" [maxPages]="2">
+							</jw-pagination> -->
+
+								<pagination-controls class="text-center" [maxSize]="maxSize"
+									[directionLinks]="directionLinks" [autoHide]="autoHide" [responsive]="responsive"
+									[previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel"
+									[screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+									[screenReaderPageLabel]="labels.screenReaderPageLabel"
+									[screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+									(pageChange)="onPageChange($event)"></pagination-controls>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

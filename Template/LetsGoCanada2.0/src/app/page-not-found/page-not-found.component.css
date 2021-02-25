@@ -1,0 +1,21 @@
+.card-profile {
+    width: 350px;
+    margin: 60px auto 0;
+    color: black !important;
+    left: 0;
+    right: 0;
+    display: inline-block !important;
+    transform: translate3d(0, 0, 0)
+}
+
+.btn-margin {
+    margin: 0% 0% 0% 8% !important;
+}
+
+.navbar-wrapper {
+    display: none !important;
+}
+
+.wrapper.wrapper-full-page {
+    height: unset !important;
+}

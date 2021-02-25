@@ -1,0 +1,28 @@
+.schoolSummaryIcons {
+    font-size: 36px;
+    color: #ec407a;
+    cursor: pointer;
+}
+
+.iconDisabled {
+    color: darkgray;
+}
+
+#schoolSummaryTextHeader {
+    font-size: 20px;
+    color: #074099;
+    font-family: monospace;
+}
+
+#fixedCard {
+    position: sticky;
+    top: 60px;
+}
+
+.list-inline-item {
+    margin-right: 0 !important;
+}
+
+.logo-background {
+    background-color: white;
+}

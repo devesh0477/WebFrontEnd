@@ -1,0 +1,61 @@
+<div class="card w-100" *ngFor="let program of programList">
+  <div class="card-body">
+
+    <h3 class="card-title font-weight-bold">{{program.program.name == null ? "Not Available" : program.program.name}}
+      {{program.specialName ? ' - '+program.specialName : '' }}
+    </h3>
+    <div class="row">
+      <div class="col-2 my-auto">
+        <div class="col text-center">
+          <i class="material-icons pl-1" id="calendarIcon">calendar_today</i>
+        </div>
+        <div class="col text-center">
+          {{program.program.programDetails?.processingTime == null ? "??" : program.program.programDetails.processingTime}}
+        </div>
+      </div>
+      <div class="col">
+
+        <div class="row">
+          <div class="col font-weight-bold">Program Level:</div>
+          <div class="col">
+            {{program.program.typeOfProgram == null ? "Not Available" : program.program.typeOfProgram.name}}</div>
+          <div class="w-100"></div>
+        </div>
+
+        <div class="row" *ngFor="let price of program.program.applicationCosts">
+          <div *ngIf="price.visible" class="col text-left font-weight-bold">{{price?.concept?.conceptName}}:</div>
+          <div *ngIf="price.visible" class="col text-left">{{price?.amount | currency:"CAD"}}</div>
+          <div class="w-100"></div>
+        </div>
+
+      </div>
+
+
+      <div class="col-1 my-auto">
+        <a (click)="getProgramId(program.programId)" type="button"
+          class="btn btn-rose btn-sm btn-round mat-raised-button btn-width" data-toggle="modal"
+          data-target="#termsModal"><span class="mat-button-wrapper"><i class="material-icons"
+              id="applyIcon">done_outline</i> Apply </span>
+        </a>
+        <!-- <a href="program/{{program.programId}}" class="btn btn-rose btn-round mat-raised-button"><span
+            class="mat-button-wrapper"><i class="material-icons">add</i> Info </span></a> -->
+
+        <a target="_blank" rel="noopener noreferrer" href="program/{{program.programId}}"
+          class="btn btn-rose btn-sm btn-round mat-raised-button btn-width"><span class="mat-button-wrapper"><i
+              class="material-icons">add</i> Info </span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content" style="width: 700px;">
+      <app-apply-modal [terms]="terms"></app-apply-modal>
+    </div>
+
+  </div>
+</div>

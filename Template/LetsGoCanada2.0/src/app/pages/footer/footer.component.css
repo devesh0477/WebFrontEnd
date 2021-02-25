@@ -1,0 +1,9 @@
+.new-footer {
+  text-align: center;
+  color: white;
+  padding: .9375rem 0;
+
+  font-size: 18px;
+  position: relative;
+  top: 3px;
+}

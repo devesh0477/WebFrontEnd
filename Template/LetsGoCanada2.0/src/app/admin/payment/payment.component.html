@@ -1,0 +1,260 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <app-dashboard (newSearch)="getFilteredCity($event)"></app-dashboard>
+
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">dashboard</i>
+          </div>
+          <h4 i18n="the card title (Process List)" class="card-title ">Process List</h4>
+        </div>
+        <div class="card-body mr-5 ml-5">
+          <div class="table-responsive">
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th *ngFor="let header of tableHeaders" scope="col" class="text-center">{{header}}</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let process of pageOfItems | slice:0:10">
+                  <td class="text-center">{{process.applicationID}}</td>
+                  <td class="text-center">{{process.applicationDate | date:'MM/dd/yyyy'}}</td>
+                  <td class="text-center">{{process.dealReference}}</td>
+                  <td class="text-center">{{process.agencyName}}</td>
+                  <td class="text-center">{{process.agentName}}</td>
+                  <td class="text-center">{{process.season}}</td>
+                  <td class="text-center">{{process.conceptName}}</td>
+                  <!-- <td class="text-center">{{process.expectedAmount | currency:'CAD'}}</td> -->
+                  <td class="text-center">{{process.stateName}}</td>
+                  <!-- <td class="text-center">{{process.paidAmount | currency:'CAD'}}</td> -->
+                  <!-- <td class="text-center">
+                    {{process.paidDate == null ? 'Not Paid' : process.paidDate | date:'MM/dd/yyyy'}}</td> -->
+                  <!-- <td class="text-center">{{process.wuServiceID}}</td> -->
+                  <td class="text-center">{{process.applicantID}}</td>
+                  <td class="text-center">{{process.applicantName}}</td>
+                  <td class="text-center">{{process.schoolName}}</td>
+                  <td class="text-center">{{process.programName}}</td>
+                  <td class="text-center">
+                    <button (click)="selectProcess(process)" type="button" rel="tooltip"
+                      class="btn btn-success btn-link" data-toggle="modal" data-target="#processModal">
+                      <i class="material-icons">edit</i>
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <jw-pagination [items]="processList" [pageSize]="10" (changePage)="onChangePage($event)">
+            </jw-pagination>
+          </div>
+
+          <!-- modal -->
+          <div class="modal fade" id="processModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h3 class="modal-title font-weight-bold text-uppercase" id="exampleModalLabel">Payment Status</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+
+                  <div class="row mx-auto">
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <!-- <span class="text-uppercase font-weight-bold">Current Status</span> -->
+                      <p class="text-uppercase font-weight-bold">Current Status</p>
+                      <p class="badge special-badge badge-info">
+                        <!-- <p> -->
+                        {{editProcessStatus === undefined? "Not available": editProcessStatus.stateName}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <!-- <span class="text-uppercase font-weight-bold">Current Status</span> -->
+                      <p class="text-uppercase font-weight-bold">Deal Reference</p>
+                      <!-- <p class="badge special-badge badge-info"> -->
+                      <p>
+                        {{editProcessStatus === undefined? "Not available": editProcessStatus.dealReference}}</p>
+                    </div>
+
+                  </div>
+
+                  <div class="row mx-auto">
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">application Id</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.applicationID}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Agency</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.agencyName}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">School</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.schoolName}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Payment Concept</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.conceptName}}</p>
+                    </div>
+
+                  </div>
+
+                  <div class="row mx-auto">
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Date</span>
+                      <p>
+                        {{editProcessStatus === undefined? "Not available": editProcessStatus.applicationDate | date:'MM/dd/yyyy'}}
+                      </p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Agent</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.agentName}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Program</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.programName}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Western Union ID</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.wuServiceID}}</p>
+                    </div>
+
+                  </div>
+
+                  <div class="row mx-auto">
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">applicant Id</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.applicantID}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">applicant Name</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.applicantName}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Term</span>
+                      <p>{{editProcessStatus === undefined? "Not available": editProcessStatus.season}}</p>
+                    </div>
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Expected Amount</span>
+                      <p>
+                        {{editProcessStatus === undefined? "Not available": editProcessStatus.expectedAmount | currency:'CAD'}}
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <div class="row mx-auto">
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Paid Amount</span>
+                      <p>
+                        {{editProcessStatus === undefined? "Not available": editProcessStatus.paidAmount | currency:'CAD' }}
+                      </p>
+                    </div>
+
+
+                    <div class="col-xl-3 col-md-3 col-sm-12">
+                      <span class="text-uppercase font-weight-bold">Paid Date</span>
+                      <p>
+                        {{editProcessStatus === undefined || editProcessStatus.paidDate == null?  "Not Paid": editProcessStatus.paidDate | date:'MM/dd/yyyy' }}
+                      </p>
+                    </div>
+                  </div>
+
+
+
+                  <div class="row mx-auto mt-4 mb-3">
+                    <div class="col-xl-10 col-md-10 col-sm-12">
+                      <h4 class="font-weight-bold">Update status</h4>
+
+                      <form [formGroup]="setStatusForm">
+                        <div class="row">
+
+                          <div class="col-xl-3 col-md-3 col-sm-1">
+                            <mat-form-field>
+                              <mat-label>Paid Amount</mat-label>
+                              <input matInput type="number" formControlName="paidAmount">
+                              <span matPrefix>$&nbsp;</span>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-xl-3 col-md-3 col-sm-3">
+                            <mat-form-field>
+                              <mat-label>Deal Reference</mat-label>
+                              <input matInput type="text" formControlName="dealReference">
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-xl-3 col-md-3 col-sm-6">
+                            <mat-form-field>
+                              <mat-label>Paid Date</mat-label>
+                              <input matInput [matDatepicker]="paidDate" formControlName="paidDate" readonly="readonly">
+                              <mat-datepicker-toggle matSuffix [for]="paidDate"></mat-datepicker-toggle>
+                              <mat-datepicker #paidDate disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-xl-3 col-md-3 col-sm-12">
+                            <mat-form-field class="next-status-margin">
+                              <!-- <mat-label class="text-uppercase font-weight-bold">Next status</mat-label> -->
+                              <mat-select placeholder="Next status" formControlName="nextStatus">
+                                <mat-option *ngFor="let st of nextStatus" [value]="st.nextState">
+                                  {{st.nextStateName}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="w-100"></div>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div class="col-xl-2 col-md-2 col-sm-12 mt-2">
+                      <!-- <a mat-raised-button (click)="getDataToUpdatePaymentState(editProcessStatus.id)"
+                        class="btn btn-rose float-right mt-4">
+                        Update Status
+                      </a> -->
+                      <a mat-raised-button (click)="updatePaymentState()" class="btn btn-rose float-right mt-4">
+                        Update Status
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

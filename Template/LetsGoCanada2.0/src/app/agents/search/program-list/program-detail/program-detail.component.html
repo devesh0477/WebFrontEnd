@@ -1,0 +1,372 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row mx-auto">
+      <div class="card relative">
+        <div class="card-header">
+          <img class="img-fit height img-fluid" [src]=" background== null ? imgPlaceholder : background" alt="">
+          <div class="col-2 bottom-left-logo box p-0">
+            <img class=" img-fluid img-thumbnail imgLogo" [src]=" media==null || ''? imgPlaceholder : media"
+              alt="School logo">
+          </div>
+          <p class="programTitle text-uppercase font-weight-bold transbox">
+            <!-- {{program == null ? "Not Available" : program[0].name}}</p> -->
+            {{programName}}</p>
+          <p class="schoolTitle text-uppercase font-weight-bold transbox">
+            <!-- {{program == null ? "Not Available" : program[0].schoolName}}</p> -->
+            <!-- {{schoolName?.name}} -->
+            {{schoolName}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="card col-md-8 col-lg-5 col-xl-5 ml-1 float-left mx-auto">
+        <div class="card-header">
+          <h4 class="card-title titleColor font-weight-bold text-uppercase">Program Details</h4>
+        </div>
+        <div class="card-body">
+          <p><i class="material-icons align-middle mr-2">calendar_today</i><span
+              class="my-0 font-weight-bold">Duration:</span>
+            <!-- {{program == null || program[0].programDetails == null ? "Not Available" : program[0].programDetails.duration}} -->
+            {{programDetails == null ? "Not Available" : programDetails.duration}}
+          </p>
+
+          <p class="has_tooltip" matTooltip="Click for more info" matTooltipClass="example-tooltip-red"
+            (click)="showSwal('typeOfProgram')"><i class="material-icons align-middle mr-2">description</i><span
+              class="my-0 font-weight-bold ">Type of
+              Program:</span>
+            <!-- {{program == null ? "Not Available" : program[0].typeOfProgramName}}</p> -->
+            <!-- {{typeOfProgram?.name}} -->
+            {{typeOfProgram}}
+          </p>
+
+          <p><i class="material-icons align-middle mr-2">alarm_on</i><span class="my-0 font-weight-bold">Average
+              Processing time:</span>
+            <!-- {{program == null ||  program[0].programDetails == null ? "Not Available" : program[0].programDetails.processingTime}} -->
+            {{programDetails == null ? "Not Available" : programDetails.processingTime}}
+          </p>
+
+          <hr class="my-2">
+          <p><i class="material-icons align-middle mr-2">attach_money</i><span class="my-0 font-weight-bold">Program
+              Cost</span></p>
+
+          <ul *ngFor="let cost of applicationCosts">
+            <li><span class="font-weight-bold">{{cost.concept.conceptName}}:</span>
+              {{cost.amount | currency:"CAD"}}
+            </li>
+          </ul>
+
+          <hr class="my-2">
+          <p><i class="material-icons align-middle mr-2">add_business</i><span
+              class="my-0 font-weight-bold">Campuses</span></p>
+
+          <ul *ngFor="let campus of campuses">
+            <li class="font-weight-bold"><a routerLink="/campus/{{campus.campusId}}">
+                {{campus.campusName}}</a>
+            </li>
+          </ul>
+
+          <hr class="my-2">
+          <p><i class="material-icons align-middle mr-2">date_range</i><span class="my-0 font-weight-bold">Starting
+              dates</span></p>
+          <table class="table table-borderless">
+            <tr>
+              <th class="text-center text-uppercase">Season</th>
+              <th class="text-center text-uppercase start-col">Start</th>
+              <th class="text-center text-uppercase end-col">End</th>
+              <th class="text-center text-uppercase">Deadlines</th>
+              <th class="text-center text-uppercase coop-col">Campus</th>
+              <th class="text-center text-uppercase coop-col">Co-op</th>
+            </tr>
+            <!-- <tr *ngFor="let date of programPerTerm"> -->
+            <tr *ngFor="let date of programsPerTerm">
+              <td width="15%" class="text-center">
+                {{date==null ? "TBD" : getTermById(date.termId)}}
+              </td>
+              <td width="15%" class="text-center start-col">
+                {{date == null ? "TBD" : date.startDate | date: 'MMM/yyyy'}}
+              </td>
+              <td width="15%" class="text-center end-col">
+                {{date == null ? "TBD" : date.endDate | date: 'MMM/yyyy'}}
+              </td>
+              <td width="25%" class="text-center padding-off">
+                {{date == null ? "TBD" : date.submissionDate | date}}
+              </td>
+              <td width="10%" class="text-center padding-off">
+                {{date == null || date.campus == null ? "TBD" : date.campus?.campusName}}
+              </td>
+              <td width="10%" class="text-center coop-col">
+                {{date == null ? "TBD" : (date.isCoopRequired == false ? "No" : "Yes")}}
+              </td>
+              <td width="10%" class="text-center">
+                <ng-container *ngIf="this.applicant != null">
+                  <button [disabled]="!date.programStatus"
+                    [ngClass]="{'btn-success': date.programStatus, 'btn-rose': !date.programStatus}"
+                    class="btn btn-square mat-raised-button smallBtn" mat-raised-button="" data-toggle="modal"
+                    (click)="getProgramPerTermId(date.programPerTermId); setNewApplication();">
+                    <span class="material-icons">done</span>
+                    <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="this.applicant == null">
+                  <button [disabled]="!date.programStatus"
+                    [ngClass]="{'btn-success': date.programStatus, 'btn-rose': !date.programStatus}"
+                    class="btn btn-square mat-raised-button smallBtn" mat-raised-button="" data-toggle="modal"
+                    data-target="#termsModal" (click)="getProgramPerTermId(date.programPerTermId);">
+                    <span class="material-icons">done</span>
+                    <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                  </button>
+                </ng-container>
+
+
+              </td>
+            </tr>
+          </table>
+
+          <!-- modal -->
+          <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font-weight-bold text-uppercase" id="exampleModalLabel">Application ddd</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-row">
+                    <div class="form-group col-md-8">
+                      <mat-form-field class="example-full-width">
+                        <input matInput #searchModal placeholder="i.g: name, passport number ...">
+                      </mat-form-field>
+                    </div>
+                    <div class=" form-group col-md-1 buttonPosition">
+
+                      <button id="searchButton" class="btn btn-rose mat-raised-button" (click)="searchApplicant()">
+                        <i class="material-icons">search</i>
+                        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                        <div class="mat-button-focus-overlay"></div>
+                      </button>
+                    </div>
+                    <div class="form-group col-md-1  ml-4 buttonPosition">
+                      <button id="searchButton" mat-raised-button class="btn btn-rose mat-raised-button"
+                        (click)="clear()">
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card limitedHeightApplicants">
+                    <table class="table table-responsive">
+                      <mat-radio-group [(ngModel)]="applicantId">
+                        <tr>
+                          <th class="text-uppercase">Applicant</th>
+                          <th class="text-uppercase">Phone</th>
+                          <th class="text-uppercase">Passport</th>
+                        </tr>
+                        <tr *ngFor="let applicant of applicantResult">
+                          <a [routerLink]="'../../profile/'+applicant.applicantId">
+                            <td class="profile-link" style="width: 45%">{{applicant.firstName}} {{applicant.lastName}}
+                            </td>
+                          </a>
+                          <td style="width: 19%">{{applicant.phone}}</td>
+                          <td style="width: 20%">{{applicant.passportNumber}}</td>
+                          <td style="width: 10%" class="td-actions text-center">
+                            <mat-radio-button [value]="applicant.applicantId"></mat-radio-button>
+                          </td>
+                        </tr>
+                      </mat-radio-group>
+                    </table>
+                  </div>
+                </div>
+
+
+                <div class="modal-footer">
+                  <button class="btn btn-rose btn-square mat-raised-button btn-sm" (click)="setNewApplication()"><span
+                      class="mat-button-wrapper">Apply</span>
+                    <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <!-- modal -->
+        </div>
+      </div>
+      <!-- Program Description -->
+
+      <div class="card col-md-8 col-lg-6 col-xl-6 mx-auto float-right">
+        <div class="card-header card-header-tabs card-header-rose py-0">
+          <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#description" data-toggle="tab">
+                    <i class="material-icons">info</i>Program Description
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#videos" data-toggle="tab">
+                    <i class="material-icons">video_library</i> Videos
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="description">
+              <h4 class="card-title titleColor font-weight-bold text-uppercase">Program Description</h4>
+              <div class="card-body">
+                <div *ngIf="programDetails == null; else elseBlock">Not Available.</div>
+                <ng-template #elseBlock>
+                  <div [innerHTML]="programDetails.programDescription"></div>
+                </ng-template>
+              </div>
+            </div>
+            <div class="tab-pane" id="videos">
+              <app-generic-video-selector [info]='videoObj'></app-generic-video-selector>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title titleColor font-weight-bold text-uppercase">Admission Requirements</h4>
+        </div>
+        <div class="card-body">
+          <div class="col-lg-3 col-md-3 float-left">
+            <table class="table table-sm">
+              <tr>
+                <th colspan="2">GPA</th>
+              </tr>
+              <tr>
+                <td>Minimum GPA</td>
+                <td>
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.gpa}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.gpa}}
+                </td>
+              </tr>
+
+            </table>
+          </div>
+          <div class="col-lg-3 col-md-3 float-right">
+            <table class="table table-sm">
+              <tr>
+                <th colspan="2">TOEFL</th>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">Type</td>
+                <td class="font-weight-bold">
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.toeflType}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.toeflType}}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">Overall</td>
+                <td class="font-weight-bold">
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.toeflOverall}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.toeflOverall}}
+                </td>
+              </tr>
+              <tr>
+                <td>Listening</td>
+                <td>
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.toelfListening}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.toelfListening}}
+                </td>
+              </tr>
+              <tr>
+                <td>Reading</td>
+                <td>
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.toelfReading}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.toelfReading}}
+                </td>
+              </tr>
+              <tr>
+                <td>Speaking</td>
+                <td>
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.toelfSpeaking}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.toelfSpeaking}}
+                </td>
+              </tr>
+              <tr>
+                <td>Writing</td>
+                <td>
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.toelfWriting}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.toelfWriting}}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-lg-3 col-md-3 float-center">
+            <table class="table table-sm">
+              <tr>
+                <th colspan="2">IELTS</th>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">Type</td>
+                <td class="font-weight-bold">
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.ieltsType}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.ieltsType}}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">Overall</td>
+                <td class="font-weight-bold">
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.ieltsOverall}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.ieltsOverall}}
+                </td>
+              </tr>
+              <tr>
+                <td>Listening</td>
+                <td>
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.ieltsListening}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.ieltsListening}}
+                </td>
+              </tr>
+              <tr>
+                <td>Reading</td>
+                <td>
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.ieltsReading}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.ieltsReading}}
+                </td>
+              </tr>
+              <tr>
+                <td>Speaking</td>
+                <td>
+                  <!-- {{program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.ieltsSpeaking}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.ieltsSpeaking}}
+                </td>
+              </tr>
+              <tr>
+                <td>Writing</td>
+                <td>
+                  <!-- {{ program[0]?.programAdmissionDetails == null ? "Not Available" : program[0].programAdmissionDetails.ieltsWriting}} -->
+                  {{programAdmissionDetails == null ? "Not Available" : programAdmissionDetails.ieltsWriting}}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-11 ml-4">
+            <h4 class="font-weight-bold">SPECIAL NOTES</h4>
+            <!-- <span [innerHTML]="program[0]?.programAdmissionDetails?.notes"></span> -->
+            <span [innerHTML]="programAdmissionDetails?.notes"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

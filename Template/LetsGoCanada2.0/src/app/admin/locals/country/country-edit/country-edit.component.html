@@ -1,0 +1,56 @@
+<div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+  <div class="card">
+    <div class="card-header card-header-rose card-header-icon">
+      <div class="card-icon">
+        <i class="material-icons">language</i>
+      </div>
+      <h4 class="card-title">Country Register</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="countryForm">
+
+        <div class="row ml-5">
+
+          <div class="col-xl-5 col-md-5 col-sm-5" hidden>
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="countryId" formControlName="countryId">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-4">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Country" formControlName="name">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-3 col-md-3 col-sm-3">
+
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-4 ml-2">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Area Code" formControlName="phoneCode">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row float-right mr-5">
+          <div class="col-xl-4 col-md-4 col-sm-4 float-right mr-5 d-flex">
+            <button [disabled]="!countries" mat-raised-button (click)="onSubmit()" class="btn btn-rose">
+              <i class="material-icons fa-spin" *ngIf="!countries">refresh</i>
+              Submit
+            </button>
+            <a mat-raised-button (click)="clearField()" class="btn btn-rose">
+              Clear
+            </a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-4 mt-4" *ngFor="let menu of menuItems">
+        <div class="card card-chart">
+          <div class="card-header card-header-rose" data-header-animation="true">
+            <div class="ct-chart" id="websiteViewsChart"></div>
+            <div class="card-icon">
+              <i *ngIf="!menu.icontype" class="material-icons bigIcon">
+                error_outline
+              </i>
+              <i class="material-icons bigIcon">
+                {{menu.icontype}}
+              </i>
+            </div>
+            <h3>{{menu.title}}</h3>
+          </div>
+
+          <div class="card-body">
+            <div class="card-actions">
+
+              <div class="card-columns">
+
+                <ul *ngFor="let subMenu of menu.children; let i = index">
+                  <li class="col-3 subMenu text-uppercase font-weight-bold text-left" *ngIf="!subMenu.ab">!!!</li>
+                  <li>
+                    <div class="row">
+                      <div class="subMenu text-uppercase font-weight-bold">{{subMenu.ab}}</div>
+                      <div class="font-weight-bold text-left"><a href="{{subMenu.path}}">{{subMenu.title}}</a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

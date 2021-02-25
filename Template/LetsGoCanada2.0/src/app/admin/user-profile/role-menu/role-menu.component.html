@@ -1,0 +1,73 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="row">
+
+			<div class="col-md-12">
+				<app-role-menu-search></app-role-menu-search>
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">Role Menu Management</h4>
+					</div>
+					<div class="card-body">
+						<form #rolmenuForm="ngForm" (ngSubmit)="onSubmit(rolmenuForm)" id="rolmenuForm">
+							<br>
+							<div class="row justify-content-center">
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Role" i18n-placeholder name="roleId"
+											[(ngModel)]="rolmenu.rolId" required>
+											<mat-option *ngFor="let role of roleList" [value]="role.rolId">
+												{{ role.name }}
+											</mat-option>
+											<!-- <mat-option value="list_all">list all</mat-option> -->
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Sub Menu" i18n-placeholder name="menuid"
+											[(ngModel)]="rolmenu.subMenuId" required>
+											<mat-option *ngFor="let sub of subMenuList" [value]="sub.subMenuId">
+												{{ sub.title }}
+											</mat-option>
+											<!-- <mat-option value="list_all">list all</mat-option> -->
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+
+							<div class="row justify-content-center">
+								<div class="col-md-11 right-align pt-3 pb-3">
+
+									<button mat-raised-button type="button" class="btn btn-warning mr-3"
+										(click)="clearForm()">
+										Cancel
+									</button>
+									<button mat-raised-button type="button" *ngIf="btnVisible"
+										class="btn btn-danger mr-3" (click)="deleteRolMenu()">
+										Delete
+									</button>
+									<button [disabled]="isSearching" mat-raised-button type="submit"
+										class="btn btn-rose">
+										<i class="material-icons fa-spin" *ngIf="isSearching">refresh</i>
+										{{btnName}}
+									</button>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- The table that shows all the records for the menu (subMenuSelected)="setSubMenu($event)" -->
+				<app-role-menu-list (roleMenuSelected)="setRoleMenu($event)"></app-role-menu-list>
+			</div>
+		</div>
+	</div>
+</div>

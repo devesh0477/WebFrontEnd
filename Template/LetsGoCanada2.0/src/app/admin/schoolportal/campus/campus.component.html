@@ -1,0 +1,165 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <app-campus-edit [campusToEdit]="selectedCampus" [campuses]="campusList" [countries]="countryList"
+      [provinces]="provinceList" [cities]="cityList" (newCampusesList)="onChangePage($event)"></app-campus-edit>
+
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">list</i>
+          </div>
+          <h4 i18n="the card title (Campus List)" class="card-title ">Campus List</h4>
+        </div>
+        <div class="card-body mr-5 ml-5">
+          <div class="table-responsive">
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th *ngFor="let header of tableHeader" scope="col" class="text-center">{{ header }}</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let campus of pageOfItems | slice:0:10">
+                  <td class="text-center">{{campus.campusName}}</td>
+                  <td class="text-center">{{getCity(campus.cityId)}}</td>
+                  <td class="text-center">{{getCountry(campus.countryId)}}</td>
+
+                  <td class="text-center">
+
+                    <button mat-raised-button type="button" class="btn btn-danger btn-link py-0 px-1"
+                      data-toggle="modal" data-target="#videoModal" (click)="showVideo(campus)"
+                      matTooltip="Campus Videos" [matTooltipPosition]="'above'">
+                      <i class="material-icons">video_library</i>
+                    </button>
+
+                    <button mat-raised-button type="button" class="btn btn-info btn-link py-0 px-1"
+                      (click)="showCampusMedia(campus.campusId)" data-toggle="modal" data-target="#mediaModal"
+                      matTooltip="Campus Media" [matTooltipPosition]="'above'">
+                      <i class="material-icons">wallpaper</i>
+                    </button>
+
+                    <button mat-raised-button matTooltip="Edit" (click)="selectCampus(campus)" type="button"
+                      rel="tooltip" class="btn btn-success btn-link py-0 px-1">
+                      <i class="material-icons">edit</i>
+                    </button>
+
+                    <button mat-raised-button type="button" class="btn btn-success btn-link py-0 px-1"
+                      (click)="sendCampusEdit(campus)" routerLink='/campus-program/{{campus.campusId}}'
+                      matTooltip="Campus programs" [matTooltipPosition]="'above'">
+                      <i class="material-icons">list_alt</i>
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <jw-pagination [items]="campusList" [pageSize]="10" (changePage)="onChangePage($event)">
+            </jw-pagination>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- start::mediaModal -->
+<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-notice">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Choose the Campus Media File</h5>
+        <button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="instruction">
+          <div class="row">
+            <div class="mx-auto">
+
+              <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                <div class="fileinput-new thumbnail picture">
+                  <img src="{{campusMedia}}">
+                </div>
+                <div class="fileinput-preview fileinput-exists thumbnail"></div>
+              </div>
+              <div class="row">
+                <span class="btn btn-small btn-rose btn-file mx-auto">
+                  <input type="file" name="campusMediaId" (change)="setCampusMedia($event.target.files)" />
+                  <i class="material-icons fa-spin" *ngIf="onPopUpDoing('image')">refresh</i>
+                  Change Image
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- start::videoModal -->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-notice">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">{{campusNameForVideo}} Videos</h5>
+            <button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              <i class="material-icons">close</i>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <div class="instruction">
+              <div class="row">
+                <div *ngFor="let url of videoUrl; let i = index" class="col-md-6 mx-auto">
+                  <p style="padding-top: 10px">
+                    Video #{{i+1}}
+                  </p>
+                  <iframe width="200" height="150" [src]="videoUrl[i].mediaUrl" frameborder="0"></iframe>
+                  <button [disabled]="onPopUpDoing(videoUrl[i].mediaId)" class="btn btn-sm btn-rose"
+                    (click)="deleteVideo(videoUrl[i].mediaId)">
+                    <i class="material-icons fa-spin" *ngIf="onPopUpDoing(videoUrl[i].mediaId)">refresh</i>
+                    Delete
+                  </button>
+                </div>
+                <div class="col-md-10 mt-3 mx-auto">
+                  <form #videoUrlForm="ngForm" (ngSubmit)="setVideo(videoUrlForm)">
+
+                    <div class="row">
+                      <mat-form-field>
+                        <input matInput placeholder="Paste or type the url here ..." type="text" name="videoUrl"
+                          ngModel>
+                      </mat-form-field>
+                      <button [disabled]="onPopUpDoing('video')" mat-raised-button type="submit"
+                        class="btn btn-fill btn-rose mx-auto">
+                        <i class="material-icons fa-spin" *ngIf="onPopUpDoing('video')">refresh</i>
+                        Add a new video
+                      </button>
+                    </div>
+
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

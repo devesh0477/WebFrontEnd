@@ -1,0 +1,157 @@
+<div class="card-header card-header-tabs card-header-rose py-0">
+  <div class="nav-tabs-navigation">
+    <div class="nav-tabs-wrapper">
+      <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link active" href="#about" data-toggle="tab">
+            <i class="material-icons">info</i>About
+            <div class="ripple-container"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#feature" data-toggle="tab">
+            <i class="material-icons">check_box</i> Features
+            <div class="ripple-container"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a (click)="simulateSizeScreen()" class="nav-link" href="#disciplines" data-toggle="tab">
+            <i class="material-icons">local_library</i> Disciplines
+            <div class="ripple-container"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#financials" data-toggle="tab">
+            <i class="material-icons">attach_money</i> Financials
+            <div class="ripple-container"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#programs" data-toggle="tab">
+            <i class="material-icons">school</i> Programs
+            <div class="ripple-container"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#campus" data-toggle="tab">
+            <i class="material-icons">add_business</i> Campuses
+            <div class="ripple-container"></div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#videos" data-toggle="tab">
+            <i class="material-icons">video_library</i> Videos
+            <div class="ripple-container"></div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="card-body">
+  <div class="tab-content">
+    <div class="tab-pane active" id="about">
+      <div class="card">
+        <div class="card-header card-header-rose card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">info</i>
+          </div>
+          <h4 class="card-title titleColor font-weight-bold text-uppercase">About</h4>
+          <div class="card-body">
+            <div class="text" [innerHTML]="about"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="feature">
+      <div class="card">
+        <div class="card-header card-header-rose card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">check_box</i>
+          </div>
+          <h4 class="card-title titleColor font-weight-bold text-uppercase">Features</h4>
+          <div class="card-body">
+            <div class="row">
+              <div class="col feat-align text-center" *ngIf="hasCoop">
+                <i (click)="showSwal('coop')" matTooltip="Click for more info"
+                  class=" material-icons schoolFeaturesIcons">business_center</i>
+                <i class="material-icons align-top thumb-align yesColor">thumb_up</i>
+                <p class="text-center yesColor">Programs with co-op option</p>
+              </div>
+              <div class="col feat-align text-center" *ngIf="!hasCoop">
+                <i (click)="showSwal('coop')" matTooltip="Click for more info"
+                  class=" material-icons schoolFeaturesIcons iconDisabled">business_center</i>
+                <i class="material-icons align-top thumb-align noColor">thumb_down</i>
+                <p class="text-center noColor">No Programs with co-op option</p>
+
+              </div>
+              <div class="col list-inline-item feat-align text-center" *ngIf="hasWork">
+                <i (click)="showSwal('work')" matTooltip="Click for more info"
+                  class="material-icons schoolFeaturesIcons">next_week</i>
+                <i class="material-icons align-top thumb-align yesColor">thumb_up</i>
+                <p class="text-center yesColor">Work while studying</p>
+              </div>
+              <div class="col feat-align text-center" *ngIf="!hasWork">
+                <i (click)="showSwal('work')" matTooltip="Click for more info"
+                  class="material-icons schoolFeaturesIcons iconDisabled">next_week</i>
+                <i class="material-icons align-top thumb-align noColor">thumb_down</i>
+                <p class="text-center noColor">No Work while studying</p>
+              </div>
+              <div class="col list-inline-item feat-align text-center" *ngIf="hasCondLetter">
+                <i (click)="showSwal('letter')" matTooltip="Click for more info"
+                  class="material-icons schoolFeaturesIcons">drafts</i>
+                <i class="material-icons align-top thumb-align yesColor">thumb_up</i>
+                <p class="text-center yesColor">Conditional offer letter</p>
+              </div>
+              <div class="col list-inline-item feat-align text-center" *ngIf="!hasCondLetter">
+                <i (click)="showSwal('letter')" matTooltip="Click for more info"
+                  class="material-icons schoolFeaturesIcons iconDisabled">drafts</i>
+                <i class="material-icons align-top thumb-align noColor">thumb_down</i>
+                <p class="text-center noColor">No Conditional offer letter</p>
+              </div>
+              <div class="col list-inline-item feat-align text-center" *ngIf="hasAccomodation">
+                <i (click)="showSwal('accomodation')" matTooltip="Click for more info"
+                  class=" material-icons schoolFeaturesIcons">home</i>
+                <i class="material-icons align-top thumb-align yesColor">thumb_up</i>
+                <p class="text-center yesColor">Accomodation</p>
+              </div>
+              <div class="col list-inline-item feat-align text-center" *ngIf="!hasAccomodation">
+                <i (click)="showSwal('accomodation')" matTooltip="Click for more info"
+                  class=" material-icons schoolFeaturesIcons iconDisabled">home</i>
+                <i class="material-icons align-top thumb-align noColor">thumb_down</i>
+                <p class="text-center noColor">No Accomodation</p>
+              </div>
+              <div class="col list-inline-item feat-align text-center" *ngIf="hasPgwp">
+                <i (click)="showSwal('pgwp')" matTooltip="Click for more info"
+                  class="material-icons schoolFeaturesIcons">location_city</i>
+                <i class="material-icons align-top thumb-align yesColor">thumb_up</i>
+                <p class="text-center yesColor">PGWP</p>
+              </div>
+              <div class="col list-inline-item feat-align text-center" *ngIf="!hasPgwp">
+                <i (click)="showSwal('pgwp')" matTooltip="Click for more info"
+                  class=" material-icons schoolFeaturesIcons iconDisabled">location_city</i>
+                <i class="material-icons align-top thumb-align noColor">thumb_down</i>
+                <p class="text-center noColor">No PGWP</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="disciplines">
+      <app-disciplines></app-disciplines>
+    </div>
+    <div class="tab-pane" id="financials">
+      <app-financial></app-financial>
+    </div>
+    <div class="tab-pane" id="programs">
+      <app-programs></app-programs>
+    </div>
+    <div class="tab-pane" id="campus">
+      <app-campus></app-campus>
+    </div>
+    <div class="tab-pane" id="videos">
+      <app-generic-video-selector [info]='videoObj'></app-generic-video-selector>
+    </div>
+  </div>
+</div>

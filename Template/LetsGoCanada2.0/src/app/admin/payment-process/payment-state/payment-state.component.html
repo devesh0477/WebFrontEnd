@@ -1,0 +1,51 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <app-state-edit (newStatesList)="onChangePage($event)" [stateToEdit]="selectedState" [states]="pStatesList">
+    </app-state-edit>
+
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">list</i>
+          </div>
+          <h4 i18n="the card title (Terms)" class="card-title ">Payment States List</h4>
+        </div>
+
+        <span class="mx-auto" *ngIf="!pStatesList; else table">
+          <img src="./assets/img/spinner.gif">
+        </span>
+
+        <div class="card-body mr-5 ml-5">
+          <div class="table-responsive">
+            <table class="table">
+              <thead *ngIf="pStatesList">
+                <tr>
+                  <th *ngFor="let header of tableHeader" scope="col" class="text-center">{{ header }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let state of pageOfItems | slice:0:10">
+                  <td class="text-center">{{state.stateName}}</td>
+                  <td class="text-center">{{state.description}}</td>
+                  <td class="text-center">
+                    <button (click)="selectState(state)" type="button" rel="tooltip" class="btn btn-success btn-link">
+                      <i class="material-icons">edit</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <jw-pagination [items]="pStatesList" [pageSize]="10" (changePage)="onChangePage($event)">
+            </jw-pagination>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

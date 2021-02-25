@@ -1,0 +1,58 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-11 mr-auto ml-auto" #target>
+        <app-branch-search (newSearch)="setFilters($event)"></app-branch-search>
+      </div>
+      <div class="col-md-11 mr-auto ml-auto">
+        <app-branch-edit [branchToEdit]="branch"></app-branch-edit>
+      </div>
+      <div class="col-md-11 mr-auto ml-auto">
+        <div class="card" #pagination>
+          <div class="card-header card-header-icon card-header-rose">
+            <div class="card-icon">
+              <i class="material-icons">account_balance</i>
+            </div>
+            <h4 class="card-title ">Branches</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <tr>
+                    <th *ngFor="let header of tableHeader">
+                      {{ header }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                  <tr *ngFor="let branch of pageOfItems">
+                    <td>{{branch.agency.companyName}}</td>
+                    <td>{{branch.headquarters== false? "No": "Yes"}}</td>
+                    <!-- <td>{{branch.headquarters}}</td> -->
+                    <td>{{branch.officeName}}</td>
+                    <td>{{branch.city}}</td>
+                    <td>{{branch.province}}</td>
+                    <td>{{branch.country.name == null ? "Not Available": branch.country.name }}</td>
+                    <td class="td-actions">
+                      <button (click)="getAgent(branch); scrollUpTo(target)" type="button" rel="tooltip"
+                        class="btn btn-success btn-link">
+                        <i class="material-icons">edit</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+              <jw-pagination [items]="branches" [pageSize]="10"
+                (changePage)="onChangePage($event); scrollUpTo(pagination)">
+              </jw-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

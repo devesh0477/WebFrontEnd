@@ -1,0 +1,648 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card ">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">contacts</i>
+						</div>
+						<h4 class="card-title">Information</h4>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card-body">
+								<div id="accordion" role="tablist">
+									<div class="card-collapse">
+										<div class="card-header" role="tab" id="headingTwo">
+											<h5 class="mb-0">
+												<a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="true"
+													aria-controls="collapseTwo">
+													Application Details
+													<i class="material-icons">keyboard_arrow_down</i>
+												</a>
+											</h5>
+										</div>
+										<div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo"
+											data-parent="#accordion">
+											<div class="card-body" *ngIf="details">
+												<div class="row">
+													<div class="col-ms-10 col-md-10 col-lg-10">
+														<p>
+															<strong>Application Basic Information</strong>
+														</p>
+													</div>
+													<div class="col-ms-2 col-md-2 col-lg-2 right-align">
+														<button type="button" rel="tooltip" (click)="downloadApplicationDocument()"
+															class="btn btn-info btn-link no-padding" matTooltip="Download">
+															<i class="material-icons">get_app</i>
+														</button>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="divider grey darken-3"></div>
+													</div>
+													<br>
+												</div>
+												<div class="row">
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<p><strong>Program:
+															</strong>{{application.programsPerTerm.program.name}}</p>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-ms-12 col-md-12 col-lg-6">
+														<!-- <p><strong>School: </strong>{{details.school.description}}</p> -->
+														<p><strong>School:</strong>
+															{{application.programsPerTerm.school.name}}</p>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-6">
+														<!-- <span><strong>Coop: </strong></span> -->
+														<div class="togglebutton" *ngIf="application.programsPerTerm.isCoopRequired">
+															<label style="color: #333">
+																Coop:
+																<input type="checkbox" checked="" disabled>
+																<span class="toggle"></span>
+
+															</label>
+														</div>
+														<div class="togglebutton" *ngIf="!application.programsPerTerm.isCoopRequired">
+															<label style="color: #333">
+																Coop:
+																<input type="checkbox" disabled>
+																<span class="toggle"></span>
+
+															</label>
+														</div>
+														<!-- <div class="form-check disabled" *ngIf="application.programsPerTerm.isCoopRequired">
+															<label class="form-check-label">																
+																<input class="form-check-input" type="checkbox" value="" 
+																	checked disabled>
+																<span class="form-check-sign">
+																	<span class="check"></span>
+																</span>
+															</label>
+														</div>
+														<div class="form-check disabled" *ngIf="!application.programsPerTerm.isCoopRequired">
+															<label class="form-check-label">
+																<input class="form-check-input" type="checkbox" value=""
+																	disabled>
+																<span class="form-check-sign">
+																	<span class="check"></span>
+																</span>
+															</label>
+														</div> -->
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-ms-12 col-md-12 col-lg-6">
+														<p><strong>Term:
+															</strong>{{application.programsPerTerm.term.season}} -
+															{{application.programsPerTerm.term.year}}</p>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-6">
+														<p><strong>Submition Date:
+															</strong>{{application.programsPerTerm.submissionDate | date: 'MM/dd/yyyy'}}
+														</p>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-ms-12 col-md-12 col-lg-6">
+														<p><strong>Start Date:
+															</strong>{{application.programsPerTerm.startDate | date: 'MM/dd/yyyy'}}
+														</p>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-6">
+														<p><strong>End Date:
+															</strong>{{application.programsPerTerm.endDate | date: 'MM/dd/yyyy'}}
+														</p>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-ms-12 col-md-12 col-lg-6">
+														<p><strong>Application Date:</strong>
+															{{application.applicationDate | date: 'MM/dd/yyyy'}}
+														</p>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-6">
+														<p><strong>Campus:
+															</strong>{{application?.programsPerTerm?.campus?.campusName}}
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="card-collapse" *ngIf="applicant">
+										<div class="card-header" role="tab" id="headingOne">
+											<h5 class="mb-0">
+												<a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+													class="collapsed">
+													Applicant Information
+													<i class="material-icons">keyboard_arrow_down</i>
+												</a>
+											</h5>
+										</div>
+										<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne"
+											data-parent="#accordion">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-ms-10 col-md-10 col-lg-10">
+														<p>
+															<strong>Applicant Information Details</strong>
+														</p>
+													</div>
+													<div class="col-ms-2 col-md-2 col-lg-2 right-align">
+														<button type="button" rel="tooltip" (click)="downloadMainInformationDocument()"
+															class="btn btn-info btn-link no-padding" matTooltip="Download">
+															<i class="material-icons">get_app</i>
+														</button>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="divider grey darken-3"></div>
+													</div>
+													<br>
+												</div>
+												<a id='{{applicant.applicantId}}' name='{{applicant.applicantId}}' href="#"
+													matTooltip="Click to Edit" style="color: darkslategray;"
+													(click)="editApplicantInfo($event, applicant.applicantId)">
+													<div class="row">
+														<div class="col-lg-6">
+															<p><strong>Applicant:</strong>
+																{{applicant.firstName | titlecase}}
+																{{applicant.lastName | titlecase}}</p>
+														</div>
+														<div class="col-lg-6">
+															<p><strong>Email: </strong> {{applicant.email}}</p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12 col-md-12 col-lg-6">
+															<p><strong>Address: </strong>{{applicant.addressLine1}}</p>
+														</div>
+														<div class="col-sm-12 col-md-12 col-lg-6">
+															<p><strong>Postal Code: </strong>{{applicant.postalCode}}
+															</p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12 col-md-12 col-lg-6">
+															<p><strong>Date of Birth:
+																</strong>{{applicant.dateOfBirth | date: 'MM/dd/yyyy'}}
+															</p>
+														</div>
+														<div class="col-sm-12 col-md-12 col-lg-6">
+															<p><strong>First language:
+																</strong>{{applicant.firstLanguage | titlecase}}
+															</p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12 col-md-12 col-lg-6">
+															<p><strong>Phone Number: </strong>{{applicant.phone}}</p>
+														</div>
+														<div class="col-sm-12 col-md-12 col-lg-6">
+															<p><strong>Passport Number:
+																</strong>{{applicant.passportNumber}}</p>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12 col-md-12 col-lg-6">
+															<p><strong>Marital Status:
+																</strong>{{applicant.maritaStatus | titlecase}}</p>
+														</div>
+														<div class="col-sm-12 col-md-12 col-lg-6">
+															<p><strong>Gender: </strong>{{applicant.gender | titlecase}}
+															</p>
+														</div>
+													</div>
+												</a>
+											</div>
+										</div>
+									</div>
+
+									<div class="card-collapse">
+										<div class="card-header" role="tab" id="headingThree">
+											<h5 class="mb-0">
+												<a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false"
+													aria-controls="collapseThree">
+													Applicant Documents
+													<i class="material-icons">keyboard_arrow_down</i>
+												</a>
+											</h5>
+										</div>
+										<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree"
+											data-parent="#accordion">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-ms-10 col-md-10 col-lg-10">
+														<p>
+															<strong>Applicant summary</strong>
+														</p>
+													</div>
+													<div class="col-ms-2 col-md-2 col-lg-2 right-align">
+														<button type="button" rel="tooltip" (click)="downloadApplicantDocument_Full()"
+															class="btn btn-info btn-link no-padding" matTooltip="Download">
+															<i class="material-icons">get_app</i>
+														</button>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="divider grey darken-3"></div>
+													</div>
+													<br>
+												</div>
+
+												<div *ngFor="let document of documents; let i=index" class="row">
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<p><strong>Document Type:
+															</strong>{{document.typeDoc}} -
+															{{document.documentDescription}}
+														</p>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12" *ngIf="document.documentName != null">
+
+														<!-- <a href="#" *ngIf="document.documentName == null">
+															<strong>Document Name: </strong>
+														</a> -->
+
+														<a href="#" (click)="downloadDocument($event, i)">
+															<strong>Document Name: </strong>
+															{{document.documentName}}
+															<i class="material-icons">search </i>
+														</a>
+
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12" *ngIf="document.uploaded">
+														<p><strong>Uploaded: </strong>
+
+															<button type="button" rel="tooltip" class="btn btn-success btn-link no-padding">
+																<i class="material-icons">done</i>
+															</button>
+
+															<!-- <button type="button" rel="tooltip"
+																*ngIf="!document.uploaded"
+																class="btn btn-rose btn-link no-padding">
+																<i class="material-icons">close</i>
+															</button> -->
+
+														</p>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="divider grey darken-3"></div>
+													</div>
+													<br>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="card-collapse">
+										<div class="card-header" role="tab" id="headingFour">
+											<h5 class="mb-0">
+												<a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false"
+													aria-controls="collapseFour">
+													Application Documents
+													<i class="material-icons">keyboard_arrow_down</i>
+												</a>
+											</h5>
+										</div>
+										<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour"
+											data-parent="#accordion">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-ms-10 col-md-10 col-lg-10">
+														<p>
+															<strong>Application summary</strong>
+														</p>
+													</div>
+													<div class="col-ms-2 col-md-2 col-lg-2 right-align">
+														<button type="button" rel="tooltip" (click)="downloadSumaryDocument()"
+															class="btn btn-info btn-link no-padding" matTooltip="Download">
+															<i class="material-icons">get_app</i>
+														</button>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="divider grey darken-3"></div>
+													</div>
+													<br>
+												</div>
+												<div *ngFor="let doca of documentsApplication; let i=index" class="row">
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="left">
+															<p><strong>Document Name: </strong>
+																{{doca.name}}
+															</p>
+														</div>
+														<div class="right">
+															<a href="#" (click)="downloadDocuApplica($event, i)" matTooltip="View"
+																class="btn btn-success btn-link no-padding">
+																<i class="material-icons">search </i>
+															</a>
+														</div>
+														<div class="right" *ngIf="isAdmin">
+															<button type="button" rel="tooltip" matTooltip="Delete!" (click)="deleteDocument(i)"
+																class="btn btn-rose btn-link no-padding">
+																<i class="material-icons">close</i>
+															</button>
+														</div>
+														<!-- <div class="right">
+															<a href="#" (click)="downloadDocuApplica($event, i)"
+																matTooltip="edit"
+																class="btn btn-success btn-link no-padding">
+																<i class="material-icons">edit </i>
+															</a>
+														</div> -->
+
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<p><strong>Description: </strong>{{doca.description}}</p>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="divider grey darken-3"></div>
+													</div>
+													<br>
+												</div>
+												<div class="row">
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="left">
+															<p><strong>Upload Document </strong>
+															</p>
+														</div>
+
+														<!--  mat-raised-button -->
+														<div class="right">
+														</div>
+
+													</div>
+													<div class="col-sm-12 col-md-9 col-lg-9">
+														<mat-form-field class="example-full-width">
+															<input matInput type="text" placeholder="Message" [(ngModel)]="DocumentDesc">
+														</mat-form-field>
+													</div>
+													<div class="col-sm-12 col-md-3 col-lg-3">
+														<span class="btn btn-rose mat-raised-button material-icons btn-file saveUp">
+															<!-- <span class="fileinput-new">+</span> -->
+															<i class="material-icons">unarchive</i>
+															<input #myInput type="file" name="docum" id="docum" accept="application/pdf"
+																(change)="onDocumentChange($event)" />
+														</span>
+														<button (click)="saveApplicationDocument()"
+															class="btn btn-rose mat-raised-button material-icons saveUp">
+															<i class="material-icons">save</i>
+														</button>
+													</div>
+													<div class="col-ms-12 col-md-12 col-lg-12">
+														<div class="divider grey darken-3"></div>
+													</div>
+													<br>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+
+				<div class="card ">
+
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">book</i>
+						</div>
+						<h4 class="card-title">Notes</h4>
+					</div>
+					<div class="card-body ">
+
+						<div id="accordion2" role="tablist">
+							<div class="card-collapse">
+								<div class="card-header" role="tab" id="headingStatus">
+									<h5 class="mb-0">
+										<a data-toggle="collapse" href="#collapseStatus" aria-expanded="true" aria-controls="collapseStatus"
+											class="collapsed">
+											Application Status
+											<i class="material-icons">keyboard_arrow_down</i>
+										</a>
+									</h5>
+								</div>
+								<div id="collapseStatus" class="collapse show" role="tabpanel" aria-labelledby="headingStatus"
+									data-parent="#accordion2">
+									<div class="card-body">
+										<div class="row">
+											<div *ngIf="application && !isAdmin" class="col-sm-12 col-md-5 col-lg-5">
+												<p><strong>Status:
+													</strong>{{application.internalStatus.status.description}}
+												</p>
+											</div>
+											<div *ngIf="application && !isAdmin" class="col-sm-12 col-md-5 col-lg-5">
+												<p><strong>Date:
+													</strong>{{application.statusDate | date: 'MM/dd/yyyy'}}
+												</p>
+											</div>
+											<div *ngIf="isAdmin" class="col-sm-12 col-md-6 col-lg-6 mr-auto ml-auto">
+												<mat-form-field class="example-full-width">
+													<mat-select placeholder="Application Status" name="status" [(ngModel)]="statusSelected">
+														<mat-option *ngFor="let stat of statusList" [value]="stat.internalStatusId">
+															{{ stat.internalStatusDescription }}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+											<div *ngIf="application && isAdmin" class="col-sm-12 col-md-3 col-lg-3 mr-auto ml-auto">
+												<p class="vertical-center"><strong>Date:
+													</strong>{{application.statusDate | date: 'MM/dd/yyyy'}}
+												</p>
+											</div>
+											<div *ngIf="application && isAdmin"
+												class="col-sm-12 col-md-3 col-lg-3 mr-auto ml-auto right-align">
+												<button mat-raised-button type="button" (click)="saveInternalStatus()"
+													class="btn btn-success btn-rose">
+													Save
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="accordion2" role="tablist">
+							<div class="card-collapse">
+								<div class="card-header" role="tab" id="headingNotes">
+									<h5 class="mb-0">
+										<a data-toggle="collapse" href="#collapseNotes" aria-expanded="false" aria-controls="collapseNotes"
+											class="collapsed">
+											Application Notes
+											<i class="material-icons">keyboard_arrow_down</i>
+										</a>
+									</h5>
+								</div>
+								<div id="collapseNotes" class="collapse" role="tabpanel" aria-labelledby="headingNotes"
+									data-parent="#accordion2">
+									<div class="card-body">
+
+										<div *ngFor="let note of applicationNotes" class="row">
+											<div class="col-sm-12 col-md-7 col-lg-7 ml-auto mr-auto">
+												<p><strong>Message: </strong>{{note.notes.message}}</p>
+											</div>
+											<div class="col-sm-12 col-md-5 col-lg-5 ml-auto mr-auto">
+												<p><strong>Date:
+													</strong>{{note.notes.createdDate | date: 'MM/dd/yyyy'}}</p>
+											</div>
+											<div class="col-sm-12 col-md-7 col-lg-7 ml-auto mr-auto">
+												<p><strong>Author: </strong>{{note.userName | titlecase }}
+													{{note.userLastName | titlecase }}</p>
+											</div>
+											<div class="col-sm-12 col-md-5 col-lg-5 ml-auto mr-auto">
+												<p><strong>Role: </strong>{{note.role | titlecase }}</p>
+											</div>
+											<div class="col-ms-12 col-md-12 col-lg-12 ml-auto mr-auto">
+												<div class="divider grey darken-3"></div>
+											</div>
+											<br>
+										</div>
+
+										<div class="row">
+
+											<div class="col-sm-12 col-md-10 col-lg-10">
+												<mat-form-field class="example-full-width">
+													<input matInput type="text" placeholder="Message" [(ngModel)]="appliNote">
+												</mat-form-field>
+											</div>
+
+											<div class="col-sm-12 col-md-2 col-lg-2 right-align">
+												<button mat-raised-button type="button" (click)="saveNote()"
+													class="btn btn-success btn-rose">Save
+												</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card ">
+
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">payment</i>
+						</div>
+						<h4 class="card-title">Payment</h4>
+					</div>
+					<div class="card-body">
+
+						<div class="card-collapse">
+							<div class="card-header">
+								<h5 class="mb-0">
+									<a data-toggle="collapse" href="#collapseStatus" aria-expanded="true" aria-controls="collapseStatus"
+										class="collapsed">
+										Application Payment
+
+									</a>
+								</h5>
+								<!-- <div class="col-sm-12 col-md-6 col-lg-6 ml-auto mr-auto">
+								<p><strong>Application Payment</strong></p>
+							</div>
+							<div class="col-ms-12 col-md-12 col-lg-12 mr-auto">
+								<div class="divider grey darken-3"></div>
+							</div> -->
+							</div>
+							<!-- </div> -->
+							<div class="card-body">
+								<br>
+								<div class="row">
+									<div class="col-sm-12 col-md-4 col-lg-4 ml-auto mr-auto">
+										<p><strong>Concept</strong></p>
+									</div>
+									<div class="col-sm-12 col-md-4 col-lg-4 ml-auto mr-auto">
+										<p><strong>Status</strong></p>
+									</div>
+									<div class="col-sm-12 col-md-4 col-lg-4 text-center">
+										<p><strong>Amount</strong></p>
+									</div>
+									<div class="col-ms-12 col-md-12 col-lg-12 mr-auto">
+										<div class="divider grey darken-3"></div>
+									</div>
+								</div>
+								<br>
+								<div *ngFor="let item of paymentInfo" class="row">
+									<div class="col-sm-12 col-md-4 col-lg-4 ml-auto mr-auto">
+										<p>{{item.paymentConcept}}</p>
+									</div>
+									<div class="col-sm-12 col-md-4 col-lg-4 ml-auto mr-auto">
+										<p>{{item.paymentStatus}}</p>
+									</div>
+									<div class="col-sm-12 col-md-4 col-lg-4 text-center">
+										<p>{{item.conceptAmount | currency: 'CAD' }}</p>
+									</div>
+									<div class="col-ms-12 col-md-12 col-lg-12 mr-auto">
+										<div class="divider grey darken-3"></div>
+									</div>
+									<br>
+								</div>
+								<div *ngIf="paymentInfo && paymentInfo[0]" class="row">
+									<div class="col-sm-12 col-md-8 col-lg-8 ml-auto mr-auto">
+										<p><strong>Total</strong></p>
+									</div>
+									<div class="col-sm-12 col-md-4 col-lg-4 text-center">
+										<p>{{paymentInfo[0].totalPayment | currency: 'CAD' }}</p>
+									</div>
+									<div class="col-ms-12 col-md-12 col-lg-12 mr-auto">
+										<div class="divider grey darken-3"></div>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-ms-12 col-md-12 col-lg-12 text-right">
+										<button mat-raised-button type="button" class="btn btn-success btn-rose" data-toggle="modal"
+											data-target="#myModal" (click)="openForBusiness()">
+											Payment Process
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Payment Process</h4>
+							<button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								<i class="material-icons">clear</i>
+							</button>
+						</div>
+						<div class="modal-body" *ngIf="showPayment">
+							<div class="iframe-container d-none d-lg-block" *ngIf="showPayment">
+
+								<iframe class="e2e-iframe-trusted-src" [src]="paymentURL">
+									<p>Your browser does not support iframes.</p>
+								</iframe>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<!-- <button mat-raised-button type="button" class="btn btn-link">Nice Button</button> -->
+							<button mat-raised-button type="button" class="btn btn-danger btn-link"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

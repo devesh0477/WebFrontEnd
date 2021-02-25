@@ -1,0 +1,64 @@
+.mat-option:hover {
+    background: #ec407a !important;
+    color: white;
+}
+
+.imgLogo {
+    max-height: 100px;
+    max-width: 40%;
+}
+
+.header {
+    background: #f1a3bb !important;
+    color: white;
+    font-size: 200%;
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.content_header {
+    font-size: 150%;
+}
+
+#applyIcon {
+    font-size: 12px;
+}
+
+.programCard {
+    max-width: 97%;
+    margin-bottom: .5em;
+    min-height: 270px;
+}
+
+.limitedHeight {
+    height: 370px;
+    overflow-y: hidden;
+}
+
+.setScroll {
+    height: 740px;
+    overflow-y: scroll;
+}
+
+.buttonHide {
+    display: none;
+}
+
+.buttonShow {
+    display: inline;
+    cursor: pointer;
+}
+
+.img-thumbnail {
+    border-radius: 6px !important;
+    border: 2px solid #dee2e6 !important;
+}
+
+.margin-left {
+    margin-left: 4.5em;
+}
+
+.margin-button {
+    margin-left: 9em;
+    margin-bottom: 1em;
+}

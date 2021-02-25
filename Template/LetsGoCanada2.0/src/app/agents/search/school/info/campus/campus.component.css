@@ -1,0 +1,35 @@
+a.btn {
+  background: #ec407a !important;
+}
+
+.col-xl-4-5 {
+  flex: 0 0 33% !important;
+  max-width: 31.8% !important;
+}
+
+.truncate-overflow {
+  overflow: hidden;
+  position: relative;
+  max-height: 7.5rem;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  display: block;
+}
+
+.truncate-overflow:before {
+  content: '...';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.truncate-overflow:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+}

@@ -1,0 +1,40 @@
+<div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+  <div class="card">
+    <div class="card-header card-header-rose card-header-icon">
+      <div class="card-icon">
+        <i class="material-icons">youtube_searched_for</i>
+      </div>
+      <h4 class="card-title">Search</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="searchForm">
+
+        <div class="row ml-5">
+
+          <div class="col-xl-11 col-md-11 col-sm-11 ml-2">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Search country by name" formControlName="name">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row float-right mr-5">
+          <div class="col-xl-4 col-md-4 col-sm-4 float-right mr-5 d-flex">
+            <a mat-raised-button (click)="search()" class="btn btn-rose">
+              <!-- <i class="material-icons fa-spin" *ngIf="onPopUpDoing('search')">refresh</i> -->
+              Search
+            </a>
+            <a mat-raised-button (click)="clearField()" class="btn btn-rose">
+              Clear
+            </a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

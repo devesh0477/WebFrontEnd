@@ -1,0 +1,94 @@
+<div class="row">
+	<div class="col-xl-12 mx-auto">
+		<div class="card">
+			<span class="mx-auto" *ngIf="showSpinner; else tableContent"><img src="./assets/img/spinner.gif"></span>
+			<ng-template #tableContent>
+				<div class="card-header card-header-rose card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">list</i>
+					</div>
+					<h4 class="card-title">{{configTable.tableTitle}}</h4>
+				</div>
+				<div class="row" *ngIf="!objectList">
+					<div class="col-md-11 center-align">
+						<p>
+							Information is not available
+						</p>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row justify-content-center">
+						<div class="col-xl-11" *ngIf="objectList">
+							<div class="table-responsive">
+								<table class="table">
+									<thead class="text-primary">
+										<tr>
+											<th *ngFor="let cell of configTable.headerRow; let i = index"
+												[ngClass]="{'text-center': cell === 'Actions' || cell === 'Active' || cell === 'Edit' || cell === 'Delete'}">
+												{{ cell }}
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let item of pageOfItems; let i = index">
+											<td *ngFor="let col of configTable.columnsName"
+												[ngClass]="{'text-center': col === 'active' || col === 'actions' || col === 'delete'}">
+												<span
+													*ngIf="col.includes('.') && col.split('.').length == 2 && !( col.split('.')[1] == 'dtCreated' || col.split('.')[1] == 'dtModified' )">
+													{{item[col.split('.')[0]][col.split('.')[1]]}}
+												</span>
+												<span *ngIf="col.includes('.') && col.split('.').length == 3">
+													{{item[col.split('.')[0]][col.split('.')[1]][col.split('.')[2]]}}
+												</span>
+												<span
+													*ngIf="!isBoolean(item[col]) && !(col == 'dtCreated' || col == 'dtModified') && !isNumber(item[col])">
+													{{ item[col] }}
+												</span>
+												<span
+													*ngIf="col == 'dtCreated' || col == 'dtModified' || col.includes('dtCreated') || col.includes('dtModified')">
+													{{item[col] | date: 'MM/dd/yyyy'}}
+												</span>
+												<span *ngIf="isNumber(item[col])">
+													{{getProcessListName(item[col])}}
+												</span>
+
+												<span
+													*ngIf="col.includes('.') && col.split('.').length == 2 && ( col.split('.')[1] == 'dtCreated' || col.split('.')[1] == 'dtModified' )">
+													{{item[col.split('.')[0]][col.split('.')[1]] | date: 'MM/dd/yyyy'}}
+												</span>
+												<span *ngIf='isBoolean(item[col])' class="btn-just-icon">
+													<i class="material-icons" style="color: #00bcd4;"
+														*ngIf="item[col]">done</i>
+													<i class="material-icons" style="color: red;"
+														*ngIf="!item[col]">clear</i>
+												</span>
+												<span *ngIf="col == 'actions'">
+													<button mat-raised-button type="button"
+														class="btn btn-info btn-link" matTooltip="Edit"
+														(click)="editObject(item)">
+														<i class="material-icons">edit</i>
+													</button>
+												</span>
+												<span *ngIf="col == 'delete'">
+													<button mat-raised-button type="button"
+														class="btn btn-info btn-link" matTooltip="Delete"
+														(click)="deleteObject(item)">
+														<i class="material-icons" style="color: red;">close</i>
+													</button>
+												</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="d-flex justify-content-center mt-4">
+								<jw-pagination [items]="objectList" [pageSize]="10" (changePage)="onChangePage($event)">
+								</jw-pagination>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,15 @@
+.limitedHeight {
+    height: 30em;
+}
+
+.setScroll{
+    height: 30em;
+    overflow-y: scroll;
+}
+td.text-center{
+    text-align: left !important;
+}
+
+input{
+    color: black !important;
+}

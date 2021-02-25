@@ -1,0 +1,127 @@
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-rose card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">youtube_searched_for</i>
+          </div>
+          <h4 class="card-title">Payment Dashboard</h4>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="searchForm">
+
+            <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+
+              <div class="col-xl-2 col-md-2 col-sm-5">
+                <mat-form-field>
+                  <mat-label>Application ID</mat-label>
+                  <input matInput type="text" formControlName="applicationId">
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-2 col-md-2 col-sm-5">
+                <mat-form-field>
+                  <mat-label>Applicant ID</mat-label>
+                  <input matInput type="text" formControlName="applicantId">
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-2 col-md-2 col-sm-5">
+                <mat-form-field>
+                  <mat-label>Student Name</mat-label>
+                  <input matInput type="text" formControlName="stName">
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-3 col-md-3 col-sm-5">
+                <mat-form-field>
+                  <mat-label>From</mat-label>
+                  <input matInput [matDatepicker]="startDate" formControlName="startDate" readonly="readonly">
+                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                  <mat-datepicker #startDate disabled="false"></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-3 col-md-3 col-sm-5">
+                <mat-form-field>
+                  <mat-label>To</mat-label>
+                  <input matInput [matDatepicker]="endDate" formControlName="endDate" readonly="readonly">
+                  <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                  <mat-datepicker #endDate disabled="false"></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+
+              <div class="col-xl-2 col-md-2 col-sm-5">
+                <mat-form-field>
+                  <mat-label>Agency</mat-label>
+                  <mat-select formControlName="agency">
+                    <mat-option *ngFor="let agency of agencyList" [value]="agency.id">
+                      {{agency.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-2 col-md-2 col-sm-5">
+                <mat-form-field>
+                  <mat-label>Agent</mat-label>
+                  <mat-select formControlName="agent">
+                    <mat-option *ngFor="let agent of agentList" [value]="agent.id">
+                      {{agent.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-2 col-md-2 col-sm-5">
+                <mat-form-field>
+                  <mat-label>Status</mat-label>
+                  <mat-select formControlName="status">
+                    <mat-option *ngFor="let st of status" [value]="st.id">
+                      {{st.stateName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-3 col-md-3 col-sm-5">
+                <mat-form-field>
+                  <mat-label>School</mat-label>
+                  <mat-select formControlName="school" (valueChange)="selectSchoolChange($event)">
+                    <mat-option *ngFor="let school of schoolList" [value]="school.schoolId">{{school.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-3 col-md-3 col-sm-5">
+                <mat-form-field>
+                  <mat-label>Program</mat-label>
+                  <mat-select formControlName="program">
+                    <mat-option *ngFor="let program of programList" [value]="program.programId">
+                      {{program.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="row float-right mr-5">
+              <div class="col-xl-4 col-md-4 col-sm-4 float-right mr-5 d-flex">
+                <a mat-raised-button (click)="search()" class="btn btn-rose">
+                  Search
+                </a>
+                <a mat-raised-button (click)="clearForm()" class="btn btn-rose">
+                  Clear
+                </a>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>

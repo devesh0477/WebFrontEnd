@@ -1,0 +1,26 @@
+.mat-option.mat-selected:not(.mat-option-multiple) {
+  background-color: #e91e63 !important;
+}
+
+.clear {
+  color: white !important;
+}
+
+.btn-upload {
+  margin-top: 9em !important;
+  margin-left: 4em !important;
+}
+
+.togglebutton label input[type=checkbox]:checked+.toggle {
+  background-color: #e91e63;
+}
+
+.mat-option:hover {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #e91e63;
+  background: #e91e63 !important;
+  color: #fff !important;
+}
+
+.vertical-Citizen {
+  margin: 2em 0em 0em 0em;
+}

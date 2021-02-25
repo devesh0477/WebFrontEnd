@@ -1,0 +1,113 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="col-md-12 mx-auto">
+
+
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">youtube_searched_for</i>
+            <!-- <i class="material-icons">filter_list</i> -->
+          </div>
+          <h4 i18n="the screen title (Edit Profile)" class="card-title">Search</h4>
+        </div>
+        <div class="form-row justify-content-center">
+
+          <div class="col-xl-3  pl-4">
+            <mat-form-field class="example-full-width vertical-Citizen">
+              <mat-select multiple (valueChange)="onCountryChange($event)"
+                i18n-placeholder="the list of countries (Country)" placeholder="Country" name="countryId"
+                [(ngModel)]="selectedCountry" #branchCountry="ngModel">
+                <mat-option *ngFor="let country of countries" [value]=country.countryId>
+                  {{country.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- select province -->
+          <div class="col-xl-3 pl-4">
+            <mat-form-field class="example-full-width vertical-Citizen">
+              <mat-select multiple (valueChange)="onProvinceChange($event)"
+                i18n-placeholder="the list of provinces (Province)" placeholder="Province" name="province"
+                [(ngModel)]="selectedProvince" #branchProvince="ngModel">
+                <mat-option *ngFor="let province of provinces" [value]="province">
+                  {{ province }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- select city -->
+          <div class="col-xl-3 pl-4">
+            <mat-form-field class="example-full-width vertical-Citizen">
+              <mat-select multiple (valueChange)="onCityChange($event)" i18n-placeholder="the list of cities (City)"
+                placeholder="City" name="city" [(ngModel)]="selectedCity" #branchCity="ngModel">
+                <mat-option *ngFor="let city of cities" [value]="city">
+                  {{ city }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-2 col-xxl-1 form-group mt-6">
+            <a id="searchButton" class="btn btn-sm btn-rose mat-raised-button float-left" (click)="getSearchAgency()">
+              <i class="material-icons">search</i>
+              <div class="mat-button-ripple mat-ripple" matripple=""></div>
+              <div class="mat-button-focus-overlay"></div>
+            </a>
+            <a id="searchButton" mat-raised-button class="btn btn-sm btn-rose mat-raised-button float-right"
+              (click)="deselectAll(branchCountry, branchProvince, branchCity)">
+              <i class="material-icons">clear</i>
+            </a>
+          </div>
+
+
+        </div>
+      </div>
+      <!-- list of agency -->
+      <div class="card mt-7">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">home</i>
+          </div>
+          <h4 i18n="the card title (Agencies)" class="card-title ">Agencies</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <tr>
+                  <th *ngFor="let header of tableHeader">
+                    {{ header }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                <tr *ngFor="let agency of pageOfItems">
+                  <td>{{agency.agencyId}}</td>
+                  <td>{{agency.country == null ? "Not Available": agency.country }}</td>
+                  <td>{{agency.companyName}}</td>
+                  <td>{{agency.webSite}}</td>
+                  <td>{{agency.profileComplete== false? "No": "Yes"}}</td>
+                  <td>{{agency.profileApproved== false? "No": "Yes"}}</td>
+                  <td class="td-actions">
+                    <button routerLink="/agency-edit/{{agency.agencyId}}" type="button" rel="tooltip"
+                      class="btn btn-success btn-link">
+                      <i class="material-icons">edit</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <jw-pagination [items]="agencies" [pageSize]="10" (changePage)="onChangePage($event)">
+            </jw-pagination>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

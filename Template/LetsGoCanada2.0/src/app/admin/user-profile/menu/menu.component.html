@@ -1,0 +1,120 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-12 mr-auto ml-auto">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">Menu Management</h4>
+					</div>
+					<div class="card-body">
+						<form #menuForm="ngForm" (ngSubmit)="onSubmit(menuForm)" id="menuForm">
+							<br>
+							<div class="row justify-content-center">
+								<div class="col-sm-12 col-md-5">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" id="title" name="title" #titleName="ngModel" matInput
+											placeholder="Menu Name" i18n-placeholder [(ngModel)]="menu.title"
+											minlength="4" required>
+
+										<mat-error i18n="the warning message (Title required)"
+											*ngIf="titleName.errors && titleName.touched || titleName.errors && titleName.untouched">
+											Menu Name required
+										</mat-error>
+
+									</mat-form-field>
+								</div>
+
+
+
+								<div class="col-sm-12 col-md-5">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="description" #descMenu="ngModel" matInput
+											placeholder="Description" i18n-placeholder [(ngModel)]="menu.description"
+											required>
+
+										<mat-error i18n="the warning message (Description required)"
+											*ngIf="descMenu.errors && descMenu.touched || descMenu.errors && descMenu.untouched">
+											Description required.
+										</mat-error>
+
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+							<div class="row justify-content-center aline-center-horizon">
+								<div class="col-sm-12 col-md-5">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="path" matInput placeholder="Path" i18n-placeholder
+											[(ngModel)]="menu.path">
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Type" i18n-placeholder name="type" #menType="ngModel"
+											[(ngModel)]="menu.type" required>
+											<mat-option value="null">Primary</mat-option>
+											<mat-option value="sub">Sub</mat-option>
+										</mat-select>
+
+										<mat-error i18n="the warning message (Type required)"
+											*ngIf="menType.errors && menType.touched || menType.errors && menType.untouched">
+											Type required
+										</mat-error>
+
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+							<div class="row justify-content-center aline-center-horizon">
+								<div class="col-sm-12 col-md-5">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="collapse" matInput placeholder="Collapse"
+											i18n-placeholder [(ngModel)]="menu.collapse">
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Icon" i18n-placeholder name="iconTyp"
+											[(ngModel)]="menu.iconType">
+											<mat-option *ngFor="let icone of iconList" [value]="icone.name">
+												<a class="btn btn-link btn-info btn-just-icon not-active">
+													<i class="material-icons">{{ icone.name }}</i>
+												</a>
+											</mat-option>
+											<!-- <mat-option value="list_all">list all</mat-option> -->
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row justify-content-center">
+								<div class="col-md-10 right-align pt-3 pb-3">
+									<!-- (click)="saveMenu()" -->
+									<button mat-raised-button type="button" class="btn btn-danger mr-3"
+										(click)="clearForm(menuForm)">
+										Cancel
+									</button>
+									<button [disabled]="isSearching" mat-raised-button type="submit"
+										class="btn btn-rose">
+										<i class="material-icons fa-spin" *ngIf="isSearching">refresh</i>
+										{{btnName}}
+									</button>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- The table that shows all the records for the menu -->
+				<app-menu-list (menuSeleccionado)="setMenu($event)"></app-menu-list>
+			</div>
+		</div>
+	</div>
+</div>

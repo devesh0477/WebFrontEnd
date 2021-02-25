@@ -1,0 +1,75 @@
+<div class="wrapper wrapper-full-page">
+	<div class="page-header login-page header-filter" filter-color="black"
+		style="background-image: url('./assets/img/login.jpg'); background-size: cover; background-position: top center;">
+		<!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+					<form class="form" #recoveryForm="ngForm" (ngSubmit)="recovery()" id="recoveryForm">
+						<div class="card">
+							<div class="card-header card-header-rose card-header-icon">
+								<div class="card-icon">
+									<i class="material-icons">mark_email_read</i>
+								</div>
+								<h4 class="card-title">Recovery</h4>
+
+							</div>
+							<div class="card-body " *ngIf="!isEmailValidated()">
+
+								<span class="bmd-form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="material-icons">mark_email_read</i>
+											</span>
+										</div>
+										<input type="email"  name="email" [(ngModel)]="email"
+											  class="form-control" i18n-placeholder
+											placeholder="Email or Phone Number">
+									</div>
+								</span>
+							</div>
+							<div class="card-footer justify-content-center">
+								<button type="submit" class="btn btn-rose btn-link btn-lg"
+									i18n="Lets Go Button@@letsGo" *ngIf="!isEmailValidated()" >Continue</button>
+							</div>
+
+							<div class="card-body " *ngIf="isEmailValidated()">
+
+								<span class="bmd-form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="material-icons">check_box</i>
+											</span>
+										</div>
+										<p class="pt-3">{{email}}</p>
+										<!-- <input type="email"  name="email" readonly value="{{email}}"
+											  class="form-control" i18n-placeholder>											   -->
+									</div>
+								</span>
+								<div class="bmd-form-group">
+									<div class="pl-3">
+										<!-- <div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="material-icons"></i>
+											</span>
+										</div> -->
+										<p>Send recover step through email?</p>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer justify-content-center">
+								<button type="button" class="btn btn-rose btn-link btn-lg"
+									i18n="Lets Go Button@@letsGo" *ngIf="isEmailValidated()" (click)="sendMail()">Send</button>
+							</div>
+						</div>						
+					</form>
+				</div>
+			</div>
+		</div>
+		<footer class="footer" style="display: block;">
+			<app-footer></app-footer>
+		</footer>
+	</div>
+</div>

@@ -1,0 +1,67 @@
+<div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+  <div class="card">
+    <div class="card-header card-header-rose card-header-icon">
+      <div class="card-icon">
+        <i class="material-icons">place</i>
+      </div>
+      <h4 class="card-title">City Register</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="cityForm">
+
+        <div class="row ml-5">
+
+          <div class="col-xl-5 col-md-5 col-sm-5" hidden>
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="provinceId" formControlName="provinceId">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-4 ml-2">
+            <mat-form-field>
+              <mat-select placeholder="Country" formControlName="countryId" (valueChange)="selectCountryChange($event)">
+                <mat-option *ngFor=" let country of countries" [value]=country[0]>
+                  {{country[1]}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-4">
+            <mat-form-field>
+              <mat-select placeholder="Province" formControlName="provinceId">
+                <mat-option *ngFor="let province of provinces" [value]=province.provinceId>
+                  {{province.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-xl-3 col-md-3 col-sm-3 ml-2 input-down">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="City Name" formControlName="name">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row float-right mr-5">
+          <div class="col-xl-4 col-md-4 col-sm-4 float-right mr-5 d-flex">
+            <button [disabled]="!cities" mat-raised-button (click)="onSubmit()" class="btn btn-rose">
+              <i class="material-icons fa-spin" *ngIf="!cities">refresh</i>
+              Submit
+            </button>
+            <a mat-raised-button (click)="clearField()" class="btn btn-rose">
+              Clear
+            </a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

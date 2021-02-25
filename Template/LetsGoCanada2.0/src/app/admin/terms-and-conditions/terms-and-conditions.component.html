@@ -1,0 +1,63 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header card-header-icon card-header-rose">
+        <div class="card-icon">
+          <i class="material-icons">mail</i>
+        </div>
+        <h4 i18n="the card title (Terms and conditions)" class="card-title ">Terms and conditions</h4>
+        <div class="card-body">
+          <form [formGroup]="templateTCForm" (ngSubmit)="saveTermsAndConditionsTemplate()">
+            <input formControlName="id" hidden>
+            <div class="row">
+              <div class="col-lg-12 ml-auto mr-auto">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Title" formControlName="title">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-11 checkbox-radios">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" formControlName="rdStatus" ng-model="" value="true" checked>Visible
+                    <span class="circle"><span class="check"></span>
+                    </span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" formControlName="rdStatus" value="false">Not Visible
+                    <span class="circle"><span class="check"></span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 ml-auto mr-auto mt-4">
+                <app-ngx-editor id="email-body" [placeholder]="'Write your Terms and Conditions here...'"
+                  [spellcheck]="true" minHeight="400px" [(ngModel)]="htmlContent" formControlName="template"
+                  style="color: black;">
+                </app-ngx-editor>
+              </div>
+              <div class="col-lg-12 ml-auto mr-auto">
+                <div class="row mt-5 mx-1 justify-content-end">
+                  <button type="submit" mat-raised-button class="btn btn-rose">
+                    Save
+                  </button>
+                  <a mat-raised-button (click)="clearForm()" class="btn btn-rose">
+                    New
+                  </a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <app-basic-table [configTable]="configTable" (objectSelected)="getTargetById($event)"
+      (deleteObjectSelected)="deleteTargetTemplate($event)">
+    </app-basic-table>
+  </div>
+</div>

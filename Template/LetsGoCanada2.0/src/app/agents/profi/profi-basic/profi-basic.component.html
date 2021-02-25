@@ -1,0 +1,332 @@
+<h5 class="info-text">
+	Let's start with the basic information
+</h5>
+<form [formGroup]="profiForm" id="profiForm">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">face</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label"
+					[ngClass]="displayFieldCss(profiForm, 'firstName')">
+					<input type="text" id="firstname" name="firstname" matInput placeholder="First Name"
+						i18n-placeholder formControlName="firstName" required>
+					<mat-error *ngIf="emailFormControl.hasError('required')">
+						First Name is required
+					</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">record_voice_over</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width">
+					<input type="text" name="middlename" matInput id="middlename" placeholder="Middle Name"
+						i18n-placeholder formControlName="middleName">
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">face</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label"
+					[ngClass]="displayFieldCss(profiForm, 'lastName')">
+					<input type="text" id="lastname" name="lastname" matInput placeholder="Last Name" i18n-placeholder
+						formControlName="lastName" required>
+					<mat-error *ngIf="emailFormControl.hasError('required')">
+						Last Name is required
+					</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">calendar_today</i>
+					</span>
+				</div>
+				<mat-form-field [ngClass]="displayFieldCss(profiForm, 'dateOfBirth')">
+					<input matInput [matDatepicker]="picker" id="dob" name="dob" [min]="minDate" [max]="maxDate"
+						i18n-placeholder maxlength="10" placeholder="Date of Birth" (click)="picker.open()"
+						formControlName="dateOfBirth" required>
+					<mat-datepicker-toggle matSuffix [for]="picker">
+					</mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+					<mat-error *ngIf="emailFormControl.hasError('required')">
+						Date of Birth is required
+					</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">record_voice_over</i>
+					</span>
+				</div>
+
+				<mat-form-field class="example-full-width">
+					<mat-select matInput placeholder="Country of Citizenship" i18n-placeholder id="countryCitizen"
+						name="countryCitizen"
+						formControlName="countryCitizen" required>
+						<mat-option *ngFor="let country of countries" [value]="country.countryId">
+							{{ country.name }}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="!this.profiForm.controls.countryCitizen.value">
+						Country of Citizenship is required
+					</mat-error>
+
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">account_box</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Passport Number" i18n-placeholder type="text" id="passportNumber"
+						name="passportNumber" formControlName="passportNumber" required>
+					<mat-error *ngIf="emailFormControl.hasError('required')">
+						Passport Number is required
+					</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+	</div>
+
+	<div class="row valign-wrapper">
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">record_voice_over</i>
+					</span>
+				</div>
+
+				<mat-form-field class="example-full-width">
+					<mat-select matInput placeholder="Marital Status" i18n-placeholder id="maritaStatus"
+						name="maritaStatus" formControlName="maritaStatus" required>
+						<mat-option *ngFor="let mari of marital" [value]="mari.name">
+							{{ mari.name }}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="!this.profiForm.controls.maritaStatus.value">
+						Marital Status is required
+					</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-8">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="input-group form-control-lg">
+						<div [ngClass]="{'other-padd': !otherGender}" class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="material-icons">wc</i>
+							</span>
+						</div>
+						<label class="col-sm-6 col-md-3 col-lg-2 label-checkbox mt-4 pt-1 pl-0">
+							Gender
+						</label>
+						<div class="col-sm-6 col-md-7 col-lg-9 checkbox-radios pt-1">
+							<div class="form-check-inline pt-2 pr-2">
+								<label class="form-check-label pt-3">
+									<input class="form-check-input" type="radio" name="gender" value="male"
+										checked="true" (change)="onMaFeChange()" formControlName="gender">
+									Male
+									<span class="circle">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+							<div class="form-check-inline pt-2 px-2">
+								<label class="form-check-label pt-3">
+									<input class="form-check-input" type="radio" name="gender" value="female"
+										(change)="onMaFeChange()" formControlName="gender">
+									Female
+									<span class="circle">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+							<div class="form-check-inline px-2">
+								<label class="form-check-label">
+									<input class="form-check-input" type="radio" name="gender" value="other"
+										(change)="onOtherChange()" formControlName="gender">
+									Other
+									<span class="circle">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+							<div *ngIf="otherGender" class="form-check-inline">
+								<mat-form-field class="example-full-width">
+									<input matInput i18n-placeholder type="text" id="otherName" name="otherName"
+										formControlName="otherName">
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-lg-12 text-left marginHeaderMobile">
+			<h5 class="info-text font-weight-bold">Address Information</h5>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">home</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="addressProfile" matInput id="addressProfile" placeholder="Address"
+						i18n-placeholder formControlName="addressLine1">
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="city" matInput id="city" placeholder="City / Town" i18n-placeholder
+						formControlName="city">
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="province" matInput id="province" placeholder="Province / State"
+						i18n-placeholder formControlName="province">
+				</mat-form-field>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group form-control-lg">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="material-icons">mail</i>
+						</span>
+					</div>
+					<mat-form-field class="example-full-width has-label"
+						[ngClass]="displayFieldCss(profiForm, 'email')">
+						<input type="text" id="email" name="email" matInput placeholder="Email" i18n-placeholder
+							required (focusout)="emailChange()" (change)="emailChange()" formControlName="email">
+						<mat-error *ngIf="emailFormControl.hasError('required')">
+							Email is required
+						</mat-error>
+						<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+							Please enter a valid email address
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+				<mat-form-field>
+					<mat-select placeholder="Country" i18n-placeholder name="countryProfile" id="countryProfile"
+						formControlName="countryProfile" required>
+						<mat-option *ngFor="let coun of countries" [value]="coun.countryId">
+							{{ coun.name }}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="emailFormControl.hasError('required')">
+					Country is required
+				</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group form-control-lg">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="material-icons">phone_iphone</i>
+						</span>
+					</div>
+					<mat-form-field class="example-full-width has-label">
+						<input type="tel" mask="(000)-000-0000" name="phone" matInput id="phone" placeholder="Phone Number" i18n-placeholder
+							formControlName="phone">
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group form-control-lg">
+					<div class="input-group-prepend">
+						<span class="input-group-text">
+							<i class="material-icons">mail</i>
+						</span>
+					</div>
+					<mat-form-field class="example-full-width has-label">
+						<input type="text" name="zipcode" matInput id="zipcode" placeholder="Zip Code" i18n-placeholder
+							formControlName="postalCode">
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>

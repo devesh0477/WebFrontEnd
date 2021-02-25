@@ -1,0 +1,69 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">Internal Status Workflow Management</h4>
+					</div>
+					<div class="card-body">
+						<form #statusWorkForm="ngForm" (ngSubmit)="onSubmit(statusWorkForm)" id="statusWorkForm">
+							<br>
+							<div class="row justify-content-center">
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Current Status" i18n-placeholder
+											name="currentInternalId"
+											[(ngModel)]="statusWorkflow.currentInternalStatusId" required>
+											<mat-option *ngFor="let status of internalStatusList" [value]="status.id">
+												{{ status.name }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Next Status" i18n-placeholder name="nextInternalId"
+											[(ngModel)]="statusWorkflow.nextInternalStatusId" required>
+											<mat-option *ngFor="let status of internalStatusList" [value]="status.id">
+												{{ status.name }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+							</div>
+							<br>
+
+							<div class="row justify-content-center">
+								<div class="col-md-11 right-align pt-3 pb-3">
+									<!-- (click)="saveMenu()" -->
+									<button mat-raised-button type="button" class="btn btn-danger mr-3"
+										(click)="clearForm()">
+										Cancel
+									</button>
+									<button [disabled]="isSearching" mat-raised-button type="submit"
+										class="btn btn-rose">
+										<i class="material-icons fa-spin" *ngIf="isSearching">refresh</i>
+										{{btnName}}
+									</button>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- The table that shows all the records for the menu (internalStatusSelected)="setInternalStatusSelected($event)" -->
+				<app-int-status-workflow-list (intStatusWorkSelected)="setIntStatusWorkSelected($event)">
+				</app-int-status-workflow-list>
+			</div>
+		</div>
+	</div>
+</div>

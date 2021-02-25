@@ -1,0 +1,96 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 mr-auto ml-auto">
+				<!--      Wizard container        -->
+				<div class="wizard-container">
+					<div class="card card-wizard" data-color="rose" id="wizardProfile">
+						<div class="card-header text-center">
+							<h3 class="card-title">
+								Build Your Profile
+							</h3>
+							<h5 class="card-description">
+								This information will let us know more about you.
+							</h5>
+						</div>
+						<div class="wizard-navigation">
+							<ul class="nav nav-pills">
+								<li class="nav-item">
+									<a class="nav-link active" href="#basic" data-toggle="tab" role="tab">
+										Basic
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="#education" data-toggle="tab" role="tab">
+										Education
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="#language" data-toggle="tab" role="tab">
+										Language
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="#background" data-toggle="tab" role="tab">
+										Background
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="#documents" data-toggle="tab" role="tab">
+										Documents
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="card-body">
+							<div class="tab-content">
+								<div class="tab-pane active" id="basic">
+									<app-profi-basic #profileForm></app-profi-basic>
+								</div>
+								<div class="tab-pane" id="education">
+									<app-profi-education [profile]="profile" #EducationForm></app-profi-education>
+								</div>
+								<div class="tab-pane" id="language">
+									<app-profi-language [profile]="profile" #LanguageForm></app-profi-language>
+								</div>
+								<div class="tab-pane" id="background">
+									<app-profi-background [profile]="profile" #BackgroundForm>
+									</app-profi-background>
+								</div>
+								<div class="tab-pane" id="documents">
+									<app-profi-documents [profile]="profile" #DocumentsForm></app-profi-documents>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12 col-md-6 col-lg-4 pl-4">
+									<div class="input-group form-control-lg pl-4 ml-1">
+										<input type="button"
+											class="btn btn-previous btn-fill btn-default btn-wd disabled"
+											name="previous" value="Previous">
+									</div>
+								</div>
+
+								<div class="col-sm-12 col-md-6 col-lg-4">
+									<div class="input-group form-control-lg">
+
+									</div>
+								</div>
+
+								<div class="col-sm-12 col-md-6 col-lg-4 text-right">
+									<div class="col-md-11 form-control-lg pr-3">
+										<input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next"
+									value="Save & Next"
+									(click)="saveProfile(profileForm, EducationForm, LanguageForm, BackgroundForm, DocumentsForm)">
+
+									</div>
+								</div>
+							</div>
+						</div>												
+					</div>
+				</div>
+				<!-- wizard container -->
+			</div>
+		</div>
+	</div>
+</div>

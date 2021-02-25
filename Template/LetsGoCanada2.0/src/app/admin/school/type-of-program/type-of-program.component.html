@@ -1,0 +1,107 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+
+      <div class="card">
+        <div class="card-header card-header-rose card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">book</i>
+          </div>
+          <h4 class="card-title">Type Of Program Register</h4>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="typeProgramForm">
+
+            <div class="row ml-5">
+
+              <div class="col-xl-5 col-md-5 col-sm-5" hidden>
+                <mat-form-field class="example-full-width">
+                  <input type="text" matInput placeholder="typeOfProgramId" formControlName="typeOfProgramId">
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-11 col-md-11 col-sm-11">
+                <mat-form-field class="example-full-width">
+                  <input type="text" matInput placeholder="Name" formControlName="name">
+                </mat-form-field>
+              </div>
+
+              <!-- <div class="col-xl-3 col-md-3 col-sm-3">
+
+              </div>
+
+              <div class="col-xl-4 col-md-4 col-sm-4 ml-2">
+                <mat-form-field class="example-full-width">
+                  <input type="text" matInput placeholder="Description" formControlName="typeDescription">
+                </mat-form-field>
+              </div> -->
+
+            </div>
+
+            <div class="row float-right mr-5">
+              <div class="col-xl-4 col-md-4 col-sm-4 float-right mr-5 d-flex">
+                <a mat-raised-button (click)="onSubmit()" class="btn btn-rose">
+                  Submit
+                </a>
+                <a mat-raised-button (click)="clearField()" class="btn btn-rose">
+                  Clear
+                </a>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">list</i>
+          </div>
+          <h4 i18n="the card title (Terms)" class="card-title ">Type Of Program List</h4>
+        </div>
+        <div class="card-body mr-5 ml-5">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <tr>
+                  <th *ngFor="let header of tableHeader; let i = index" scope="col"
+                    [ngClass]="{'text-center': i =='1'}">
+                    {{ header }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                <tr *ngFor="let typeProgram of pageOfItems">
+                  <!-- <td>{{typeProgram.typeOfProgramId}}</td> -->
+                  <td>{{typeProgram.name}}</td>
+                  <td class="td-actions text-center">
+                    <button (click)="selectTypeProgram(typeProgram)" type="button" rel="tooltip"
+                      class="btn btn-success btn-link">
+                      <i class="material-icons">edit</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <jw-pagination [items]="typeProgram" [pageSize]="10" (changePage)="onChangePage($event)">
+            </jw-pagination>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

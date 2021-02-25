@@ -1,0 +1,171 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-header text-center">
+          <h3 i18n="title|title for the profile template@@temProfileId" class="card-title">
+          </h3>
+          <div class="navbar navbar-expand">
+            <div class="row menu">
+              <ul class="nav nav-pills">
+                <li class="nav-item ml-2">
+                  <a i18n="Schools" (click)="showSearchMenu()" class="nav-link active " href="#schools"
+                    data-toggle="tab" role="tab">
+                    Schools
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a i18n="Programs" (click)="hideSearchMenu()" class="nav-link" href="#programs" data-toggle="tab"
+                    role="tab">
+                    Programs
+                  </a>
+                </li>
+              </ul>
+              <!-- Start Search-School -->
+              <ul class="nav ml-auto" [hidden]=!this.isActive>
+                <app-search-school (newString)="setSearchString($event)"></app-search-school>
+              </ul>
+              <!-- End Search-School -->
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <!-- Start Programs -->
+              <div class="tab-pane" id="programs">
+                <app-program-list></app-program-list>
+              </div>
+              <!-- End Programs -->
+              <!-- Start Schools -->
+              <div class="tab-pane active" id="schools">
+                <div class="card">
+                  <div class="card-header card-header-icon card-header-rose">
+                    <div class="card-icon">
+                      <i class="material-icons">youtube_searched_for</i>
+                      <!-- <i class="material-icons">filter_list</i> -->
+                    </div>
+                    <h4 i18n="the screen title (Edit Profile)" class="card-title float-left">Advanced Search</h4>
+                  </div>
+                  <div class="row col-xl-11 col-md-11 col-sm-11 margin-left">
+                    <div class="col-xl-5 col-md-5 col-sm-5">
+                      <mat-form-field class="example-full-width">
+
+                        <mat-select placeholder="Type of School" name="typeSchool" [(ngModel)]="selectedTypeSchools"
+                          multiple #typeSchoolsSelected="ngModel">
+                          <mat-option *ngFor="let school of typeSchool" [value]=school.typeName>
+                            {{school.typeName}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-2 col-md-2 col-sm-2">
+                    </div>
+
+                    <div class="col-xl-5 col-md-5 col-sm-5">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Province" name="provinces" [(ngModel)]="selectedProvinces" multiple
+                          #provincessSelected="ngModel">
+                          <mat-option *ngFor="let province of provinces" [value]=province.provinceId>
+                            {{province.name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row col-xl-11 col-md-11 col-sm-11 margin-left">
+                    <div class="col-xl-5 col-md-5 col-sm-5">
+                      <mat-form-field class="example-full-width">
+                        <mat-select placeholder="City" name="cities" [(ngModel)]="selectedCities" multiple
+                          #citiesSelected="ngModel">
+                          <mat-option *ngFor="let city of cities" [value]=city.cityId>
+                            {{city.name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-2 col-md-2 col-sm-2">
+                    </div>
+
+                    <div class="col-xl-5 col-md-5 col-sm-5">
+                      <mat-form-field class="example-full-width">
+
+                        <mat-select placeholder="Schools" name="schoolName" [(ngModel)]="selectedSchoolNames" multiple
+                          #schoolNamesSelected="ngModel">
+
+
+                          <mat-option *ngFor="let schoolName of schoolNames" [value]=schoolName.name>
+                            {{ schoolName.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="row col-xl-11 col-md-11 col-sm-11 d-flex margin-button justify-content-end">
+                    <div class="col-xl-4 col-md-4 col-sm-4">
+                      <button class="btn btn-rose mr-4" (click)="getSchools()">
+                        <i class="material-icons">search</i>
+                        <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                        <div class="mat-button-focus-overlay"></div>
+                      </button>
+                      <button class="btn btn-rose "
+                        (click)="deselectAll(typeSchoolsSelected, provincessSelected, schoolNamesSelected, citiesSelected)">
+                        <i class="material-icons">clear</i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <span *ngIf="!schools; else hasSchool">
+                  <img src="./assets/img/spinner.gif">
+                </span>
+
+                <ng-container hasSchool>
+                  <div class="row">
+                    <div class="school-container card shadow rounded" *ngFor="let school of pageOfItems">
+                      <div class="imgBackground d-flex align-items-center">
+                        <img class="img-fluid imgBack mx-auto" [src]="school.logos.mediaLocation"
+                          onerror="this.onerror=null;this.src='./assets/img/image_placeholder.jpg';" alt="logo">
+                      </div>
+                      <div class="card-body">
+                        <div class="nameSize">
+                          <h5 class="card-title font-weight-bold">{{school.name}}</h5>
+                        </div>
+                        <div class="detailsSize">
+                          <div class="row align-items-center">
+                            <div class="col">
+                              <ul class="list-group list-unstyled text-justify ">
+                                <li class="text-center">City: {{school.city.name}}</li>
+                                <li class="text-center">Province: {{school.province.name}}</li>
+                                <li class="text-center">Country: {{school.country.name}}</li>
+                              </ul>
+                            </div>
+                          </div>
+                          <p class="card-text text-center">{{school.description}} </p>
+                        </div>
+                        <a routerLink="/school-detail/{{school.schoolId}}"
+                          class="btn btn-next btn-fill btn-rose btn-wd font-weight-bold">More
+                          Info about</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end mt-4">
+                    <jw-pagination [items]="schools" [pageSize]=pageSize [maxPages]="999"
+                      (changePage)="onChangePage($event)">
+                    </jw-pagination>
+                  </div>
+                </ng-container>
+                <!-- End Schools -->
+              </div>
+            </div>
+          </div>
+          <!-- END Schools -->
+
+        </div>
+        <div class="card-footer">
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>

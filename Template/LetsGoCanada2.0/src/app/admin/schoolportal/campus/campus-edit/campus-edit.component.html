@@ -1,0 +1,114 @@
+<div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+  <div class="card">
+    <div class="card-header card-header-rose card-header-icon">
+      <div class="card-icon">
+        <i class="material-icons">add_business</i>
+      </div>
+      <h4 class="card-title">Campus Register</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="campusForm">
+
+        <div class="row ml-5">
+
+          <div class="col-xl-5 col-md-5 col-sm-12" hidden>
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="campusId" formControlName="campusId">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-5 col-md-5 col-sm-12" hidden>
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="schoolId" formControlName="schoolId">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-5 col-md-5 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Name" formControlName="campusName">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Address" formControlName="address">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row ml-5">
+
+          <div class="col-xl-5 col-md-5 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Postal Code" formControlName="postalcode">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="email" matInput placeholder="Email" formControlName="contacMail">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row ml-5">
+          <div class="col-xl-3 col-md-3 col-sm-12">
+            <mat-form-field>
+              <mat-select placeholder="Country" formControlName="countryId" (valueChange)="selectCountryChange($event)">
+                <mat-option *ngFor=" let country of countries" [value]=country.countryId>
+                  {{country.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field>
+              <mat-select placeholder="Province" formControlName="provinceId"
+                (valueChange)="selectProvinceChange($event)">
+                <mat-option *ngFor="let province of provinces" [value]=province.provinceId>
+                  {{province.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field>
+              <mat-select placeholder="City" formControlName="cityId">
+                <mat-option *ngFor="let city of cities" [value]=city.cityId>
+                  {{city.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row ml-5">
+          <div class="col-xl-11">
+            <app-ngx-editor placeholder="About" name="about" id="about" formControlName="about" [spellcheck]="true"
+              minHeight="60px"></app-ngx-editor>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xl-11 col-md-12 col-sm-12 text-right ml-1">
+            <a mat-raised-button (click)="clearField()" class="btn btn-danger">
+              Cancel
+            </a>
+            <button [disabled]="onPopUpDoing('submit')" mat-raised-button (click)="onSubmit()" class="btn btn-rose">
+              <i class="material-icons fa-spin" *ngIf="onPopUpDoing('submit')">refresh</i>
+              Save
+            </button>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

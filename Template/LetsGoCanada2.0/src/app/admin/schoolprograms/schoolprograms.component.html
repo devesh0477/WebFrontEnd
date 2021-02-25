@@ -1,0 +1,710 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="card">
+			<div class="card-header card-header-rose card-header-icon">
+				<div class="card-icon">
+					<i class="material-icons">youtube_searched_for</i>
+				</div>
+				<h4 class="card-title">{{schoolName}}'s Programs Search</h4>
+			</div>
+			<div class="card-body">
+				<div class="form-row pt-3">
+
+					<div class="col-lg-3 ml-auto mr-auto pt-1">
+						<mat-form-field id="progr" name="progr" class="example-full-width has-label">
+							<input matInput placeholder="Name" i18n-placeholder type="text" name="prograSearchName"
+								id="prograSearchName" [(ngModel)]="prograSearch == null ? '' : prograSearch.name"
+								#schoolProgramName="ngModel">
+
+							<!-- <mat-error
+								*ngIf="schoolProgramName.invalid && (schoolProgramName.touched || schoolProgramName.dirty)">
+								Name required
+							</mat-error> -->
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 ml-auto mr-auto">
+						<mat-form-field>
+							<mat-select placeholder="Type of Program" i18n-placeholder name="typeProgram"
+								id="typeProgram" [(ngModel)]="prograSearch == null ? '' : prograSearch.typeOfProgramId"
+								#schoolTypeOfProgram="ngModel">
+								<mat-option *ngFor="let type of programsType" [value]="type.typeOfProgramId">
+									{{ type.name }}
+								</mat-option>
+							</mat-select>
+
+							<!-- <mat-error
+								*ngIf="schoolTypeOfProgram.errors && schoolTypeOfProgram.touched || schoolTypeOfProgram.errors && schoolTypeOfProgram.untouched">
+								Type of program required
+							</mat-error> -->
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 ml-auto mr-auto">
+						<mat-form-field>
+							<mat-select placeholder="Discipline" i18n-placeholder name="discipline" id="discipline"
+								[(ngModel)]="prograSearch == null ? '' : prograSearch.disciplineId">
+								<mat-option *ngFor="let dici of programDiscipline" [value]="dici.disciplineId">
+									{{ dici.name }}
+								</mat-option>
+							</mat-select>
+
+							<!-- <mat-error *ngIf="inputFormControl.hasError('required')">
+								Discipline required
+							</mat-error> -->
+						</mat-form-field>
+					</div>
+
+					<div class="form-group col-md-1 special-padding-left">
+						<button id="searchButton" class="btn btn-sm btn-rose mat-raised-button btnAlign"
+							(click)="searchProgram()">
+							<i class="material-icons">search</i>
+							<div class="mat-button-ripple mat-ripple" matripple=""></div>
+							<div class="mat-button-focus-overlay"></div>
+						</button>
+						<button id="searchButton" mat-raised-button
+							class="btn btn-sm btn-danger mat-raised-button btnAlign" (click)="cleanSearchProgram()">
+							<i class="material-icons">clear</i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 ml-auto mr-auto">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">{{schoolName}}'s Programs</h4>
+					</div>
+					<div class="card-body">
+						<form #programtype="ngForm" (ngSubmit)="sendProgram(programtype)" id="programtype">
+							<br>
+
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto pt-1">
+									<mat-form-field id="progr" name="progr" class="example-full-width has-label">
+										<input matInput placeholder="Name" i18n-placeholder type="text"
+											name="programName" id="programName"
+											[(ngModel)]="progra == null ? '' : progra.name" #schoolProgramName="ngModel"
+											required>
+
+										<mat-error
+											*ngIf="schoolProgramName.invalid && (schoolProgramName.touched || schoolProgramName.dirty)">
+											Name required
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+
+										<mat-select placeholder="Type of Program" i18n-placeholder name="typeProgram"
+											id="typeProgram" [(ngModel)]="progra == null ? '' : progra.typeOfProgramId"
+											#schoolTypeOfProgram="ngModel" required>
+											<mat-option *ngFor="let type of programsType"
+												[value]="type.typeOfProgramId">
+
+												{{ type.name }}
+											</mat-option>
+										</mat-select>
+
+										<mat-error
+											*ngIf="schoolTypeOfProgram.errors && schoolTypeOfProgram.touched || schoolTypeOfProgram.errors && schoolTypeOfProgram.untouched">
+											Type of program required
+										</mat-error>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+
+										<mat-select placeholder="Discipline" i18n-placeholder name="discipline"
+											id="discipline" [(ngModel)]="progra == null ? '' : progra.disciplineId"
+											required>
+											<mat-option *ngFor="let dici of programDiscipline"
+												[value]="dici.disciplineId">
+
+												{{ dici.name }}
+											</mat-option>
+										</mat-select>
+
+										<mat-error *ngIf="inputFormControl.hasError('required')">
+											Discipline required
+										</mat-error>
+									</mat-form-field>
+								</div>
+							</div>
+
+
+							<div class="row mt-4">
+								<div class="col-sm-11 col-md-11 col-lg-11 ml-auto mr-auto right-align">
+									<button mat-raised-button type="button" class="btn btn-fill btn-danger"
+										(click)="clearForm(); loadPrograms()">Cancel</button>
+
+
+									<button [disabled]="onPopUpDoing('save')" mat-raised-button type="submit"
+										class="btn btn-fill btn-rose">
+										<i class="material-icons fa-spin" *ngIf="onPopUpDoing('save')">refresh</i>
+										{{buttonName}}
+									</button>
+
+								</div>
+							</div>
+
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 ml-auto mr-auto">
+				<div class="card">
+					<div class="card-header card-header-icon card-header-rose">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<h4 class="card-title ">Program Management</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive ml-auto mr-auto">
+							<table class="table">
+								<thead class="text-primary">
+									<tr>
+										<th>
+											Name
+										</th>
+										<th>Type Program</th>
+										<th>School Name</th>
+										<th class="text-center">Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let prog of pageOfItems; let i = index">
+										<td>{{prog.name}}</td>
+										<td>{{prog.typeOfProgramName}}</td>
+										<td>{{prog.schoolName}}</td>
+										<!-- <td class="text-primary">{{prog.duration}}</td> -->
+										<td class="td-actions text-center">
+
+											<button mat-raised-button type="button" (click)="editProgram(prog)"
+												class="btn btn-success btn-link" matTooltip="Edit"
+												[matTooltipPosition]="'above'">
+												<i class="material-icons">edit</i>
+											</button>
+
+											<!-- <button mat-raised-button type="button" class="btn btn-rose btn-link"
+												(click)="showProgramCost(prog)" data-toggle="modal" matTooltip="Cost"
+												data-target="#noticeModal"> -->
+											<button mat-raised-button type="button" class="btn btn-rose btn-link"
+												(click)="getApplicationCost(prog.programId); getProgramInfo(prog)"
+												data-toggle="modal" matTooltip="Cost" data-target="#noticeModal">
+												<i class="material-icons">attach_money</i>
+											</button>
+
+											<button mat-raised-button type="button" class="btn btn-info btn-link"
+												(click)="showProgramDetails(prog)" data-toggle="modal"
+												matTooltip="Details" data-target="#detailsModal">
+
+												<i class="material-icons">format_list_bulleted</i>
+											</button>
+
+											<button mat-raised-button type="button" class="btn btn-info btn-link"
+												(click)="getMediaPerProgram(prog)" data-toggle="modal"
+												matTooltip="Media" data-target="#mediaModal">
+												<i class="material-icons">image</i>
+											</button>
+
+											<button mat-raised-button type="button"
+												(click)="showProgramRequirements(prog)" class="btn btn-danger btn-link"
+												data-toggle="modal" matTooltip="Requirements"
+												data-target="#requirementModal">
+												<i class="material-icons">list_alt</i>
+											</button>
+
+											<button mat-raised-button type="button" class="btn btn-danger btn-link"
+												data-toggle="modal" data-target="#videoModal" (click)="showVideo(prog)"
+												matTooltip="Program Videos" [matTooltipPosition]="'above'">
+												<i class="material-icons">video_library</i>
+											</button>
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+						<div class="d-flex justify-content-center mt-4">
+							<jw-pagination [items]="programList" [pageSize]="10" (changePage)="onChangePage($event)">
+							</jw-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<!-- Modal -->
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<!-- notice modal -->
+				<div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-notice">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalLabel">{{programName}} Cost</h5>
+								<button mat-button type="button" (click)="closeCostModal()" class="close"
+									data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">close</i>
+								</button>
+							</div>
+
+							<div class="modal-body">
+
+								<div class="instruction">
+									<!-- Beginning -->
+									<div class="card col-xl-12 col-md-12 col-sm-12">
+										<form [formGroup]="conceptForm">
+											<div class="row col-xl-12 col-md-12 col-sm-12 mx-auto mt-4">
+
+												<div class="col-xl-5 col-md-5 col-sm-10">
+													<mat-form-field>
+														<mat-select placeholder="Payment Concept"
+															formControlName="conceptSelected"
+															(valueChange)="selectConceptChange($event)">
+															<mat-option *ngFor="let concept of paymentConcepts"
+																[value]="concept.conceptId">
+																{{concept.conceptName}}
+															</mat-option>
+														</mat-select>
+													</mat-form-field>
+												</div>
+
+												<div class="col-xl-2 col-md-2 col-sm-10">
+													<mat-form-field class="amount-margin">
+														<input matInput type="number" placeholder="Amount"
+															formControlName="amount">
+														<span matPrefix>$&nbsp;</span>
+													</mat-form-field>
+												</div>
+
+												<div class="col-xl-3 col-md-3 col-sm-10">
+													<mat-form-field>
+														<mat-select placeholder="Visible" formControlName="visible">
+															<mat-option *ngFor="let visible of isVisible"
+																[value]="visible">
+																{{visible == false ? "No" : "Yes"}}
+															</mat-option>
+														</mat-select>
+													</mat-form-field>
+												</div>
+
+												<div class="col-xl-2 col-md-2 col-sm-10">
+													<a mat-raised-button (click)="AddConcept()" class="btn btn-rose">
+														<i class="material-icons fa-spin"
+															*ngIf="onPopUpDoing('addConcep')">refresh</i>
+														{{btnLabel}}
+													</a>
+												</div>
+
+											</div>
+											<div class="row col-xl-12 col-md-12 col-sm-10 mx-auto">
+												<div class="table-responsive table-height">
+													<table class="table table-hover">
+														<tr>
+															<th *ngFor="let header of conceptTableHeaders" scope="col">
+																{{header}}</th>
+														</tr>
+														<tr *ngFor="let cost of applicationCost">
+															<td>{{cost.concept.conceptName}}</td>
+															<td>{{cost.amount | currency: "CAD"}}</td>
+															<td>{{cost.concept.billable == false ? "No" : "Yes"}}</td>
+															<td>{{cost.visible == false || cost.visible ==null ? "No" :
+																"Yes"}}
+															</td>
+															<td>
+																<button (click)="editConcept(cost, i)" type="button"
+																	rel="tooltip"
+																	class="btn btn-success btn-link py-0 px-1">
+																	<i class="material-icons">edit</i>
+																</button>
+																<button
+																	(click)="deleteConcept(cost.applicationCostId, cost.concept.conceptName)"
+																	type="button" rel="tooltip"
+																	class="btn btn-danger btn-link py-0 px-1">
+																	<i class="material-icons"
+																		*ngIf="!onPopUpDoing(cost.concept.conceptName)">close</i>
+																	<i class="material-icons fa-spin"
+																		*ngIf="onPopUpDoing(cost.concept.conceptName)">refresh</i>
+																</button>
+															</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</form>
+									</div>
+									<!-- End -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Modal -->
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<!-- notice modal -->
+				<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-notice modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalLabel">{{programName}} Details</h5>
+								<button mat-button type="button" (click)="closeDetailsModal()" class="close"
+									data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">close</i>
+								</button>
+							</div>
+
+							<div class="modal-body">
+
+								<div class="instruction">
+									<form [formGroup]="detailsType">
+										<div class="row">
+											<div class="col-md-6">
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Duration" i18n-placeholder type="text"
+														name="duration" id="duration" formControlName="duration">
+												</mat-form-field>
+											</div>
+
+											<div class="col-md-6">
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Average Processing time"
+														i18n-placeholder type="text" name="avProTime" id="avProTime"
+														formControlName="avProTime">
+												</mat-form-field>
+											</div>
+
+											<div class="col-md-12">
+
+
+												<app-ngx-editor placeholder="Description" name="description"
+													id="description" formControlName="description" i18n-placeholder
+													[spellcheck]="true" minHeight="60px" [config]="editorConfig">
+
+												</app-ngx-editor>
+
+											</div>
+
+											<div class="col-md-12 right-align pt-3">
+												<button mat-raised-button type="button" class="btn btn-fill btn-rose"
+													(click)="saveProgramDetails()">
+													<i class="material-icons fa-spin"
+														*ngIf="onPopUpDoing('details')">refresh</i>
+													{{buttonNameModal}}
+												</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Media Modal -->
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<!-- notice modal -->
+				<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-notice">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalLabel">{{selectedProgramName | titlecase}} Media</h5>
+								<button mat-button type="button" (click)="closeMediaModal()" class="close"
+									data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">close</i>
+								</button>
+							</div>
+
+							<div class="modal-body">
+
+								<div class="instruction">
+									<form [formGroup]="mediaType">
+										<div class="row">
+											<div class="col-md-12">
+												<div *ngIf="this.programMedia && this.programMedia.mediaLocation">
+													<img class="img-fluid imgBack mx-auto"
+														src="{{this.programMedia?.mediaLocation}}" alt="logo">
+												</div>
+												<div
+													*ngIf="this.programMedia == null || this.programMedia.mediaLocation == null">
+													<img class="img-fluid imgBack mx-auto"
+														src="../../../assets/img/image_placeholder.jpg" alt="logo">
+												</div>
+												<div class="mt-3">
+													<span class="btn btn-rose btn-round btn-file">
+														<input type="file" formControlName='mediaImage'
+															name='mediaImage' (change)="onDocumentChange($event)" />
+														<i class="material-icons fa-spin"
+															*ngIf="onPopUpDoing('media')">refresh</i>
+														{{mediaButton}}
+													</span>
+													<!-- <div *ngIf="loading">
+														<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+													</div> -->
+												</div>
+
+											</div>
+
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<!-- notice modal -->
+				<div class="modal fade" id="requirementModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-requirement modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalLabel">{{programName}} Requirements</h5>
+								<button mat-button type="button" (click)="closeRequirementModal()" class="close"
+									data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">close</i>
+								</button>
+							</div>
+
+							<div class="modal-body">
+
+								<div class="instruction">
+									<form [formGroup]="requiremenType">
+										<div class="row justify-content-center">
+											<div class="col-md-6">
+
+												<mat-form-field>
+													<mat-select placeholder="Level of Education" name="levEducation"
+														formControlName="levEducation" i18n-placeholder>
+														<mat-option *ngFor="let level of educationLevels"
+															[value]="level.educationTypeId">
+															{{ level.name }}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+											<div class="col-md-6">
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Minimun GPA" i18n-placeholder
+														type="number" name="mingpa" id="mingpa"
+														formControlName="mingpa">
+												</mat-form-field>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+
+												<h5><strong>IELTS</strong></h5>
+
+												<mat-form-field>
+													<mat-select placeholder="IELTS Type" name="typeIEL"
+														formControlName="typeIEL" i18n-placeholder>
+														<mat-option *ngFor="let type of ietlsTypeList"
+															[value]="type.name">
+															{{ type.name }}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+
+												<mat-form-field #element class="example-full-width has-label">
+													<input matInput placeholder="Overall" i18n-placeholder type="number"
+														name="ieltsOverall" id="ieltsOverall"
+														formControlName="ieltsOverall">
+												</mat-form-field>
+
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Listening" i18n-placeholder
+														type="number" name="listeningIEL" id="listeningIEL"
+														formControlName="listeningIEL">
+												</mat-form-field>
+
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Reading" i18n-placeholder type="number"
+														name="readingIEL" id="readingIEL" formControlName="readingIEL">
+												</mat-form-field>
+
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Speaking" i18n-placeholder
+														type="number" name="speakingIEL" id="speakingIEL"
+														formControlName="speakingIEL">
+												</mat-form-field>
+
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Writing" i18n-placeholder type="number"
+														name="writingIEL" id="writingIEL" formControlName="writingIEL">
+												</mat-form-field>
+											</div>
+
+											<div class="col-md-6">
+
+												<h5><strong>TOEFL</strong></h5>
+
+												<mat-form-field>
+													<mat-select placeholder="TOEFL Type" name="typeTOE"
+														formControlName="typeTOE" i18n-placeholder>
+														<mat-option *ngFor="let type of toefelTypeList"
+															[value]="type.name">
+															{{ type.name }}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+
+												<mat-form-field #element class="example-full-width has-label">
+													<input matInput placeholder="Overall" i18n-placeholder type="number"
+														name="toeflOverall" id="toeflOverall"
+														formControlName="toeflOverall">
+												</mat-form-field>
+
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Listening" i18n-placeholder
+														type="number" name="listeningTOE" id="listeningTOE"
+														formControlName="listeningTOE">
+												</mat-form-field>
+
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Reading" i18n-placeholder type="number"
+														name="readingTOE" id="readingTOE" formControlName="readingTOE">
+												</mat-form-field>
+
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Speaking" i18n-placeholder
+														type="number" name="speakingTOE" id="speakingTOE"
+														formControlName="speakingTOE">
+												</mat-form-field>
+
+												<mat-form-field #element id="progr" name="progr"
+													class="example-full-width has-label">
+													<input matInput placeholder="Writing" i18n-placeholder type="number"
+														name="writingTOE" id="writingTOE" formControlName="writingTOE">
+												</mat-form-field>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+
+												<app-ngx-editor placeholder="Special Notes" name="specialNotes"
+													i18n-placeholder id="specialNotes" formControlName="specialNotes"
+													[spellcheck]="true" minHeight="60px">
+												</app-ngx-editor>
+
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12 text-right pt-3">
+												<button mat-raised-button type="button" class="btn btn-fill btn-rose"
+													(click)="saveProgramRequirements()">
+													<i class="material-icons fa-spin"
+														*ngIf="onPopUpDoing('requirement')">refresh</i>
+													{{buttonNameModal}}
+												</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-notice">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalLabel">{{programNameForVideo}} Videos</h5>
+								<button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">close</i>
+								</button>
+							</div>
+
+							<div class="modal-body">
+								<div class="instruction">
+									<div class="row">
+										<div *ngFor="let url of videoUrl; let i = index" class="col-md-6 mx-auto">
+											<p style="padding-top: 10px">
+												Video #{{i+1}}
+											</p>
+											<iframe width="200" height="150" [src]="videoUrl[i].mediaUrl"
+												frameborder="0"></iframe>
+											<button class="btn btn-sm btn-rose"
+												(click)="deleteVideo(videoUrl[i].mediaId)">
+												<i class="material-icons fa-spin"
+													*ngIf="onPopUpDoing(videoUrl[i].mediaId)">refresh</i>
+												Delete
+											</button>
+										</div>
+										<div class="col-md-10 mt-3 mx-auto">
+											<form #videoUrlForm="ngForm" (ngSubmit)="setVideo(videoUrlForm)">
+
+												<div class="row">
+													<mat-form-field>
+														<input matInput placeholder="Paste or type the url here ..."
+															type="text" name="videoUrl" ngModel>
+													</mat-form-field>
+													<button mat-raised-button type="submit"
+														class="btn btn-fill btn-rose mx-auto">
+														<i class="material-icons fa-spin"
+															*ngIf="onPopUpDoing('addvideo')">refresh</i>
+														Add Video
+													</button>
+												</div>
+
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>

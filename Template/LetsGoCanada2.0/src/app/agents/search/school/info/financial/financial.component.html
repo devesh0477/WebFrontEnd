@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-header card-header-rose card-header-icon">
+    <div class="card-icon">
+      <i class="material-icons align-middle">attach_money</i>
+    </div>
+    <h4 class="card-title titleColor font-weight-bold text-uppercase">Financial Info</h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th width="75%" class="text-left font-italic">Description</th>
+            <th width="25%" class="text-right font-italic">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td width="75%" class="text-left">Application Fees:</td>
+            <td width="25%" class="text-right">
+              {{applicationFees == null ? "Not Available" : applicationFees | currency:"CAD"}}</td>
+          </tr>
+          <tr>
+            <td width="75%" class="text-left">Tuition Per Year:</td>
+            <td width="25%" class="text-right">
+              {{tuitionPerYear == null ? "Not Available" : tuitionPerYear | currency:"CAD"}}</td>
+          </tr>
+          <tr>
+            <td width="75%" class="text-left">Cost of Living:</td>
+            <td width="25%" class="text-right">
+              {{costOfLiving == null ? "Not Available" : costOfLiving | currency:"CAD"}}</td>
+          </tr>
+          <tr>
+            <td class="td-total text-right">Total per Year:</td>
+            <td class="td-price text-right">{{totalPerYear == null ? "Not Available" : totalPerYear | currency:"CAD"}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-12">
+            <span class="card-category"><strong>Please Note:</strong>{{obsText}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

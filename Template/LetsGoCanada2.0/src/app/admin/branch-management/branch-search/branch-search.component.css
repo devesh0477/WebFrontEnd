@@ -1,0 +1,31 @@
+.difPadding {
+    padding-bottom: .35em !important;
+}
+
+.mat-option:hover {
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #e91e63;
+    background: #e91e63 !important;
+    color: #fff !important;
+}
+
+/* .center {
+    margin: auto;
+    width: 70%;
+} */
+
+.btnAlign {
+    margin: 8% 15% 0% 0% !important
+}
+
+.special-padding-left {
+    padding-left: 30px !important;
+}
+
+.margin-left {
+    margin-left: 4.5em;
+}
+
+.margin-button {
+    margin-left: 4.5em;
+    margin-bottom: 1em;
+}

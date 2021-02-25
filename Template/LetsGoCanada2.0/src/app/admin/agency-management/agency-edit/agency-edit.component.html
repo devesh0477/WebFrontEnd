@@ -1,0 +1,329 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="col-md-12 mx-auto">
+      <div class="wizard-container">
+        <div class="card card-wizard" data-color="rose" id="wizardProfile">
+          <div class="card-header text-center">
+            <h3 i18n="the card title (Agency Management)" class="card-title">
+              Agency Management
+            </h3>
+          </div>
+          <div class="wizard-navigation">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a i18n="the tab title (Agency)" class="nav-link active" href="#agency" data-toggle="tab" role="tab">
+                  Agency
+                </a>
+              </li>
+              <li class="nav-item">
+                <a i18n="the tab title (Headquarter)" class="nav-link" href="#headquarter" data-toggle="tab" role="tab">
+                  Headquarter
+                </a>
+              </li>
+              <li class="nav-item">
+                <a i18n="the tab title (CEO)" class="nav-link" href="#ceo" data-toggle="tab" role="tab">
+                  CEO
+                </a>
+              </li>
+              <li class="nav-item">
+                <a i18n="the tab title (Documents)" class="nav-link" href="#documents" data-toggle="tab" role="tab">
+                  Documents
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+
+              <div class="tab-pane active" id="agency">
+                <form [formGroup]="agencyForm" (ngSubmit)="onSubmitAgency()">
+
+                  <div class="row mb-5 mt-5 justify-content-center">
+                    <div class="col-xl-4 mr-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput class="form-control" id="agencyName" placeholder="Agency Name" type="text"
+                            formControlName="companyName">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xl-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput class="form-control" id="webSite" placeholder="Web Site" type="text"
+                            formControlName="webSite">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-xl-2" [hidden]="!isAllowed"></div>
+                  </div>
+
+                  <div class="row mb-5 justify-content-center">
+                    <div class="col-xl-4 mr-4">
+                      <input type="checkbox" formControlName="profileComplete">
+                      <label i18n="the form label (Profile Complete)">Profile Complete</label>
+                    </div>
+
+                    <div class="col-xl-4">
+                      <input type="checkbox" formControlName="profileApprovedShow"
+                        [(ngModel)]="selectedAgency == null? false : profileApproved">
+                      <label i18n="the form label (Approved)">Approved</label>
+                    </div>
+
+
+                    <div class="col-xl-2 togglebutton approve" [hidden]="!isAllowed">
+                      <label i18n="the form label (Profile Complete)">Approve
+                        <input type="checkbox" formControlName="profileApproved"
+                          (change)="checkValue(profileApproved? true: false)"
+                          [(ngModel)]="selectedAgency == null? false : profileApproved">
+                        <span class="toggle"></span>
+                      </label>
+                    </div>
+
+                  </div>
+
+                </form>
+              </div>
+
+              <div class="tab-pane ml-5" id="headquarter">
+                <form [formGroup]="hqForm" (ngSubmit)="onSubmitHq()">
+                  <div class="row">
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput placeholder="Office Name" type="text" class="form-control" id="officeName"
+                            formControlName="officeName">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput placeholder="Address 1" type="text" class="form-control"
+                            formControlName="addressLine1" id="addressLine1">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput placeholder="Address 2" type="text" class="form-control" id="addressLine2"
+                            formControlName="addressLine2">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput placeholder="Postal Code" type="text" class="form-control" id="postalCode"
+                            formControlName="postalCode">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <mat-form-field class="example-full-width vertical-Citizen">
+                        <mat-select i18n-placeholder="the list of countries (Country)" placeholder="Country"
+                          id="countryId" formControlName="countryId">
+                          <mat-option *ngFor="let country of countries" [value]=country.countryId>
+                            {{country.name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput placeholder="Province" type="text" class="form-control"
+                            formControlName="province" id="province">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput placeholder="City" type="text" class="form-control" id="city"
+                            formControlName="city">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput placeholder="Phone" type="text" class="form-control" id="phone"
+                            formControlName="phone">
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <mat-form-field>
+                          <input matInput placeholder="Email Address" type="text" class="form-control" id="email"
+                            formControlName="email">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </form>
+              </div>
+
+              <div class="tab-pane" id="ceo">
+                <form [formGroup]="ceoForm" (ngSubmit)="onSubmitCeo()">
+                  <div class="col-md-12">
+                    <div class="row line1">
+
+                      <div class="col-md-3 mx-auto">
+                        <mat-form-field class="example-full-width vertical-Citizen">
+                          <mat-select i18n-placeholder="the Salutation chosen by the end-user (Salutation)"
+                            placeholder="Salutation" formControlName="salutation">
+                            <!-- (valueChange)="onSalutationsChange($event)"> -->
+                            <mat-option *ngFor="let salutation of salutations" [value]=salutation>
+                              {{salutation}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3 mx-auto">
+                        <div class="form-group">
+                          <mat-form-field>
+                            <input matInput placeholder="First Name" type="text" class="form-control" id="firstName"
+                              formControlName="firstName">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 mx-auto">
+                        <div class="form-group">
+                          <mat-form-field>
+                            <input matInput placeholder="Last Name" type="text" class="form-control"
+                              formControlName="lastName" id="lastName">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="row line1">
+
+                      <div class="col-md-3 mx-auto">
+                        <mat-form-field class="example-full-width vertical-Citizen">
+                          <mat-select i18n-placeholder="the Citizenship chosen by the end-user (Citizenship)"
+                            placeholder="Citizenship" formControlName="citizenshipId">
+                            <mat-option *ngFor="let country of countries" [value]=country.countryId>
+                              {{country.name}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3 mx-auto">
+                        <div class="form-group">
+                          <mat-form-field>
+                            <input matInput placeholder="Phone" type="text" class="form-control" id="ceoPhone"
+                              formControlName="ceoPhone">
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 mx-auto">
+                        <div class="form-group">
+                          <mat-form-field>
+                            <input matInput placeholder="Passport Number" type="text" class="form-control"
+                              id="passportNumber" formControlName="passportNumber">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane" id="documents">
+                <div class="row">
+                  <div *ngFor="let doc of docs; let i=index" class="col-lg-3 col-md-6 col-sm-12 col-">
+                    <div class="card card-pricing ">
+                      <h6 class="card-category">{{doc.documentName}}</h6>
+                      <div class="card-body">
+                        <div class="card-icon icon-rose ">
+                          <i *ngIf="doc.documentLocation" class="material-icons">folder_special</i>
+                          <i *ngIf="!doc.documentLocation" class="material-icons">folder_open</i>
+                        </div>
+                        <br>
+                        <p class="card-description">{{doc.documentDescription}}</p>
+                      </div>
+                      <p>
+                        <a i18n="button to show the selected document (View Document)" *ngIf="doc.documentLocation"
+                          class="card-description" target="_blank" href="#" rel="noopener noreferrer"
+                          (click)="getFileDownload($event, doc.id, doc.documentLocation, doc.documentName, doc.documentDescription)">
+                          <i class="material-icons">search </i>
+                          View Document</a>
+                      </p>
+                      <p>
+                        <a i18n="button to delete the selected document (Delete Document)" *ngIf="doc.documentLocation"
+                          class="card-description" href="#"
+                          (click)="deleteDocument($event, doc.id, doc.documentLocation, doc.documentName, doc.documentDescription, i)">
+                          <i class="material-icons">delete </i>
+                          Delete Document</a>
+                      </p>
+                      <div class="card-footer justify-content-center ">
+                        <div class="fileinput-preview fileinput-exists thumbnail">
+                        </div>
+                        <div>
+                          <span *ngIf="doc.documentLocation" class="btn btn-success btn-round btn-file">
+                            <span i18n="button to change the selected document (Change Document)" class="fileinput-new">
+                              <i *ngIf="doc.documentLocation" class="material-icons">done </i>
+                              Change Document</span>
+                            <input type="file" name="doc" accept="application/pdf"
+                              (change)="handleFileInput($event.target.files); getFileInfo(doc.id, doc.agencyId, doc.documentDescription, i)" />
+                          </span>
+
+                          <span *ngIf="!doc.documentLocation" class="btn btn-rose btn-round btn-file">
+                            <span class="fileinput-new">
+                              <i i18n="button to Choose the selected document (Choose Document)"
+                                *ngIf="!doc.documentLocation" class="material-icons">touch_app </i>
+                              Choose Document</span>
+                            <input type="file" name="doc"
+                              (change)="handleFileInput($event.target.files); getFileInfo(doc.id, doc.agencyId, doc.documentDescription, i)" />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="mr-auto">
+              <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous"
+                i18n-value="the button to go to the previous screen (Previous)" value="Previous">
+            </div>
+            <div class="ml-auto">
+              <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next"
+                i18n-value="the button to go to the next screen (Next)" value="Save & Next" (click)="save()">
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

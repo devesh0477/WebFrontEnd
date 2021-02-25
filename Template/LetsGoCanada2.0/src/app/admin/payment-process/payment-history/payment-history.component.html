@@ -1,0 +1,84 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">search</i>
+						</div>
+						<h4 class="card-title">Payment History Search</h4>
+					</div>
+					<div class="card-body">
+						<form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm)" id="paymentForm">
+							<br>
+							<div class="row justify-content-center">
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="number" name="paymentId" matInput placeholder="Payment Id"
+											i18n-placeholder [(ngModel)]="paymentHistory.paymentId">
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Previous State" i18n-placeholder name="previousState"
+											[(ngModel)]="paymentHistory.previousState">
+											<mat-option *ngFor="let state of stateList" [value]="state.id">
+												{{ state.stateName }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+							</div>
+							<br>
+							<div class="row justify-content-center">
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Current State" i18n-placeholder name="currentState"
+											[(ngModel)]="paymentHistory.currentState">
+											<mat-option *ngFor="let state of stateList" [value]="state.id">
+												{{ state.stateName }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field>
+										<input matInput [matDatepicker]="picker" placeholder="Date"
+											[(ngModel)]="paymentHistory.date" name="date" (click)="picker.open()">
+										<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+										<mat-datepicker #picker></mat-datepicker>
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+
+							<div class="row justify-content-center">
+								<div class="col-md-11 right-align pt-3 pb-3">
+									<!-- (click)="saveMenu()" -->
+									<button mat-raised-button type="button" class="btn btn-danger mr-3"
+										(click)="clearForm(paymentForm)">
+										Clear
+									</button>
+									<button [disabled]="spinner" mat-raised-button type="submit" class="btn btn-rose">
+										<i class="material-icons fa-spin" *ngIf="spinner">refresh</i>
+										Search
+									</button>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+
+				<app-payment-history-list (spinner)="isSpinning($event)"></app-payment-history-list>
+				<!-- <app-payment-gateway-list (paymentSelected)="setPaymentSelected($event)"></app-payment-gateway-list> -->
+
+			</div>
+		</div>
+	</div>
+</div>

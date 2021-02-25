@@ -1,0 +1,107 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+
+      <div class="card">
+        <div class="card-header card-header-rose card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">school</i>
+          </div>
+          <h4 class="card-title">Type Of School Register</h4>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="typeSchoolForm">
+
+            <div class="row ml-5">
+
+              <div class="col-xl-5 col-md-5 col-sm-5" hidden>
+                <mat-form-field class="example-full-width">
+                  <input type="text" matInput placeholder="typeId" formControlName="typeId">
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-4 col-md-4 col-sm-4">
+                <mat-form-field class="example-full-width">
+                  <input type="text" matInput placeholder="Type" formControlName="typeName">
+                </mat-form-field>
+              </div>
+
+              <div class="col-xl-3 col-md-3 col-sm-3">
+
+              </div>
+
+              <div class="col-xl-4 col-md-4 col-sm-4 ml-2">
+                <mat-form-field class="example-full-width">
+                  <input type="text" matInput placeholder="Description" formControlName="typeDescription">
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="row float-right mr-5">
+              <div class="col-xl-4 col-md-4 col-sm-4 float-right mr-5 d-flex">
+                <a mat-raised-button (click)="onSubmit()" class="btn btn-rose">
+                  Submit
+                </a>
+                <a mat-raised-button (click)="clearField()" class="btn btn-rose">
+                  Clear
+                </a>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">list</i>
+          </div>
+          <h4 i18n="the card title (Terms)" class="card-title ">Type Of School List</h4>
+        </div>
+        <div class="card-body mr-5 ml-5">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+                <tr>
+                  <th *ngFor="let header of tableHeader" scope="col" class="text-center">
+                    {{ header }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let typeSchool of pageOfItems">
+                  <!-- <td>{{typeSchool.typeId}}</td> -->
+                  <td class="text-center">{{typeSchool.typeName}}</td>
+                  <td class="text-center">{{typeSchool.typeDescription}}</td>
+                  <td class="td-actions text-center">
+                    <button (click)="selectTypeSchool(typeSchool)" type="button" rel="tooltip"
+                      class="btn btn-success btn-link">
+                      <i class="material-icons">edit</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <jw-pagination [items]="typeSchool" [pageSize]="10" (changePage)="onChangePage($event)">
+            </jw-pagination>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

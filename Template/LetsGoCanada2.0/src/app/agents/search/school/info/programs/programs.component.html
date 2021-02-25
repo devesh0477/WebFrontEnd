@@ -1,0 +1,129 @@
+<div class="card">
+  <div class="card-header card-header-rose card-header-icon">
+    <div class="card-icon">
+      <i class="material-icons">school</i>
+    </div>
+
+
+    <h4 class="card-title titleColor font-weight-bold text-uppercase">{{name}} Program List</h4>
+    <div class="card mb-0" id="fixedCard">
+      <div class="form-row">
+
+        <div class="form-group col-md-2 pl-4">
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Discipline" name="discipline" [(ngModel)]="selectedDisciplines" multiple
+              #disciplinesSelected="ngModel">
+              <mat-option *ngFor="let discipline of programDisciplines" [value]=discipline.name>
+                {{discipline.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group col-md-4 pl-4 align-items-center">
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Program Levels" name="level" [(ngModel)]="selectedLevels" multiple
+              #levelsSelected="ngModel">
+              <mat-option *ngFor="let level of programLevels" [value]=level.name>
+                {{level.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+        <div class="form-group col-md-4 pl-4">
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Intakes" name="intake" [(ngModel)]="selectedIntakes" multiple
+              #intakesSelected="ngModel">
+              <mat-option *ngFor="let intake of programIntakes" id="disc" [value]=intake.termId>
+                {{ intake.season }} {{intake.year}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+        <div class=" form-group col-md-2 pt-3">
+          <button id="searchButton" class="btn btn-rose btn-sm mat-raised-button ml-4 mt-4" (click)="searchProgram()">
+            <i class="material-icons">search</i>
+            <div class="mat-button-ripple mat-ripple" matripple=""></div>
+            <div class="mat-button-focus-overlay"></div>
+          </button>
+          <button id="searchButton" mat-raised-button class="btn btn-rose btn-sm mat-raised-button ml-4 mt-4"
+            (click)="deselectAll(intakesSelected, levelsSelected, disciplinesSelected)">
+            <i class="material-icons">clear</i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-body">
+    <div class="toolbar">
+    </div>
+
+    <div class="card w-100" *ngFor="let program of programsSearch">
+      <div class="card-body">
+
+        <h3 class="card-title font-weight-bold">{{program.name == null ? "Not Available" : program.name}}</h3>
+        <div class="row">
+          <div class="col-2">
+            <div class="col text-center">
+              <i class="material-icons pl-1" id="calendarIcon">calendar_today</i>
+            </div>
+            <div class="col text-center">
+              {{program.processingTime == null ? "??" : program.processingTime}}
+            </div>
+            <!-- <p class="timeDesc text-center">Process<br>days</p> -->
+            <!-- <span class="timeAvg font-weight-bold">{{program.processingTime == null ? "??" : program.processingTime | slice:0:2}}</span>
+            <p class="timeDesc text-center">Process<br>days</p> -->
+
+          </div>
+          <div class="col">
+
+            <div class="row">
+              <div class="col font-weight-bold">Program Level:</div>
+              <div class="col">{{program.typeOfProgram == null ? "Not Available" : program.typeOfProgram}}</div>
+              <div class="w-100"></div>
+            </div>
+
+            <div class="row" *ngFor="let price of program.applicationCosts">
+              <div *ngIf="price.visible" class="col text-left font-weight-bold">{{price?.concept?.conceptName}}:</div>
+              <div *ngIf="price.visible" class="col text-left">{{price?.amount | currency:"CAD"}}</div>
+              <div class="w-100"></div>
+            </div>
+
+
+          </div>
+
+
+          <div class="col-2">
+            <button (click)="getProgramId(program.programId)" type="button"
+              class="btn btn-rose btn-sm btn-round mat-raised-button" data-toggle="modal"
+              data-target="#termsModal"><span class="mat-button-wrapper"><i class="material-icons"
+                  id="applyIcon">done_outline</i> Apply </span>
+            </button>
+            <!-- <a href="program/{{program.programId}}" class="btn btn-rose btn-round mat-raised-button"><span
+                class="mat-button-wrapper"><i class="material-icons">add</i> Info </span></a> -->
+
+            <a target="_blank" rel="noopener noreferrer" href="program/{{program.programId}}"
+              class="btn btn-rose btn-sm btn-round mat-raised-button"><span class="mat-button-wrapper"><i
+                  class="material-icons">add</i> Info </span></a>
+          </div>
+
+          <!-- modal -->
+          <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content" style="width: 700px;">
+                <app-apply-modal [terms]="terms"></app-apply-modal>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

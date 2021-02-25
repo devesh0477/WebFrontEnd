@@ -1,0 +1,57 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <app-campus-program-edit [programs]="programList" (newProgramsList)="onChangePage($event)">
+    </app-campus-program-edit>
+
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">list</i>
+          </div>
+          <h4 i18n="the card title (Campus List)" class="card-title ">{{campusName}} Program List</h4>
+        </div>
+        <div class="card-body mr-5 ml-5">
+          <div class="table-responsive">
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th *ngFor="let header of tableHeader" scope="col" class="text-center">{{ header }}</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let program of pageOfItems | slice:0:10">
+                  <td class="text-center">{{program.program.name}}</td>
+                  <td class="text-center">{{program.specialName}}</td>
+                  <td class="text-center">{{program.program.typeOfProgram.name}}</td>
+
+
+                  <td class="text-center">
+
+                    <button mat-raised-button matTooltip="Delete" (click)="deleteProgram(program.id)" type="button"
+                      rel="tooltip" class="btn btn-danger btn-link py-0 px-1">
+                      <i class="material-icons">close</i>
+                    </button>
+
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <jw-pagination [items]="programList" [pageSize]="10" (changePage)="onChangePage($event)">
+            </jw-pagination>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

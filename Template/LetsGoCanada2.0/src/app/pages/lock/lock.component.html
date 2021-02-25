@@ -1,0 +1,67 @@
+
+
+<div class="wrapper wrapper-full-page">
+  <div class="page-header lock-page header-filter" style="background-image: url('./assets/img/lock.jpg'); background-size: cover; background-position: top center;">
+    <!--   you can change the color of the filter page using: data-color="blue | green | orange | red | purple" -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 ml-auto mr-auto">
+          <div class="card card-profile text-center card-hidden" style="width: auto;">
+            <div class="card-header ">
+              <div class="card-avatar">
+                <a href="#pablo">
+                  <img class="img" src="./assets/img/default-user.png">
+                </a>
+              </div>
+            </div>
+            <div class="card-body ">
+              <!-- <h4 class="card-title">{{user.username}}</h4> -->
+              <mat-form-field class="example-full-width">
+                <input matInput style="color: black;" placeholder="Username" type="text" [(ngModel)]="user.username" readonly>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput style="color: black;" placeholder="Enter Password" type="password" [(ngModel)]="user.password" required>
+              </mat-form-field>
+            </div>
+            <div class="card-footer justify-content-center">
+              <a href="#pablo" class="btn btn-rose btn-round" (click)="unlockSession($event)">Unlock</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer ">
+    <div class="container">
+      <!-- <nav class="pull-left">
+        <ul>
+          <li>
+            <a href="https://www.creative-tim.com">
+              Creative Tim
+            </a>
+          </li>
+          <li>
+            <a href="https://creative-tim.com/about-us">
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="http://blog.creative-tim.com">
+              Blog
+            </a>
+          </li>
+          <li>
+            <a href="https://www.creative-tim.com/license">
+              Licenses
+            </a>
+          </li>
+        </ul>
+      </nav> -->
+      <div class="copyright content-justify-center">
+          &copy;
+          {{test | date: 'yyyy'}} made with <i class="material-icons">favorite</i> by Let's Go Tim
+        <!-- <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web. -->
+      </div>
+    </div>
+  </footer>
+</div>

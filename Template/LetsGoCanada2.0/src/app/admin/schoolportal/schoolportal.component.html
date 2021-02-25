@@ -1,0 +1,672 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-12 ml-auto mr-auto">
+				<div class="card ">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">School Form</h4>
+					</div>
+					<div class="card-body">
+						<!-- <form [formGroup]="schooltype"> -->
+						<form [formGroup]="schoolForm" (ngSubmit)="sendSchoolBack()" #sForm="ngForm">
+
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Name" i18n-placeholder type="text"
+											name="schoolName" id="schoolName" formControlName="schoolName">
+									</mat-form-field>
+									<!-- <span
+										*ngIf="(schoolName.dirty || schoolName.touched) && schoolName.invalid && schoolName.errors.required">
+										School Name is required.
+									</span> -->
+								</div>
+
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Description" type="text" i18n-placeholder
+											name="description" id="description" formControlName="description">
+									</mat-form-field>
+
+									<!-- <span
+										*ngIf="(description.dirty || description.touched) && description.invalid && description.errors.required">
+										Description is required.
+									</span> -->
+
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Email" i18n-placeholder name="email" id="email"
+											formControlName="email" type="email">
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Phone Number" i18n-placeholder name="phoneNumber"
+											id="phoneNumber" formControlName="phoneNumber" type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Address" i18n-placeholder name="address"
+											id="address" formControlName="address" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Postal Code" i18n-placeholder name="postalCode"
+											id="postalCode" formControlName="postalCode" type="text">
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<mat-select placeholder="Country" i18n-placeholder name="country" id="country"
+											formControlName="country">
+											<mat-option *ngFor="let cou of countries" [value]="cou.countryId">
+												{{ cou.name }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<mat-select placeholder="Province" i18n-placeholder name="province"
+											id="province" formControlName="province"
+											(valueChange)="selectProvinceChange($event)">
+											<mat-option *ngFor="let pro of provinces" [value]="pro.provinceId">
+												{{ pro.name }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select matInput formControlName="city" name="city" id="city"
+											placeholder="City" i18n-placeholder>
+											<mat-option *ngFor="let cit of cities" [value]="cit.cityId">
+												{{ cit.name }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Pobox" i18n-placeholder name="pobox" id="pobox"
+											formControlName="pobox" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Dli Number" i18n-placeholder name="dliNumber"
+											id="dliNumber" formControlName="dliNumber" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-lg-3 ml-auto mr-auto">
+									<div class="form-check">
+										<label class="form-check-label">
+											<input class="form-check-input" type="checkbox" value="" name="publicInsti"
+												formControlName="publicInsti"> Public Institution <span
+												class="form-check-sign"><span class="check"></span>
+											</span>
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Hst Number" i18n-placeholder name="hstNumber"
+											id="hstNumber" formControlName="hstNumber" type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Website" i18n-placeholder name="website"
+											id="website" formControlName="website" type="text">
+									</mat-form-field>
+								</div>
+
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="International Students" i18n-placeholder
+											name="internaStudents" id="internaStudents"
+											formControlName="internaStudents" type="text">
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<input matInput placeholder="Total Students" i18n-placeholder
+											name="totalStudents" id="totalStudents" formControlName="totalStudents"
+											type="text">
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<input matInput [matDatepicker]="fundationDate" placeholder="Fundation Date"
+											i18n-placeholder name="fundationDate" id="fundationDate"
+											formControlName="fundationDate" (click)="fundationDate.open()">
+										<mat-datepicker-toggle matSuffix [for]="fundationDate">
+										</mat-datepicker-toggle>
+										<mat-datepicker #fundationDate></mat-datepicker>
+									</mat-form-field>
+								</div>
+
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field class="example-full-width">
+										<mat-select matInput formControlName="typeInstitution" name="typeInstitution"
+											id="typeInstitution" placeholder="Type Institution" i18n-placeholder>
+											<mat-option *ngFor="let type of typeInstitutions" [value]="type.typeId">
+												{{ type.typeName }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-11 ml-auto mr-auto">
+									<app-ngx-editor placeholder="About" name="about" id="about" formControlName="about"
+										[spellcheck]="true" minHeight="60px"></app-ngx-editor>
+								</div>
+							</div>
+
+							<div class="row mt-4">
+								<div class="col-sm-11 col-md-11 col-lg-11 ml-auto mr-auto right-align">
+
+									<button mat-raised-button type="button" class="btn btn-fill btn-danger"
+										(click)="clearForm()" *ngIf="school.schoolId">Cancel</button>
+
+									<button mat-raised-button type="button" class="btn btn-fill btn-rose"
+										(click)="showSchoolFinancial(school)" data-toggle="modal"
+										data-target="#finantialModal" *ngIf="school.schoolId">
+										<i class="material-icons">attach_money</i>
+										School Financial
+									</button>
+
+									<button mat-raised-button type="button" class="btn btn-fill btn-rose"
+										(click)="showSchoolsMedia(school)" data-toggle="modal"
+										data-target="#noticeModal" *ngIf="school.schoolId">
+										<i class="material-icons">wallpaper</i>
+										School Media
+									</button>
+
+									<button mat-raised-button type="button" class="btn btn-fill btn-rose"
+										*ngIf="school.schoolId" (click)="schoolProgramsPage()">
+										<i class="material-icons">list_alt</i>
+										Programs
+									</button>
+
+									<!-- <input type="submit" i18n-value="label for submit button (Submit)"
+										value="{{buttonName}}" class="btn btn-fill btn-rose"> -->
+
+									<button [disabled]="isWorking" mat-raised-button type="submit"
+										class="btn btn-fill btn-rose" i18n-value="label for submit button (Submit)">
+										<i class="material-icons fa-spin" *ngIf="isWorking">refresh</i>
+										<i class="material-icons" *ngIf="!isWorking">save</i>
+										{{buttonName}}
+									</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12 ml-auto mr-auto">
+				<div class="card">
+					<div class="card-header card-header-icon card-header-rose">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<h4 class="card-title ">School Management</h4>
+					</div>
+					<div *ngIf="schoolList" class="card-body">
+						<div class="row justify-content-center">
+							<div class="col-md-11">
+								<div class="table-responsive">
+									<table class="table">
+										<thead class="text-primary">
+											<tr>
+												<th *ngFor="let cell of tableData1.headerRow">{{ cell }}
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let row of pageOfItems; let i = index">
+												<td>{{row.name}}</td>
+												<td>{{row.description}}</td>
+												<td>{{row.city.name}}</td>
+												<td>{{row.email}}</td>
+												<td class="td-actions">
+
+													<button mat-raised-button type="button"
+														class="btn btn-danger btn-link" data-toggle="modal"
+														data-target="#videoModal" (click)="showVideo(row)"
+														matTooltip="School Video" [matTooltipPosition]="'above'">
+														<i class="material-icons">video_library</i>
+													</button>
+
+													<button mat-raised-button type="button"
+														class="btn btn-info btn-link" (click)="showSchoolsMedia(row)"
+														data-toggle="modal" data-target="#noticeModal"
+														matTooltip="School Media" [matTooltipPosition]="'above'">
+														<i class="material-icons">wallpaper</i>
+													</button>
+
+													<button mat-raised-button type="button" (click)="editSchool(row)"
+														class="btn btn-success btn-link" matTooltip="Edit"
+														[matTooltipPosition]="'above'">
+														<i class="material-icons">edit</i>
+													</button>
+
+													<button mat-raised-button type="button"
+														(click)="schoolPrograms(row)" class="btn btn-success btn-link"
+														matTooltip="Programs" [matTooltipPosition]="'above'">
+														<i class="material-icons">list_alt</i>
+													</button>
+
+													<button mat-raised-button type="button"
+														(click)="showSchoolFeatures(row)" class="btn btn-rose btn-link"
+														data-toggle="modal" data-target="#featureModal"
+														matTooltip="Features" [matTooltipPosition]="'above'">
+														<i class="material-icons">format_list_bulleted</i>
+													</button>
+
+													<!--<button mat-raised-button type="button" (click)="showSchoolFeatures(row)"
+												class="btn btn-rose btn-link" data-toggle="modal"
+												data-target="#finantialModal" matTooltip="Finantial" -->
+
+													<button mat-raised-button type="button"
+														(click)="showSchoolFinancial(row)" class="btn btn-rose btn-link"
+														data-toggle="modal" data-target="#finantialModal"
+														matTooltip="Financial Info" [matTooltipPosition]="'above'">
+														<i class="material-icons">attach_money</i>
+													</button>
+
+													<button mat-raised-button type="button"
+														routerLink="/campus-admin/{{row.schoolId}}"
+														class="btn btn-blue btn-link" matTooltip="Campus"
+														[matTooltipPosition]="'above'">
+														<i class="material-icons">add_business</i>
+													</button>
+
+												</td>
+
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+								<div class="d-flex justify-content-center mt-4">
+									<jw-pagination [items]="schoolList" [pageSize]="10"
+										(changePage)="onChangePage($event)">
+									</jw-pagination>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-notice">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalLabel">{{schoolNameForVideo}} Videos</h5>
+								<button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">close</i>
+								</button>
+							</div>
+
+							<div class="modal-body">
+								<div class="instruction">
+									<div class="row">
+										<div *ngFor="let url of videoUrl; let i = index" class="col-md-6 margin-auto">
+											<p style="padding-top: 10px">
+												Video #{{i+1}}
+											</p>
+											<iframe width="200" height="150" [src]="videoUrl[i].mediaUrl"
+												frameborder="0"></iframe>
+											<button class="btn btn-sm btn-rose"
+												(click)="deleteVideo(videoUrl[i].mediaId, i)">
+												<i class="material-icons fa-spin"
+													*ngIf="onPopUpDoing('delvideo'+i)">refresh</i>
+												Delete
+											</button>
+										</div>
+										<div class="col-md-10 mt-3 mx-auto">
+											<form #videoUrlForm="ngForm" (ngSubmit)="setVideo(videoUrlForm)">
+
+												<div class="row">
+													<mat-form-field>
+														<input matInput placeholder="Paste or type the url here ..."
+															type="text" name="videoUrl" ngModel>
+													</mat-form-field>
+													<button mat-raised-button type="submit"
+														class="btn btn-fill btn-rose mx-auto">
+														<i class="material-icons fa-spin"
+															*ngIf="onPopUpDoing('newvideo')">refresh</i>
+														Add a new video
+													</button>
+												</div>
+
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- end video modal -->
+
+				<!-- notice modal -->
+				<div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-notice">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="myModalLabel">Choose the School Media File</h5>
+								<button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									<i class="material-icons">close</i>
+								</button>
+							</div>
+
+							<div class="modal-body">
+								<!-- <form [formGroup]="mediaType"> -->
+								<div class="instruction">
+									<div class="row">
+										<div *ngFor="let media of schoolMedia; let i = index"
+											class="col-md-6 margin-auto">
+											<p style="padding-top: 10px">
+												{{media.mediaTypeId == 1 ? 'Logo' : media.mediaTypeId == 2 ?
+												'Background' : 'Support Image'}}
+											</p>
+											<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+												<div class="fileinput-new thumbnail picture">
+													<img src="{{media.mediaLocation}}" alt="{{media.mediaName}}">
+												</div>
+												<div class="fileinput-preview fileinput-exists thumbnail"></div>
+												<div>
+													<span class="btn btn-rose btn-round btn-file">
+														<span *ngIf="!media.schoolMediaId">Select Image</span>
+														<span *ngIf="media.schoolMediaId" style="color: white;">Change
+															Image</span>
+
+														<i class="material-icons fa-spin"
+															*ngIf="onPopUpDoing('media'+i)">refresh</i>
+
+														<input type="file" name="schoolMediaId"
+															(change)="onDocumentChange($event, media.schoolId, media.mediaTypeId, i)" />
+													</span>
+													<a href="#" *ngIf="media.schoolMediaId"
+														class="btn btn-danger btn-round" data-dismiss="fileinput"
+														(click)="deleteDocument(media.schoolMediaId, i)">
+														<i class="fa fa-times"></i>
+														Delete</a>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 margin-auto">
+											<div class="fileinput text-center" data-provides="fileinput">
+												<p style="padding-top: 10px">Support Image</p>
+												<div class="thumbnail picture">
+													<img id="imagenImput" src="./assets/img/image_placeholder.jpg"
+														alt="..">
+												</div>
+												<!-- <div class="fileinput-preview fileinput-exists thumbnail"></div> -->
+												<div>
+													<span class="btn btn-rose btn-round btn-file">
+														<span>Select Image</span>
+														<i class="material-icons fa-spin"
+															*ngIf="onPopUpDoing('newmedia')">refresh</i>
+														<input #myInput type="file" name="schoolMediaId"
+															id="schoolMediaId" (change)="onNewDocumentChange($event)" />
+													</span>
+													<!-- <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+														data-dismiss="fileinput"><i class="fa fa-times"></i>
+														Delete</a> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- </form> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end notice modal -->
+			</div>
+		</div>
+
+		<!-- notice modal -->
+		<div class="modal fade" id="featureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-notice">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title section" id="myModalLabel">School Features</h4>
+						<button mat-button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							<i class="material-icons">close</i>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<!-- <form [formGroup]="mediaType"> -->
+						<div class="instruction">
+							<!-- <div class="row"> -->
+							<div class="divider col-md-8 offset-md-2"></div>
+							<div class="row section">
+								<div class="col-md-6 offset-md-2">
+									Accomodation
+								</div>
+								<div class="col-md-2 right-align">
+									<div class="togglebutton vertical-center">
+										<label>
+											<input type="checkbox" checked="" name="status"
+												[(ngModel)]="feature.hasAccomodation">
+											<span class="toggle"></span>
+
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="divider col-md-8 offset-md-2"></div>
+							<div class="row section">
+								<div class="col-md-6 offset-md-2">
+									Work While Study
+								</div>
+								<div class="col-md-2 right-align">
+									<div class="togglebutton vertical-center">
+										<label>
+											<input type="checkbox" checked="" name="status"
+												[(ngModel)]="feature.hasWorkWhileStudy">
+											<span class="toggle"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="divider col-md-8 offset-md-2"></div>
+							<div class="row section">
+								<div class="col-md-6 offset-md-2">
+									Conditional LOA
+								</div>
+								<div class="col-md-2 right-align">
+									<div class="togglebutton vertical-center">
+										<label>
+											<input type="checkbox" checked="" name="status"
+												[(ngModel)]="feature.hasConditionalLoa">
+											<span class="toggle"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="divider col-md-8 offset-md-2"></div>
+							<div class="row section">
+								<div class="col-md-6 offset-md-2">
+									Post-Gradute Work Permit
+								</div>
+								<div class="col-md-2 right-align">
+									<div class="togglebutton vertical-center">
+										<label>
+											<input type="checkbox" checked="" name="status"
+												[(ngModel)]="feature.hasPgwp">
+											<span class="toggle"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="divider col-md-8 offset-md-2"></div>
+							<div class="row section">
+								<div class="col-md-6 offset-md-2">
+									Coop
+								</div>
+								<div class="col-md-2 right-align">
+									<div class="togglebutton vertical-center">
+										<label>
+											<input type="checkbox" checked="" name="status"
+												[(ngModel)]="feature.hasCoop">
+											<span class="toggle"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="divider col-md-8 offset-md-2"></div>
+							<div class="row section">
+								<div class="col-md-8 right-align offset-md-2">
+									<button [disabled]="onPopUpDoing('features')" mat-raised-button type="button"
+										class="btn btn-fill btn-rose" (click)="saveFeatures()">
+										<i class="material-icons fa-spin" *ngIf="onPopUpDoing('features')">refresh</i>
+										Save
+									</button>
+								</div>
+							</div>
+
+							<!-- </div> -->
+						</div>
+						<!-- </form> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end notice modal -->
+
+		<!-- Finantial modal -->
+		<div class="modal" tabindex="-1" id="finantialModal" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Financial Info</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form #finantialForm="ngForm" (ngSubmit)="onSubmitFin(finantialForm)" id="finantialForm">
+
+							<div class="row">
+								<div class="col-sm-6">
+									<mat-form-field class="example-full-width">
+										<input matInput type="number" name="tuitionPerYear" i18n-placeholder
+											placeholder="Tuition Per Year"
+											[(ngModel)]="finInfo == null ? '' : finInfo.tuitionPerYear"
+											#schoolTuitionPerYear="ngModel" required>
+
+										<mat-error i18n="the warning message (Tuition required)"
+											*ngIf="schoolTuitionPerYear.errors && schoolTuitionPerYear.touched || schoolTuitionPerYear.errors && schoolTuitionPerYear.untouched">
+											Tuition per year required
+										</mat-error>
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-6">
+									<mat-form-field class="example-full-width">
+										<input matInput type="number" name="applicationFees" i18n-placeholder
+											placeholder="Application Fees"
+											[(ngModel)]="finInfo == null ? '' : finInfo.applicationFees"
+											#schoolApplicationFees="ngModel" required>
+
+										<mat-error i18n="the warning message (Tuition required)"
+											*ngIf="schoolApplicationFees.errors && schoolApplicationFees.touched || schoolApplicationFees.errors && schoolApplicationFees.untouched">
+											Application fees required
+										</mat-error>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-6">
+									<mat-form-field class="example-full-width">
+										<input matInput type="number" name="costOfLiving" i18n-placeholder
+											placeholder="Cost Of Living"
+											[(ngModel)]="finInfo == null ? '' : finInfo.costOfLiving"
+											#schoolCostOfLiving="ngModel" required>
+
+										<mat-error i18n="the warning message (Tuition required)"
+											*ngIf="schoolCostOfLiving.errors && schoolCostOfLiving.touched || schoolCostOfLiving.errors && schoolCostOfLiving.untouched">
+											Cost of living required
+										</mat-error>
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-6">
+									<mat-form-field class="example-full-width">
+										<input matInput type="number" name="totalPerYear" i18n-placeholder
+											placeholder="Total per Year"
+											[(ngModel)]="finInfo == null ? '' : finInfo.totalPerYear" disabled>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="float-right mt-3">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+								<button [disabled]="onPopUpDoing('finantial')" mat-raised-button type="submit"
+									class="btn btn-fill btn-rose" i18n-value="label for submit button (Save)">
+									<i class="material-icons fa-spin" *ngIf="onPopUpDoing('finantial')">refresh</i>
+									Save
+								</button>
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Finantial modal -->
+	</div>
+</div>

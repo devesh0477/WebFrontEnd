@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg bg-primary navbar-transparent navbar-absolute" color-on-scroll="500">
+  <div class="container">
+    <div class="navbar-wrapper">
+      <!-- <a class="navbar-brand d-none d-sm-none d-md-block" [routerLink]="['/dashboard']">Let's Go Canada</a> -->
+      <a class="navbar-brand d-none d-sm-none d-md-block" [routerLink]="['/']">Let's Go Canada</a>
+      <!-- <a class="navbar-brand d-block d-sm-block d-md-none" [routerLink]="['/dashboard']">Let's Go canada</a> -->
+      <a class="navbar-brand d-block d-sm-block d-md-none" [routerLink]="['/']">Let's Go Canada</a>
+    </div>
+    <button mat-button class="navbar-toggler" type="button" (click)="sidebarToggle()">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+      <span class="navbar-toggler-icon icon-bar"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/register']">
+
+            <!-- <i class="material-icons">person_add</i>Agency Register -->
+            <i class="material-icons">person_add</i>
+            <span i18n="Menu to register an agency@@agencyRegister">Agency Register</span>
+
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/applicantRegister']">
+            <!-- <i class="material-icons">person_add</i>Agency Register -->
+            <i class="material-icons">person_add</i><span i18n="Menu to register an agency@@agencyRegister">Applicant
+              Register</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>

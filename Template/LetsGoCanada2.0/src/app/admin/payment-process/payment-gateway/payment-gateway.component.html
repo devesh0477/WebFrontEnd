@@ -1,0 +1,86 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">credit_card</i>
+						</div>
+						<h4 class="card-title">Payment Gateway Management</h4>
+					</div>
+					<div class="card-body">
+						<form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm)" id="paymentForm">
+							<br>
+							<div class="row justify-content-center">
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="wuServiceId" matInput placeholder="WU Service Id"
+											i18n-placeholder [(ngModel)]="payment.wuclientId" required>
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="wudomainName" #description="ngModel" matInput
+											placeholder="WU Service Name" i18n-placeholder
+											[(ngModel)]="payment.wudomainName" required>
+
+										<!-- <mat-error i18n="the warning message (Description required)"
+											*ngIf="description.errors && description.touched || description.errors && titleSubMenu.untouched">
+											Title required.
+										</mat-error> -->
+
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+							<div class="row justify-content-center aline-center-horizon">
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<mat-form-field class="example-full-width has-label">
+										<input type="text" name="note" matInput placeholder="Note" i18n-placeholder
+											[(ngModel)]="payment.note">
+									</mat-form-field>
+								</div>
+
+								<div class="col-sm-12 col-md-5 mr-auto ml-auto">
+									<div class="togglebutton">
+										<label style="color: #757575">
+											Active:
+											<input type="checkbox" checked="" name="active"
+												[(ngModel)]="payment.active">
+											<span class="toggle"></span>
+
+										</label>
+									</div>
+								</div>
+							</div>
+							<br>
+
+							<div class="row justify-content-center">
+								<div class="col-md-11 right-align pt-3 pb-3">
+									<!-- (click)="saveMenu()" -->
+									<button mat-raised-button type="button" class="btn btn-danger mr-3"
+										(click)="clearForm(paymentForm)">
+										Cancel
+									</button>
+									<button [disabled]="isSearching" mat-raised-button type="submit"
+										class="btn btn-rose">
+										<i class="material-icons fa-spin" *ngIf="isSearching">refresh</i>
+										{{btnName}}
+									</button>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+
+				<app-basic-table (objectSelected)="setObjectSelected($event)" [configTable]="configTable">
+				</app-basic-table>
+
+			</div>
+		</div>
+	</div>
+</div>

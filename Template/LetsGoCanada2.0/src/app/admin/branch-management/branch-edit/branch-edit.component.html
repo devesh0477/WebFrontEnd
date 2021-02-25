@@ -1,0 +1,215 @@
+<div class="card">
+	<div class="card-header card-header-icon card-header-rose">
+		<div class="card-icon">
+			<i class="material-icons">assignment</i>
+		</div>
+		<h4 class="card-title">Edit Profile -
+			<small class="category">Complete branch profile</small>
+		</h4>
+	</div>
+
+	<div class="card-body">
+		<form #branchForm="ngForm" (ngSubmit)="onSubmit(branchForm)" id="branchForm">
+			<div class="row aline-center-horizon">
+
+				<div class="col-md-3">
+					<mat-form-field class="example-full-width vertical-Citizen">
+						<mat-select placeholder="Agency" name="agencyId"
+							[(ngModel)]="branchToEdit == null? '' : branchToEdit.agencyId" #branchAgency="ngModel">
+							<mat-option *ngFor="let agency of agencies" [value]=agency.id>
+								{{agency.name}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+
+				<div class="col-md-2 togglebutton vertical-center">
+					<label>Headquarter
+						<input type="checkbox" [(ngModel)]="branchToEdit == null? false : branchToEdit.headquarters"
+							name="headquarters" #branchHeadquarter="ngModel">
+						<span class="toggle"></span>
+					</label>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<mat-form-field class="example-full-width has-label">
+							<input type="text" id="officeName" name="officeName" #branchName="ngModel" matInput
+								placeholder="Branch Name" i18n-placeholder [ngModel]="branchToEdit ==null? '' : branchToEdit.officeName"
+								minlength="2" required>
+
+							<mat-error i18n="the warning message (Title required)"
+								*ngIf="branchName.errors && branchName.touched || branchName.errors && branchName.untouched">
+								Branch Name required
+							</mat-error>
+
+						</mat-form-field>
+
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<mat-form-field class="example-full-width has-label">
+							<input type="text" id="phone" name="phone" #branchPhone="ngModel" matInput placeholder="Phone"
+								i18n-placeholder [ngModel]="branchToEdit ==null? '' : branchToEdit.officeName" minlength="10" required>
+
+							<mat-error i18n="the warning message (Title required)"
+								*ngIf="!branchPhone.errors?.minlength && branchPhone.touched">
+								Phone required
+							</mat-error>
+
+							<mat-error i18n="the warning message (Title required)" *ngIf="branchPhone.errors?.minlength">
+								Must be at least 10 characters
+							</mat-error>
+
+						</mat-form-field>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-5">
+					<div class="form-group">
+						<mat-form-field class="example-full-width has-label">
+							<input type="text" id="addressLine1" name="addressLine1" #branchAddressLine1="ngModel" matInput
+								placeholder="Address 1" i18n-placeholder [ngModel]="branchToEdit ==null? '' : branchToEdit.addressLine1"
+								minlength="3" required>
+
+							<mat-error i18n="the warning message (Title required)"
+								*ngIf="!branchAddressLine1.errors?.minlength && branchAddressLine1.touched">
+								Address 1 required
+							</mat-error>
+
+							<mat-error i18n="the warning message (Title required)" *ngIf="branchAddressLine1.errors?.minlength">
+								Must be at least 3 characters
+							</mat-error>
+
+						</mat-form-field>
+
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						<mat-form-field class="example-full-width has-label">
+							<input type="text" id="addressLine2" name="addressLine2" #branchAddressLine2="ngModel" matInput
+								placeholder="Address 2" i18n-placeholder
+								[ngModel]="branchToEdit ==null? '' : branchToEdit.addressLine2">
+
+						</mat-form-field>
+
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<mat-form-field class="example-full-width has-label">
+							<input type="text" id="postalCode" name="postalCode" #branchPostalCode="ngModel" matInput
+								placeholder="Postal Code" i18n-placeholder [ngModel]="branchToEdit ==null? '' : branchToEdit.postalCode"
+								minlength="3" required>
+
+							<mat-error i18n="the warning message (Title required)"
+								*ngIf="!branchPostalCode.errors?.minlength && branchPostalCode.touched">
+								Postal Code required
+							</mat-error>
+
+							<mat-error i18n="the warning message (Title required)" *ngIf="branchPostalCode.errors?.pattern">
+								Postal Code is not valid
+							</mat-error>
+
+						</mat-form-field>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="row aline-center-horizon">
+
+				<div class="col-md-3">
+					<mat-form-field class="example-full-width vertical-Citizen">
+						<mat-select placeholder="Country" name="countryId"
+							[(ngModel)]="branchToEdit ==null? '' : branchToEdit.countryId" #branchCountry="ngModel"
+							(valueChange)="selectCountryChange($event)" required>
+							<mat-option *ngFor="let country of countries" [value]=country.countryId>
+								{{country.name}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<mat-form-field class="example-full-width has-label">
+							<input type="text" id="province" name="province" #branchProvince="ngModel" matInput placeholder="Province"
+								i18n-placeholder [ngModel]="branchToEdit ==null? '' : branchToEdit.province" minlength="3" required>
+
+							<mat-error i18n="the warning message (Title required)"
+								*ngIf="!branchProvince.errors?.minlength && branchProvince.touched">
+								Province required
+							</mat-error>
+
+							<mat-error i18n="the warning message (Title required)" *ngIf="branchProvince.errors?.minlength">
+								Must be at least 3 characters
+							</mat-error>
+
+						</mat-form-field>
+
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<mat-form-field class="example-full-width has-label">
+							<input type="text" id="city" name="city" #branchCity="ngModel" matInput placeholder="City"
+								i18n-placeholder [ngModel]="branchToEdit ==null? '' : branchToEdit.city" minlength="3" required>
+
+							<mat-error i18n="the warning message (Title required)"
+								*ngIf="!branchCity.errors?.minlength && branchCity.touched">
+								City required
+							</mat-error>
+
+							<mat-error i18n="the warning message (Title required)" *ngIf="branchCity.errors?.minlength">
+								Must be at least 3 characters
+							</mat-error>
+
+						</mat-form-field>
+
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<mat-form-field class="example-full-width has-label">
+							<input type="text" id="email" name="email" #branchEmail="ngModel" matInput placeholder="Email Address"
+								i18n-placeholder [ngModel]="branchToEdit ==null? '' : branchToEdit.email"
+								pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+
+							<mat-error i18n="the warning message (Title required)"
+								*ngIf="!branchEmail.errors?.pattern && branchEmail.touched">
+								Email required
+							</mat-error>
+
+							<mat-error i18n="the warning message (Title required)" *ngIf="branchEmail.errors?.pattern">
+								Email is not valid
+							</mat-error>
+
+						</mat-form-field>
+
+					</div>
+				</div>
+
+			</div>
+			<!-- to send data to database -->
+			<input [hidden]="!branchId" type="text" [(ngModel)]="branchToEdit == null? 0 : branchToEdit.branchId"
+				name="branchId" #branchBranchId="ngModel">
+
+			<a class="btn btn-rose pull-right clear" (click)="branchForm.reset(); clear()">Clean</a>
+			<input type="submit" value="Submit" class="btn btn-rose pull-right">
+			<div class="clearfix"></div>
+		</form>
+	</div>
+</div>

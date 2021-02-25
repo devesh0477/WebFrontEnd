@@ -1,0 +1,38 @@
+@media (min-width: 992px) {
+  .modal-xl {
+    max-width: 1600px;
+  }
+}
+
+.mat-option:hover {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #e91e63;
+  background: #e91e63 !important;
+  color: #fff !important;
+}
+
+.mat-focused .mat-form-field-label,
+.card-body .row.text-right div.col {
+  color: #e91e63 !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple,
+.mat-option.mat-selected:not(.mat-option-multiple) {
+  background-color: #e91e63 !important;
+}
+
+.form-control,
+.is-focused .form-control {
+  background-image: linear-gradient(to top, #e91e63 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+}
+
+.next-status-margin {
+  margin-top: -2% !important;
+}
+
+.special-badge {
+  border-radius: 6px !important;
+  padding: 8px 4px !important;
+  text-transform: unset !important;
+  font-size: 12px !important;
+  color: #000 !important;
+}

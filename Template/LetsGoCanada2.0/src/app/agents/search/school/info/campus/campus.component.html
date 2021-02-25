@@ -1,0 +1,11 @@
+<div class="row">
+
+  <div class="card col-xl-4-5 mx-2" *ngFor="let campus of campuses">
+    <div class="card-body">
+      <h5 class="card-title text-center font-weight-bold">{{campus.campusName}}</h5>
+      <span class="card-text truncate-overflow" [innerHTML]="campus.about"></span>
+      <a routerLink="/campus/{{campus.campusId}}" class="btn btn-primary btn-sm mx-auto d-block">Visit the
+        {{campus.campusName}} page</a>
+    </div>
+  </div>
+</div>

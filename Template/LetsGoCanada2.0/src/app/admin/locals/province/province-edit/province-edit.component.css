@@ -1,0 +1,10 @@
+.mat-form-field.mat-focused .mat-form-field-ripple,
+.mat-option.mat-selected:not(.mat-option-multiple) {
+  background-color: #e91e63 !important;
+}
+
+.mat-option:hover {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #e91e63;
+  background: #e91e63 !important;
+  color: #fff !important;
+}

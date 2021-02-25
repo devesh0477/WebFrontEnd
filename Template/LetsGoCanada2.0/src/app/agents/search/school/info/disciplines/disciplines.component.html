@@ -1,0 +1,23 @@
+<div class="card card-chart">
+  <div class="card-header card-header-icon card-header-rose">
+    <div class="card-icon">
+      <i class="material-icons">local_library</i>
+    </div>
+    <h4 class="card-title titleColor font-weight-bold text-uppercase">Disciplines</h4>
+  </div>
+  <div class="card-body">
+    <!-- <div id="chartPreferences" class="ct-chart"></div> -->
+    <div class="chart">
+      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+        [legend]="pieChartLegend" [colors]="pieChartColors">
+      </canvas>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-md-12">
+        <h6 class="card-category">Based on total number of programs</h6>
+      </div>
+    </div>
+  </div>
+</div>

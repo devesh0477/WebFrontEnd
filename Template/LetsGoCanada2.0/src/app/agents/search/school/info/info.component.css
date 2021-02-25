@@ -1,0 +1,35 @@
+.schoolFeaturesIcons {
+    font-size: 80px;
+    color: #ec407a;
+    cursor: pointer;
+    margin: 0px 0px 0px 16px;
+}
+
+.iconDisabled {
+    color: darkgray;
+}
+
+.yesColor {
+    color: #0581E3;
+}
+
+.noColor {
+    color: gray;
+}
+
+.titleColor {
+    color: #074099 !important;
+}
+
+.feat-align {
+    width: 90px !important;
+    margin: 30px 0px 0px 0px !important;
+}
+
+.thumb-align {
+    margin: -32px 0px 0px 28px;
+}
+
+.text {
+    color: black;
+}

@@ -1,0 +1,81 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="card">
+      <div class="card-header card-header-icon card-header-rose">
+        <div class="card-icon">
+          <i class="material-icons">mail</i>
+        </div>
+        <h4 i18n="the card title (E-mails)" class="card-title ">E-mails</h4>
+
+        <div class="card-body">
+          <form [formGroup]="templateEmailForm" (ngSubmit)="saveEmailTemplate()">
+            <div class="row">
+
+              <div class="col-lg-8 ml-auto mr-auto">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Template name" formControlName="name">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Subject" formControlName="subject">
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-3 ml-auto mr-auto">
+                <mat-form-field>
+                  <mat-label>Process List</mat-label>
+                  <mat-select formControlName="process" (valueChange)="onChangeProcessList($event)">
+                    <mat-option *ngFor="let process of processes" [value]="process.processID">
+                      {{process.processName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-lg-8 ml-auto mr-auto mt-4">
+                <app-ngx-editor id="email-body" [placeholder]="'Write your email here...'" [spellcheck]="true"
+                  minHeight="400px" [(ngModel)]="htmlContent" formControlName="template" style="color: black;">
+                </app-ngx-editor>
+              </div>
+
+              <div class="col-lg-3 ml-auto mr-auto">
+
+                <div class="card limitedHeight col-lg-12 ml-auto mr-auto">
+                  <h3 class="text-center">Variables</h3>
+                  <span class="setScroll">
+                    <mat-selection-list #emailVariables>
+                      <mat-list-option *ngFor="let variable of variables" matTooltip={{variable.value}}
+                        (click)="show(variable.code)" [selected]="isChecked(variable.code)" >
+                        {{variable.code}}
+                      </mat-list-option>
+                    </mat-selection-list>
+                  </span>
+                </div>
+
+                <div class="row mt-5 mx-1 justify-content-between">
+                  <button type="submit" mat-raised-button class="btn btn-rose">
+                    {{btnName}}
+                  </button>
+                  <a mat-raised-button (click)="clearForm()" class="btn btn-warning">
+                    Cancel
+                  </a>
+
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <app-basic-table [configTable]="configTable" (objectSelected)="getEmailTemplateById($event)"
+      (deleteObjectSelected)="deleteEmailTemplate($event)">
+    </app-basic-table>
+
+  </div>
+</div>

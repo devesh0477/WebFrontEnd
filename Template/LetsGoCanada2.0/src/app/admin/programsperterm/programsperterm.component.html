@@ -1,0 +1,204 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-12 ml-auto mr-auto">
+				<div class="card ">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">mail_outline</i>
+						</div>
+						<h4 class="card-title">Terms Form</h4>
+					</div>
+					<div class="card-body">
+						<form [formGroup]="termtype">
+							<br>
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<mat-select placeholder="School" i18n-placeholder name="school" id="school"
+											formControlName="school" (valueChange)="selectSchoolChange($event)">
+											<mat-option *ngFor="let school of schoolList" [value]="school.schoolId">
+												{{ school.name }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<mat-select placeholder="Campus" i18n-placeholder name="campus" id="campus"
+											formControlName="campus" (valueChange)="selectCampusChange($event)">
+											<mat-option *ngFor="let campus of campusList" [value]="campus.campusId">
+												{{ campus.campusName }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<mat-select multiple placeholder="Program" i18n-placeholder name="program"
+											id="program" formControlName="program"
+											(valueChange)="selectProgramChange($event)">
+											<mat-option *ngFor="let prog of programList" [value]="prog.programID">
+												{{ prog.programName }}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<mat-select placeholder="Terms" i18n-placeholder name="term" id="term"
+											formControlName="term" (valueChange)="selectTermChange($event)">
+											<mat-option *ngFor="let termi of termList" [value]="termi.termId">
+												{{ termi.season }} - {{termi.year}}
+											</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<div class="togglebutton vertical-center">
+										<label>
+											Program Status
+											<input type="checkbox" checked="true" name="status" formControlName="status">
+											<span class="toggle"></span>
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<div class="togglebutton vertical-center">
+										<label>
+											Co-op
+											<input type="checkbox" checked="" name="coop" formControlName="coop">
+											<span class="toggle"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<input matInput [matDatepicker]="startDate" placeholder="Start Date"
+											i18n-placeholder name="startDate" id="startDate" (click)="startDate.open()"
+											formControlName="startDate">
+										<mat-datepicker-toggle matSuffix [for]="startDate">
+										</mat-datepicker-toggle>
+										<mat-datepicker #startDate></mat-datepicker>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<input matInput [matDatepicker]="endDate" placeholder="End Date"
+											i18n-placeholder name="endDate" id="endDate" (click)="endDate.open()"
+											formControlName="endDate">
+										<mat-datepicker-toggle matSuffix [for]="endDate">
+										</mat-datepicker-toggle>
+										<mat-datepicker #endDate></mat-datepicker>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-3 ml-auto mr-auto">
+									<mat-form-field>
+										<input matInput [matDatepicker]="submissionDate"
+											placeholder="Submission Deadline" i18n-placeholder name="submissionDate"
+											id="submissionDate" (click)="submissionDate.open()"
+											formControlName="submissionDate">
+										<mat-datepicker-toggle matSuffix [for]="submissionDate">
+										</mat-datepicker-toggle>
+										<mat-datepicker #submissionDate></mat-datepicker>
+									</mat-form-field>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-11 ml-auto mr-auto right-align">
+									<button mat-raised-button type="button" class="btn btn-fill btn-danger"
+										(click)="clearForm()">Cancel</button>
+
+									<button [disabled]="onPopUpDoing('submit')" mat-raised-button type="button"
+										class="btn btn-fill btn-rose" (click)="sendProgramTermBack()">
+										<i class="material-icons fa-spin" *ngIf="onPopUpDoing('submit')">refresh</i>
+										{{buttonName}}
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 ml-auto mr-auto">
+				<div class="card">
+					<div class="card-header card-header-icon card-header-rose">
+						<div class="card-icon">
+							<i class="material-icons">assignment</i>
+						</div>
+						<h4 class="card-title ">Term Management</h4>
+					</div>
+					<div class="card-body">
+						<div class="row justify-content-center">
+							<div class="col-md-11">
+								<div class="table-responsive">
+									<table class="table">
+										<thead class="text-primary">
+											<tr>
+												<th *ngFor="let cell of tableData1.headerRow">
+													{{ cell }}
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let row of pageOfItems; let i = index">
+												<td>{{row.school.name}}</td>
+												<td>{{row.campus.campusName}}</td>
+												<td>{{row.program.name}}</td>
+												<td>{{row.term.season}} - {{row.term.year}}</td>
+												<td>
+													<div class="togglebutton">
+														<label>
+															<input type="checkbox" *ngIf="row.programStatus" checked=""
+																name="status" (change)="changeStatus(row)">
+															<input type="checkbox" *ngIf="!row.programStatus"
+																name="status" (change)="changeStatus(row)">
+															<span class="toggle"></span>
+														</label>
+													</div>
+												</td>
+												<td>{{row.startDate | date: 'MM/dd/yyyy'}}</td>
+												<td>{{row.endDate | date: 'MM/dd/yyyy'}}</td>
+												<td class="td-actions">
+
+
+													<button mat-raised-button type="button" (click)="editTerm(row)"
+														class="btn btn-success btn-link" matTooltip="Edit"
+														[matTooltipPosition]="'above'">
+														<i class="material-icons">edit</i>
+													</button>
+
+												</td>
+
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+								<div class="d-flex justify-content-center mt-4">
+									<jw-pagination [items]="programsPerTermList" [pageSize]="10"
+										(changePage)="onChangePage($event)">
+									</jw-pagination>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>

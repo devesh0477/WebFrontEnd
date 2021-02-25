@@ -1,0 +1,12 @@
+.main-content {
+    padding-top: 0;
+}
+
+.text-primary {
+    color: #e91e63 !important;
+}
+
+.card .card-body {
+    padding: 35px 95px 35px 95px;
+    position: relative;
+}

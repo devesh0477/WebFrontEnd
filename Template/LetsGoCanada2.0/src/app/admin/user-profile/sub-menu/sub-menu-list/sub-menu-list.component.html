@@ -1,0 +1,86 @@
+<div class="row">
+	<div class="col-md-12 mr-auto ml-auto">
+		<div class="card">
+			<div class="card-header card-header-rose card-header-icon">
+				<div class="card-icon">
+					<i class="material-icons">list</i>
+				</div>
+				<h4 class="card-title">Sub Menu List</h4>
+			</div>
+			<div class="row" *ngIf="!subMenuList">
+				<div class="col-md-11 center-align">
+					<p>
+						No sub menu available
+					</p>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row justify-content-center">
+					<div class="col-md-11" *ngIf="subMenuList">
+						<div class="table-responsive">
+							<table class="table">
+								<thead class="text-primary">
+									<tr>
+										<th>
+											Menu Name
+										</th>
+										<th>
+											Title
+										</th>
+										<th>
+											Description
+										</th>
+										<th>
+											Path
+										</th>
+										<th>
+											AB
+										</th>
+										<th>
+											Visible
+										</th>
+										<th class="center-align">
+											Actions
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let item of pageOfItems; let i = index">
+										<td>
+											{{item.menu.title}}
+										</td>
+										<td>
+											{{item.title}}
+										</td>
+										<td>
+											{{item.description}}
+										</td>
+										<td>
+											{{item.path}}
+										</td>
+										<td>
+											{{item.ab}}
+										</td>
+										<td>
+											{{item.visible}}
+										</td>
+										<td class="td-actions center-align">
+											<button mat-raised-button type="button" class="btn btn-info btn-link"
+												matTooltip="Edit" (click)="editSubMenu(item)">
+												<i class="material-icons">edit</i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="d-flex justify-content-center mt-4">
+							<jw-pagination [items]="subMenuList" [pageSize]="10" (changePage)="onChangePage($event)">
+							</jw-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

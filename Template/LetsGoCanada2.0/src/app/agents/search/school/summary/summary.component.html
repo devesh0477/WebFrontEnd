@@ -1,0 +1,95 @@
+<div class="card card-product" id="fixedCard">
+	<div class="card-header card-header-image w-25 mx-auto px-0 img-fluid" data-header-animation="false">
+		<!-- <img class="img px-2 mb-2" *ngIf="!schools" src="./assets/img/image_placeholder.jpg" alt="Logo">
+		<img class="img px-2 mb-2" *ngIf="schools" src="{{schools[0].schoolMedia[0].mediaLocation}}" alt="Logo"> -->
+		<img class="img px-2 mb-2 logo-background" *ngIf="schools" src="{{schoolLogo}}" alt="Logo">
+		<!-- <img class="img px-2 mb-2" src="{{schools.chklogo}}" alt="Logo"> -->
+	</div>
+	<h2 class="card-title font-weight-bold">
+		<p class="my-0" *ngIf="schools">{{schools[0].name}}</p>
+	</h2>
+	<div class="card-body text-center py-0" id="schoolSummaryTextHeader">
+		<p class="my-0" *ngIf="schools">{{schools[0].city.name}} - {{schools[0].province.name}}</p>
+		<p class="my-0 text-uppercase" *ngIf="schools">{{schools[0].country.name}}</p>
+		<p class="my-0" *ngIf="schools">School DLI: {{schools[0].dli}}</p>
+	</div>
+	<hr>
+
+	<ul class="list-inline mx-auto">
+		<li class="list-inline-item align-middle">
+			<i *ngIf="!schools || !schools[0].feature.hasCoop" data-toggle="tooltip" data-placement="top"
+				title="No Programs with co-op option"
+				class="material-icons mr-5 align-middle schoolSummaryIcons iconDisabled">business_center</i>
+			<i *ngIf="schools && schools[0].feature.hasCoop" data-toggle="tooltip" data-placement="top"
+				title="Programs with co-op option"
+				class="material-icons mr-5 align-middle schoolSummaryIcons">business_center</i>
+		</li>
+
+		<li class="list-inline-item align-middle">
+			<i *ngIf="!schools || !schools[0].feature.hasWorkWhileStudy" data-toggle="tooltip" data-placement="top"
+				title="No Work while studying"
+				class="material-icons mr-5 align-middle schoolSummaryIcons iconDisabled">next_week</i>
+
+			<i *ngIf="schools && schools[0].feature.hasWorkWhileStudy" data-toggle="tooltip" data-placement="top"
+				title="Work while studying" class="material-icons mr-5 align-middle schoolSummaryIcons">next_week</i>
+		</li>
+		<li class="list-inline-item align-middle">
+			<i *ngIf="!schools || !schools[0].feature.hasConditionalLoa" data-toggle="tooltip" data-placement="top"
+				title="No Conditional offer letter"
+				class="material-icons mr-5 align-middle schoolSummaryIcons iconDisabled">drafts</i>
+			<i *ngIf="schools && schools[0].feature.hasConditionalLoa" data-toggle="tooltip" data-placement="top"
+				title="Conditional offer letter" class="material-icons mr-5 align-middle schoolSummaryIcons">drafts</i>
+		</li>
+
+		<li class="list-inline-item align-middle">
+			<i *ngIf="!schools || !schools[0].feature.hasAccomodation" data-toggle="tooltip" data-placement="top"
+				title="No Accomodation"
+				class="material-icons mr-5 align-middle schoolSummaryIcons iconDisabled">home</i>
+			<i *ngIf="schools && schools[0].feature.hasAccomodation" data-toggle="tooltip" data-placement="top"
+				title="Accomodation" class="material-icons mr-5 align-middle schoolSummaryIcons">home</i>
+		</li>
+		<li class="list-inline-item align-middle">
+			<i *ngIf="!schools || !schools[0].feature.hasPgwp" data-toggle="tooltip" data-placement="top"
+				title="No PGWP" class="material-icons align-middle schoolSummaryIcons iconDisabled">location_city</i>
+			<i *ngIf="schools && schools[0].feature.hasPgwp" data-toggle="tooltip" data-placement="top" title="PGWP"
+				class="material-icons align-middle schoolSummaryIcons">location_city</i>
+		</li>
+	</ul>
+
+	<hr class="my-2">
+
+	<div class="card-footer py-0 my-0">
+		<ul class="list-inline mx-auto">
+			<li class="text-center" *ngIf="!schools">
+				<span class="font-weight-bold">Foundation:</span>
+				Undefined
+			</li>
+			<li class="text-center" *ngIf="schools">
+				<span class="font-weight-bold">Foundation: </span>
+				{{schools[0].fundationDate  | date: 'yyyy'}}
+			</li>
+
+			<li class="text-center" *ngIf="!schools || !schools[0].typeInstitution ">
+				<span class="font-weight-bold">Category:</span>
+				Undefined
+			</li>
+
+			<li class="text-center" *ngIf="schools && schools[0].typeInstitution">
+				<span class="font-weight-bold">Category:
+				</span>
+				{{schools[0].typeInstitution.typeName}} -
+
+				<span *ngIf="schools && schools[0].publicInstitution; else elseBlock">Public</span>
+				<ng-template #elseBlock>Private</ng-template>
+
+			</li>
+
+			<li *ngIf="schools && schools[0].totalStudents" class="text-center">
+				<span class="font-weight-bold">Total Students:</span> {{schools[0].totalStudents}}+
+			</li>
+
+			<li *ngIf="schools && schools[0].intStudents" class="text-center">
+				<span class="font-weight-bold">Int. Students:</span> {{schools[0].internationaStudents}}+
+			</li>
+		</ul>
+	</div>

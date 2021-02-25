@@ -1,0 +1,94 @@
+<div class="wrapper wrapper-full-page">
+	<div class="page-header login-page header-filter" filter-color="black"
+		style="background-image: url('https://storagelgc.blob.core.windows.net/lgcmedia/__login.png'); background-size: cover; background-position: top center;">
+		<!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+					<form class="form" #formLogin="ngForm" (ngSubmit)="login()" id="form-login">
+						<div class="card card-login card-hidden">
+							<div class="card-header card-header-rose text-center">
+								<h3 class="card-title" i18n="Log in Tittle@@logInTittle">Log in</h3>
+							</div>
+							<div class="card-body ">
+								<span class="bmd-form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="material-icons">face</i>
+											</span>
+										</div>
+										<input type="email" #username="ngModel" name="username"
+											[(ngModel)]="user.username" class="form-control" i18n-placeholder
+											placeholder="E-mail or User">
+									</div>
+								</span>
+								<span class="bmd-form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="material-icons">lock_outline</i>
+											</span>
+										</div>
+										<input type="password" #password="ngModel" name="password"
+											[(ngModel)]="user.password" class="form-control" i18n-placeholder
+											placeholder="Password">
+									</div>
+								</span>
+								<div class="bmd-form-group">
+									<div class="ml-2 pl-5">
+										<a class="rose" style="color: #d81b60;" (click)="doRecovery($event)"
+											href="#!">Forgot your password ?</a>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer justify-content-center">
+								<button type="submit" class="btn btn-rose btn-round mt-4"
+									i18n="Lets Go Button@@letsGo">Let's GO</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<section id="logoCarousel" class="header-no-filter">
+			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+				<div style="position:relative;">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<div *ngFor="let school of schools.slice(0,4)">
+								<img class="carouselImgTarget" width="100px" style="margin-right:75px;"
+									[src]="school.logos.mediaLocation"
+									onerror="this.onerror=null;this.src='./assets/img/image_placeholder.jpg';"
+									alt="logo">
+							</div>
+							<img width="90px" [src]="schools[5].logos.mediaLocation"
+								onerror="this.onerror=null;this.src='./assets/img/image_placeholder.jpg';" alt="logo">
+						</div>
+						<div class="carousel-item">
+							<div *ngFor="let school of schools.slice(6,10)">
+								<img class="carouselImgTarget" width="100px" style="margin-right:75px;" [src]="school.logos.mediaLocation"
+									onerror="this.onerror=null;this.src='./assets/img/image_placeholder.jpg';"
+									alt="logo">
+							</div>
+							<img class="carouselImgTarget" width="90px" [src]="schools[11].logos.mediaLocation"
+								onerror="this.onerror=null;this.src='./assets/img/image_placeholder.jpg';" alt="logo">
+						</div>
+						<div class="carousel-item">
+							<div *ngFor="let school of schools.slice(12,16)">
+								<img class="carouselImgTarget" width="100px" style="margin-right:75px;" [src]="school.logos.mediaLocation"
+									onerror="this.onerror=null;this.src='./assets/img/image_placeholder.jpg';"
+									alt="logo">
+							</div>
+							<img class="carouselImgTarget" width="90px" [src]="schools[17].logos.mediaLocation"
+								onerror="this.onerror=null;this.src='./assets/img/image_placeholder.jpg';" alt="logo">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer class="footer" style="display: block;">
+			<app-footer></app-footer>
+		</footer>
+	</div>
+</div>

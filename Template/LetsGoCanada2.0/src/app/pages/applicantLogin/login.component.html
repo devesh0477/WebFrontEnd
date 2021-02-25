@@ -1,0 +1,53 @@
+<h1>Applicant login workflow</h1>
+<div class="wrapper wrapper-full-page">
+	<div class="page-header login-page header-filter"
+		style="background-image: url('./assets/img/login.jpg'); background-size: cover; background-position: top center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+					<form class="form" #formLogin="ngForm" (ngSubmit)="login()" id="form-login">
+						<div class="card card-login card-hidden">
+							<div class="card-header card-header-rose text-center">
+								<h3 class="card-title" i18n="Log in Tittle@@logInTittle">Log in</h3>
+							</div>
+							<div class="card-body ">
+								<span class="bmd-form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="material-icons">face</i>
+											</span>
+										</div>
+										<input type="email" #username="ngModel" name="username"
+											[(ngModel)]="user.username" class="form-control" i18n-placeholder
+											placeholder="Email or User">
+									</div>
+								</span>
+								<span class="bmd-form-group">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="material-icons">lock_outline</i>
+											</span>
+										</div>
+										<input type="password" #password="ngModel" name="password"
+											[(ngModel)]="user.password" class="form-control" i18n-placeholder
+											placeholder="Password...">
+									</div>
+								</span>
+							</div>
+							<div class="card-footer justify-content-center">
+								<button type="submit" class="btn btn-rose btn-link btn-lg"
+									i18n="Lets Go Button@@letsGo">Lets
+									Go</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<footer class="footer" style="display: block;">
+			<app-footer></app-footer>
+		</footer>
+	</div>
+</div>

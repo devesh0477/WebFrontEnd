@@ -1,0 +1,121 @@
+<div class="wrapper wrapper-full-page">
+    <div class="page-header register-page header-filter" filter-color="black"
+        style="background-image: url('./assets/img/register.jpg'); background-size: cover; background-position: top center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <div class="card card-signup">
+                        <h2 class="card-title text-center">Agency Register</h2>
+                        <div class="card-body">
+                            <form [formGroup]="register">
+                                <div class="row ml-auto mr-auto">
+                                    <label class="col-sm-3 col-md-3 offset-md-2 col-form-label"> User Name
+                                        (Email)</label>
+                                    <div class="col-sm-4">
+                                        <mat-form-field class="example-full-width"
+                                            [ngClass]="{'has-success':validEmailRegister===true}"
+                                            [ngClass]="displayFieldCss(register, 'email')">
+                                            <input type="email" matInput
+                                                (ngModelChange)="emailValidationRegister($event)"
+                                                formControlName="email" i18n-placeholder>
+                                            <mat-error
+                                                *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                                Please enter a valid email address
+                                            </mat-error>
+                                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                                Email is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row ml-auto mr-auto">
+
+                                    <label class="col-sm-3 col-md-3 offset-md-2 col-form-label">Agency Name</label>
+                                    <!-- [errorStateMatcher]="matcher" -->
+                                    <div class="col-sm-4">
+                                        <mat-form-field class="example-full-width"
+                                            [ngClass]="{'has-success':validEmailRegister===true}"
+                                            [ngClass]="displayFieldCss(register, 'agencyName')">
+                                            <input type="email" matInput
+                                                (ngModelChange)="emailValidationRegister($event)"
+                                                formControlName="agencyName" i18n-placeholder>
+                                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                                Agency Name is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row ml-auto mr-auto">
+                                    <label class="col-sm-3 col-md-3 offset-md-2 col-form-label">Country</label>
+                                    <div class="col-sm-4">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-select matInput placeholder="Country of Citizenship" i18n-placeholder
+                                                id="countryCitizen" name="countryCitizen"
+                                                formControlName="countryCitizen" required>
+                                                <mat-option *ngFor="let country of countries"
+                                                    [value]="country.countryId">
+                                                    {{ country.name }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row ml-auto mr-auto">
+
+                                    <label class="col-sm-3 col-md-3 offset-md-2 col-form-label">Password</label>
+                                    <!-- [errorStateMatcher]="matcher" -->
+                                    <div class="col-sm-4">
+                                        <mat-form-field class="example-full-width"
+                                            [ngClass]="{'has-success':validPasswordRegister===true}"
+                                            [ngClass]="displayFieldCss(register, 'password')">
+                                            <input type="password" matInput
+                                                (ngModelChange)="passwordValidationRegister($event)"
+                                                formControlName="password" i18n-placeholder>
+                                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                                Password is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row ml-auto mr-auto">
+
+                                    <label class="col-sm-3 col-md-3 offset-md-2 col-form-label">Confirm Password</label>
+                                    <!-- [errorStateMatcher]="matcher" -->
+                                    <div class="col-sm-4">
+                                        <mat-form-field class="example-full-width"
+                                            [ngClass]="{'has-success':validConfirmPasswordRegister===true}"
+                                            [ngClass]="displayFieldCss(register, 'confirmPassword')">
+                                            <input type="password" matInput
+                                                (ngModelChange)="confirmPasswordValidationRegister($event)"
+                                                formControlName="confirmPassword" i18n-placeholder>
+                                            <mat-error *ngIf="emailFormControl.hasError('required')">
+                                                Confirm Password is <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row ml-auto mr-auto">
+                                    <div class="col-sm-12 col-md 12 text-center">
+                                        <a href="#" (click)="registerAgency($event)" class="btn btn-rose btn-round mt-4"
+                                            i18n="Register button@@registerButton">
+                                            <i *ngIf="isRegistering" class="material-icons fa-spin">refresh</i>
+                                            Register</a>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer" style="display: block;">
+            <app-footer></app-footer>
+        </footer>
+    </div>
+</div>

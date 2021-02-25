@@ -1,0 +1,20 @@
+.mat-option:hover {
+    background: #E91E63 !important;
+    color: white;
+}
+
+.mat-option.mat-selected {
+    background: #E91E63 !important;
+    color: white;
+}
+
+.vertical-center {
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.other-padd {
+    padding-top: 12px !important;
+}

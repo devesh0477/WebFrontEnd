@@ -1,0 +1,25 @@
+.other-padd {
+    padding-top: 12px !important;
+}
+
+.marginHeaderMobile {
+    margin-top: 150px;
+}
+
+@media only screen and (min-width: 991px) {
+.marginHeaderMobile {
+margin-top: 130px;
+}
+}
+
+@media only screen and (min-width: 1300px) {
+.marginHeaderMobile {
+margin-top: 10px;
+}
+}
+
+@media (min-width:1300px) and (max-width:1395px){
+    .marginHeaderMobile {
+        margin-top: 70px;
+        }
+}

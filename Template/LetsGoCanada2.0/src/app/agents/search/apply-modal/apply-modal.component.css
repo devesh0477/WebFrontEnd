@@ -1,0 +1,25 @@
+.limitedHeightApplicants {
+  height: 15em;
+  overflow-y: hidden;
+}
+
+#searchButton {
+  padding: 8px 20px !important;
+  margin: 8px 0px 0px 15px !important;
+}
+
+.smallBtn {
+  font-size: 1% !important;
+  width: 1% !important;
+  padding: 10px 30px 10px 11px !important;
+  margin: auto !important;
+}
+
+.profile-link {
+  color: black;
+}
+
+.profile-link:hover {
+  font-weight: bolder;
+  color: #ec407a
+}

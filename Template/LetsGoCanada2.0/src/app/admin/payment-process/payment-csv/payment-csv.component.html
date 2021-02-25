@@ -1,0 +1,83 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row col-xl-11 col-md-11 col-sm-11 mx-auto">
+      <!-- start::CSVCard -->
+
+      <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+          <div class="card-icon">
+            <i class="material-icons">file_copy</i>
+          </div>
+          <h4 i18n="the card title (Payment .csv Manipulation)" class="card-title ">Payment .csv Manipulation</h4>
+        </div>
+        <div class="card-body mr-5 ml-5">
+
+          <div class="row my-3">
+
+            <div class="col">
+              <span class="btn btn-small btn-rose btn-file">
+                <input type="file" name="UploadBtn" (change)="uploadCsv($event)" accept=".csv" />
+                Upload .csv with
+                Program Costs
+              </span>
+            </div>
+
+            <div class="col">
+              <button [disabled]="!programResource" class="btn btn-small btn-own-blue btn-file float-right"
+                (click)="getProgramCostResources()">
+                <i class="material-icons fa-spin" *ngIf="!programResource">refresh</i>
+                Download
+                .csv for
+                Reference Data
+              </button>
+
+              <button [disabled]="!programPrice" class="btn btn-small btn-teal btn-file float-right mr-2"
+                (click)="getProgramPrices()">
+                <i class="material-icons fa-spin" *ngIf="!programPrice">refresh</i>
+                Download .csv
+                for
+                Application Costs
+              </button>
+            </div>
+
+          </div>
+          <div class="table-responsive">
+
+            <span *ngIf="hasFile">
+
+              <button [class.spinner]="showSpinner" [disabled]="showSpinner" class="btn btn-small btn-rose"
+                (click)="postProgramPrices()">
+                Create Program Prices
+
+              </button>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="text-center font-weight-bold" *ngFor="let header of tableHeader">{{ header }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let csvColumn of pageOfItems">
+                    <td class="text-center">{{csvColumn.ApplicationCostID}}</td>
+                    <td class="text-center">{{csvColumn.ProgramID}}</td>
+                    <td class="text-center">{{csvColumn.ConceptID}}</td>
+                    <td class="text-center">{{csvColumn.Amount}}</td>
+                    <td class="text-center">{{csvColumn.visible}}</td>
+                    <td class="text-center">{{csvColumn.Deleted}}</td>
+                    <td class="text-center">{{csvColumn.ConceptName}}</td>
+                    <td class="text-center">{{csvColumn.ProgramName}}</td>
+                    <td class="text-center">{{csvColumn.SchoolName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </span>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- end::CSVCard -->
+    </div>
+  </div>
+</div>

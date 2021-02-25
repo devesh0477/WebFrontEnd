@@ -1,0 +1,331 @@
+<h5 class="info-text font-weight-bold"> Education History </h5>
+<form [formGroup]="profileEducation">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">face</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label testy">
+					<!-- [ngClass]="{'has-feedback':validateControls===true}"> -->
+					<input type="text" name="instituName" formControlName="instituName" matInput id="instituName"
+						placeholder="Institute Name" i18n-placeholder required>
+					<!-- *ngIf="!this.type.controls.instituName.value" -->
+					<!-- <mat-error *ngIf="validateControls">
+						Institute Name required
+					</mat-error> -->
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+
+				<mat-form-field class="testy">
+					<mat-select placeholder="Level of Education Achieved" name="levEducation"
+						formControlName="levEducation" i18n-placeholder required>
+						<mat-option *ngFor="let level of educationLevels" [value]="level.educationTypeId">
+							{{ level.name }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+
+				<mat-form-field class="testy">
+					<mat-select placeholder="Country of Institution" i18n-placeholder name="counInstitu"
+						formControlName="counInstitu" required>
+						<mat-option *ngFor="let cou of countries" [value]="cou.countryId">
+							{{ cou.name }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="eduProvince" formControlName="eduProvince" matInput id="eduProvince"
+						placeholder="Province" i18n-placeholder>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="eduCity" formControlName="eduCity" matInput id="eduCity" placeholder="City"
+						i18n-placeholder>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">account_balance</i>
+					</span>
+				</div>
+
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="primarylanguage" matInput id="primarylanguage"
+						formControlName="primarylanguage" placeholder="Primary Language of Instruction"
+						i18n-placeholder>
+				</mat-form-field>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">calendar_today</i>
+					</span>
+				</div>
+				<mat-form-field>
+					<input matInput [matDatepicker]="attendaFromDate" placeholder="Attended Institution From"
+						name="attendFrom" formControlName="attendFrom" i18n-placeholder
+						(click)="attendaFromDate.open()">
+					<mat-datepicker-toggle matSuffix [for]="attendaFromDate">
+					</mat-datepicker-toggle>
+					<mat-datepicker #attendaFromDate></mat-datepicker>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">calendar_today</i>
+					</span>
+				</div>
+				<mat-form-field>
+					<input matInput [matDatepicker]="attendaToDate" placeholder="Attended Institution To"
+						i18n-placeholder formControlName="attendTo" (click)="attendaToDate.open()">
+					<mat-datepicker-toggle matSuffix [for]="attendaToDate">
+					</mat-datepicker-toggle>
+					<mat-datepicker #attendaToDate></mat-datepicker>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">account_balance</i>
+					</span>
+				</div>
+
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="degreeName" matInput id="degreeName" formControlName="degree"
+						placeholder="Degree Awarded" i18n-placeholder>
+				</mat-form-field>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="eduAddress" formControlName="eduAddress" matInput id="eduAddress"
+						placeholder="Address" i18n-placeholder>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">list_alt</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="eduPostal" formControlName="eduPostal" matInput id="eduPostal"
+						placeholder="Postal Code" i18n-placeholder>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg" style="padding-left: 1em; align-items: flex-end;">
+				<div class="form-check">
+					<label class="form-check-label">
+						<input class="form-check-input" type="checkbox" [checked]="isMostRecentStudy"
+							(change)="checkRecentSchool($event)" name="isRecentSchool" formControlName="isRecentSchool">
+						This is the most recent school.
+						<span class="form-check-sign">
+							<span class="check"></span>
+						</span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">map</i>
+					</span>
+				</div>
+
+				<mat-form-field>
+					<mat-select placeholder="Grading Scheme" name="gradeScheme" formControlName="gradeScheme"
+						i18n-placeholder>
+						<mat-option *ngFor="let grade of gradeSchemeList" [value]="grade.scaleId">
+							{{ grade.sacaleName }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text">
+						<i class="material-icons">list_alt</i>
+					</span>
+				</div>
+				<mat-form-field class="example-full-width has-label">
+					<input type="text" name="gradeAverage" formControlName="gradeAverage" matInput id="gradeAverage"
+						placeholder="Grade Average" i18n-placeholder>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="input-group form-control-lg" style="padding-left: 1em; align-items: flex-end;">
+				<div class="form-check">
+					<label class="form-check-label">
+						<input class="form-check-input" type="checkbox" [checked]="isgraduatedStudy"
+							(change)="checkGraduatedSchool($event)" name="isGraduated" formControlName="isGraduated">
+						Are you graduated from this school.
+						<span class="form-check-sign">
+							<span class="check"></span>
+						</span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4 offset-sm-8">
+			<div class="input-group form-control-lg col-lg-2 ml-auto">
+
+				<button mat-raised-button mat-min-fab (click)="addNewStudy()"
+					class="btn btn-info btn-just-icon btn-round" matTooltip="{{butname}}">
+					<i class="material-icons">{{butname}}</i>
+				</button>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- </div> -->
+
+	<div *ngIf="profile.education_list && profile.education_list.length > 0">
+		<div class="ml-4 mr-5" id="accordion" role="tablist"
+			*ngFor="let educa of profile.education_list; let i = index">
+			<div class="card-collapse">
+				<div class="card-header" role="tab" id="heading{{i}}">
+					<h5 class="mb-0">
+						<a class="collapsed" data-toggle="collapse" href="#{{educa.idHtml}}" aria-expanded="false"
+							aria-controls="collapseOne">
+							<strong>{{educa.educationLevel}}</strong>
+							<i class="material-icons">keyboard_arrow_down</i>
+						</a>
+					</h5>
+				</div>
+				<div id="{{educa.idHtml}}" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+					data-parent="#accordion">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-11 col-md-11 col-lg-11">
+								<a id="{{educa.idHtml}}" name="{{educa.idHtml}}" matTooltip="Click to Edit" href="#"
+									style="color: darkslategray;" (click)="editStudyInfo($event)">
+									<div class="row">
+										<div class="col-sm-4">
+											<h6>
+												<strong>{{educa.schoolName}}</strong>
+											</h6>
+											<h6><strong>{{educa.degree}}</strong>
+											</h6>
+										</div>
+
+										<div class="col-sm-6">
+											<h6>Level of Education:
+												<strong>{{educa.educationType}}</strong>
+											</h6>
+											<h6>{{educa.countryName}}</h6>
+											<h6><strong>Attended from</strong>
+												{{educa.startDate | date}}
+												<strong>to</strong>
+												{{educa.endDate | date}}</h6>
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="col-sm-1 col-md-1 col-lg-1 text-center">
+								<button mat-raised-button mat-min-fab (click)="showMessage(i)" matTooltip="Remove"
+									class="btn btn-danger btn-just-icon btn-round">
+									<i class="material-icons">remove</i>
+								</button>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</form>

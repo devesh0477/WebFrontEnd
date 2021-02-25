@@ -1,0 +1,73 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- start::image-->
+    <div class="row">
+      <div class="card col-xl-11 col-lg-11 col-md-11 col-sm-12 mx-auto">
+        <div class="height" *ngIf="!campusData || !campusData.campusMedia[0]">
+          <img class="d-block w-100 img-fluid img-fit pt-1 pb-1" src="./assets/img/image_placeholder.jpg"
+            alt="Background Image">
+        </div>
+        <div class="height" *ngIf="campusData && campusData.campusMedia[0]">
+          <img class="img-fit" src="{{campusData.campusMedia[0].mediaLocation}}" alt="Background Image">
+        </div>
+      </div>
+    </div>
+    <!-- end::image-->
+    <div class="row">
+      <!-- start::about-->
+      <div class="card col-xl-8 col-lg-8 col-md-8 col-sm-12 mx-auto">
+        <div class="card-header card-header-tabs card-header-rose py-0">
+          <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#briefing" data-toggle="tab">
+                    <i class="material-icons">info</i>Campus Briefing
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#videos" data-toggle="tab">
+                    <i class="material-icons">video_library</i> Videos
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="briefing">
+              <h3><strong>Campus Briefing</strong></h3>
+              <span class="" [innerHTML]="campusData?.about"></span>
+            </div>
+            <div class="tab-pane" id="videos">
+              <app-generic-video-selector [info]='videoObj'></app-generic-video-selector>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="card col-xl-8 col-lg-8 col-md-8 col-sm-12 mx-auto">
+        <h3><strong>Campus Briefing</strong></h3>
+        <span class="" [innerHTML]="campusData?.about"></span>
+      </div> -->
+      <!-- end::about-->
+      <!-- start::address-->
+      <div class="card col-xl-2 col-lg-2 col-md-2 col-sm-12 mx-auto">
+        <h3><strong>{{campusData?.campusName}}</strong></h3>
+        <p><strong>Address: </strong>{{campusData?.address}} - {{campusData?.city.name}}, {{campusData?.province.name}},
+          {{campusData?.country.name}}.</p>
+        <p><Strong>Zipcode: </Strong>{{campusData?.postalcode}}</p>
+        <p><strong>Email: </strong>{{campusData?.contacMail}}</p>
+      </div>
+      <!-- end::address-->
+      <!-- start::program list-->
+      <div class="card col-xl-11 col-lg-11 col-md-11 col-sm-12 mx-auto">
+        <app-generic-program-list [programList]="programList"></app-generic-program-list>
+      </div>
+      <!-- end::program list-->
+    </div>
+  </div>
+</div>

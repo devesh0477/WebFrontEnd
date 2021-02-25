@@ -1,0 +1,92 @@
+.card-header {
+    border-radius: 3px !important;
+    margin-top: -20px !important;
+    padding: 0px 0px 0px 10px !important;
+}
+
+.card {
+    max-height: 160px !important;
+    min-height: 160px !important;
+}
+
+.setScroll {
+    height: 864px;
+    overflow-y: scroll;
+}
+
+.card .card-actions {
+    position: relative !important;
+    top: unset !important;
+    margin-left: -15px !important;
+}
+
+.bigIcon {
+    font-size: 200%;
+}
+
+.smallIcon {
+    font-size: 100%;
+}
+
+.subMenu {
+    color: rgb(253, 28, 103);
+    text-shadow: 2px 2px 4px #999999;
+    display: inline;
+    margin-left: -35px;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: #2A6496;
+    text-decoration: underline;
+}
+
+.card-icon {
+    padding: 5px !important;
+}
+
+.card:hover [data-header-animation="true"] {
+    -webkit-transform: translate3d(0, -30px, 0);
+    -moz-transform: translate3d(0, -30px, 0);
+    -o-transform: translate3d(0, -30px, 0);
+    -ms-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
+}
+
+
+.new-card-columns {
+    column-count: 2;
+}
+
+li {
+    list-style: none;
+    min-width: 100px;
+}
+
+ul {
+    margin-bottom: 0px;
+}
+
+div.font-weight-bold.text-left a {
+    display: inline;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 2;
+        -webkit-column-gap: 1.25rem;
+        -moz-column-gap: 1.25rem;
+        column-gap: 70px;
+        orphans: 1;
+        widows: 1;
+    }
+}

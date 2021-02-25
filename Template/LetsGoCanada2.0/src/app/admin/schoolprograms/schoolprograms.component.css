@@ -1,0 +1,25 @@
+img {
+    box-sizing: unset;
+}
+
+.imgBack {
+    max-height: 200px;
+}
+
+.mat-option:hover {
+    background: #E91E63 !important;
+    color: white;
+}
+
+.mat-option.mat-selected {
+    background: #E91E63 !important;
+    color: white;
+}
+
+.table-height {
+    max-height: 25em !important;
+}
+
+.amount-margin {
+    margin-top: 2% !important;
+}

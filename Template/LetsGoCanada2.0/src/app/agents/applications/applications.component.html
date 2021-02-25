@@ -1,0 +1,171 @@
+<div class="main-content">
+	<div class="container-fluid">
+
+
+		<ng-container *ngIf="this.applicant == null">
+			<div class="row">
+				<div class="col-md-12 mr-auto ml-auto">
+					<div class="card">
+						<div class="card-header card-header-rose card-header-icon">
+							<div class="card-icon">
+								<i class="material-icons">playlist_add</i>
+							</div>
+							<h4 class="card-title">Applications Search</h4>
+						</div>
+						<div class="card-body">
+
+							<form [formGroup]="type">
+								<br>
+								<div class="row">
+									<div class="col-sm-12 col-md-3 col-lg-3 ml-auto mr-auto">
+										<mat-form-field class="example-full-width has-label"
+											style="padding-top: 0.5px !important;">
+											<input type="text" name="applicationId" matInput #searchModal
+												placeholder="Application Id" i18n-placeholder
+												formControlName="applicationId">
+										</mat-form-field>
+									</div>
+
+									<div class="col-sm-12 col-md-3 col-lg-3 ml-auto mr-auto">
+										<mat-form-field class="example-full-width">
+											<mat-select multiple placeholder="Status" i18n-placeholder name="status"
+												formControlName="status" (valueChange)="selectStatusChange($event)">
+												<mat-option *ngFor="let status of statusList" [value]="status.statusId">
+													{{ status.description }}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+
+									<div class="col-sm-12 col-md-3 col-lg-3 ml-auto mr-auto">
+										<mat-form-field class="example-full-width">
+											<mat-select multiple placeholder="School" i18n-placeholder name="school"
+												formsControlName="school" (valueChange)="selectSchoolChange($event)">
+												<mat-option *ngFor="let school of schoolList" [value]="school.schoolId">
+													{{ school.name }}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-sm-12 col-md-3 ml-auto mr-auto">
+										<!-- <div class="input-group form-control-lg"> -->
+
+										<mat-form-field class="example-full-width">
+											<mat-select multiple placeholder="Program" i18n-placeholder name="program"
+												formsControlName="program" (valueChange)="selectProgramChange($event)">
+												<mat-option *ngFor="let program of programList"
+													[value]="program.programId">
+													{{ program.name }}
+												</mat-option>
+											</mat-select>
+
+										</mat-form-field>
+										<!-- </div> -->
+									</div>
+
+									<div class="col-sm-12 col-md-3 ml-auto mr-auto">
+										<mat-form-field class="example-full-width">
+											<mat-select multiple placeholder="Term" i18n-placeholder name="intake"
+												formControlName="term" (valueChange)="selectTermChange($event)">
+												<mat-option *ngFor="let term of termLits" [value]="term.termId">
+													{{ term.season }} - {{term.year}}
+												</mat-option>
+											</mat-select>
+										</mat-form-field>
+									</div>
+
+									<ng-container *ngIf="this.session.role != 6">
+										<div class="col-sm-12 col-md-3 ml-auto mr-auto">
+											<mat-form-field class="example-full-width">
+												<mat-select multiple placeholder="Agency" i18n-placeholder name="agency"
+													formControlName="agency" (valueChange)="selectAgencyChange($event)">
+													<mat-option *ngFor="let agency of agencyList" [value]="agency.id">
+														{{ agency.name }}
+													</mat-option>
+												</mat-select>
+											</mat-form-field>
+										</div>
+									</ng-container>
+								</div>
+
+								<ng-container *ngIf="this.session.role != 6">
+									<div class="row" style="align-items: baseline;">
+										<div class="col-sm-12 col-md-3 ml-auto mr-auto">
+											<mat-form-field class="example-full-width">
+												<mat-select multiple placeholder="Branch" i18n-placeholder name="branch"
+													formControlName="branch" (valueChange)="selectBranchChange($event)">
+													<mat-option *ngFor="let branch of branchList" [value]="branch.id">
+														{{ branch.name }}
+													</mat-option>
+												</mat-select>
+											</mat-form-field>
+										</div>
+
+										<div class="col-sm-12 col-md-3 ml-auto mr-auto">
+											<mat-form-field>
+												<mat-select multiple placeholder="Agent" i18n-placeholder name="agent"
+													formControlName="agent" (valueChange)="selectAgentChange($event)">
+													<mat-option *ngFor="let agent of agentList" [value]="agent.id">
+														{{ agent.name }}
+													</mat-option>
+												</mat-select>
+											</mat-form-field>
+										</div>
+
+										<div class="col-sm-12 col-md-3 ml-auto mr-auto">
+											<mat-form-field class="example-full-width has-label"
+												style="padding-top: 0.5px !important;">
+												<input type="text" name="applicant" matInput #searchModal
+													placeholder="Applicant Name" i18n-placeholder
+													formControlName="appliName">
+											</mat-form-field>
+										</div>
+									</div>
+								</ng-container>
+
+
+
+								<br>
+								<div class="row justify-content-center">
+									<div class="col-md-11 right-align">
+
+										<button [disabled]="onPopUpDoing('search')" mat-raised-button
+											class="btn btn-rose" (click)="searchApplications()">
+											<i class="material-icons" *ngIf="!onPopUpDoing('search')">search</i>
+											<i class="material-icons fa-spin" *ngIf="onPopUpDoing('search')">refresh</i>
+											Search
+										</button>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<!-- wizard container -->
+				</div>
+			</div>
+		</ng-container>
+
+		<div class="row">
+			<div class="col-md-12 mr-auto ml-auto">
+				<div class="card">
+					<div class="card-header card-header-rose card-header-icon">
+						<div class="card-icon">
+							<i class="material-icons">playlist_add_check</i>
+						</div>
+						<h4 class="card-title">Applications</h4>
+					</div>
+					<div class="card-body">
+						<app-applications-result (working)="setObjectWorking($event)"
+							[applicationToSearch]="applicationSearch">
+						</app-applications-result>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

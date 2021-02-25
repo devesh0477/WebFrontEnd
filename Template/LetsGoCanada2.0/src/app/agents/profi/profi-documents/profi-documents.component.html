@@ -1,0 +1,65 @@
+<div class="row">
+	<div class="col-lg-12">
+		<h5 class="info-text font-weight-bold">Upload Documents</h5>
+	</div>
+</div>
+
+<form [formGroup]="profileDocuments">
+	<div class="row">
+		<div *ngFor="let docu of profile.documentList; let i=index" class="col-lg-3 col-md-6 col-sm-12">
+			<!-- <div *ngIf="d==0" class="row"> -->
+			<!-- <div > -->
+			<div class="card card-pricing ">
+				<h6 class="card-category">{{docu.doctype}}</h6>
+				<div class="card-body">
+					<div class="card-icon icon-rose ">
+						<i *ngIf="docu.documentLocation" class="material-icons">folder_special</i>
+						<i *ngIf="!docu.documentLocation" class="material-icons">folder_open</i>
+					</div>
+					<!-- <h3 class="card-title">29$</h3> -->
+					<br>
+					<p class="card-description">{{docu.documentDescription}}</p>
+				</div>
+				<p>
+					<a *ngIf="docu.documentLocation" class="card-description" href="#"
+						(click)="downloadDocument($event, i)">
+						<i class="material-icons">search </i>
+						View Document</a>
+				</p>
+				<p>
+					<a *ngIf="docu.documentLocation" class="card-description" href="#"
+						(click)="deleteDocument($event, i)">
+						<i class="material-icons">delete </i>
+						Delete Document</a>
+				</p>
+				<div class="card-footer justify-content-center ">
+					<div class="fileinput-preview fileinput-exists thumbnail">
+					</div>
+					<div>
+						<span *ngIf="docu.documentLocation" class="btn btn-success btn-round btn-file">
+							<span class="fileinput-new">
+								<i *ngIf="docu.documentLocation && !isSavingDocument(i)" class="material-icons">done </i>
+								<i *ngIf="isSavingDocument(i)" class="material-icons fa-spin">refresh</i>
+								<!-- <i *ngIf="!docu.documentLocation" class="material-icons">touch_app </i> -->
+								Choose Document</span>
+							<!-- <span class="fileinput-exists">Change</span> -->
+							<input type="file" name="{{docu.doctype}}-{{i}}" accept="application/pdf"
+								(change)="onDocumentChange($event, i)" />
+						</span>
+
+						<span *ngIf="!docu.documentLocation" class="btn btn-rose btn-round btn-file">
+							<span class="fileinput-new">
+								<!-- <i *ngIf="docu.documentLocation" class="material-icons">done </i> -->
+								<i *ngIf="!docu.documentLocation && !isSavingDocument(i)" class="material-icons">touch_app </i>
+								<i *ngIf="isSavingDocument(i)" class="material-icons fa-spin">refresh</i>
+								Choose Document</span>
+							<!-- <span class="fileinput-exists">Change</span> -->
+							<input type="file" name="{{docu.doctype}}-{{i}}" accept="application/pdf"
+								(change)="onDocumentChange($event, i)" />
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

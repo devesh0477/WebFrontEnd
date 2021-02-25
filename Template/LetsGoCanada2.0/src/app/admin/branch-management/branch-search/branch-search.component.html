@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="card-header card-header-icon card-header-rose">
+    <div class="card-icon">
+      <i class="material-icons">youtube_searched_for</i>
+    </div>
+    <h4 i18n="the screen title (Edit Profile)" class="card-title">Search</h4>
+  </div>
+
+  <div class="row col-xl-11 col-md-11 col-sm-11 margin-left">
+    <div class="col-xl-5 col-md-5 col-sm-5">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Agency" name="agency" [(ngModel)]="selectedAgency" multiple #agencySelected="ngModel"
+          (valueChange)="onAgencyChange($event)">
+          <mat-option *ngFor="let agency of agencies" [value]=agency.id>
+            {{agency == null?"No agencies" : agency.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-xl-2 col-md-2 col-sm-2">
+    </div>
+
+    <div class="col-xl-5 col-md-5 col-sm-5">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Branch" name="branch" [(ngModel)]="selectedBranch" multiple #branchSelected="ngModel"
+          (valueChange)="onBranchChange($event)">
+          <mat-option *ngFor="let branch of branches" [value]=branch.id>
+            {{branch == null?"No branches" : branch.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row col-xl-11 col-md-11 col-sm-11 d-flex justify-content-end margin-button">
+    <div class="col-xl-4 col-md-4 col-sm-4 d-flex justify-content-end">
+      <button class="btn btn-rose clear" (click)="getSearch()">
+        <i class="material-icons">search</i>
+      </button>
+
+      <button mat-raised-button class="btn btn-rose clear" (click)="deselectAll(agencySelected, branchSelected)">
+        <i class="material-icons">clear</i>
+      </button>
+    </div>
+  </div>
+
+</div>

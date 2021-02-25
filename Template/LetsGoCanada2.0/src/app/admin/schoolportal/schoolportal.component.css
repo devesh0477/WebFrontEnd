@@ -1,0 +1,52 @@
+.padding-picture {
+    padding-top: 0.30em;
+    padding-bottom: 0.30em;
+    max-height: 86px;
+}
+
+.margin-auto {
+    margin: auto;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.divider {
+    height: 1px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+}
+
+.section {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.mat-option:hover {
+    background: #E91E63 !important;
+    color: white;
+}
+
+.mat-option.mat-selected {
+    background: #E91E63 !important;
+    color: white;
+}
+
+/* .ng-valid,
+.ng-valid.required {
+    background-color: lightgreen;
+}
+
+.ng-invalid:not(form) {
+    background-color: lightcoral;
+} */
+
+span.ng-star-inserted {
+    color: red;
+    font-size: .75rem;
+}
+
+.btn-blue {
+    color: #2618ff !important;
+}

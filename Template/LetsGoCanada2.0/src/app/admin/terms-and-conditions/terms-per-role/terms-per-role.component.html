@@ -1,0 +1,61 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header card-header-icon card-header-rose">
+        <div class="card-icon">
+          <i class="material-icons">add_task</i>
+        </div>
+        <h4 class="card-title ">Terms per role</h4>
+        <div class="card-body">
+          <form [formGroup]="termPerRoleForm" (ngSubmit)="saveTermPerRole()" #termForm="ngForm">
+
+            <div class="row mx-auto">
+              <div class="col-6">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="Terms Title" formControlName="termTitle">
+                    <mat-option *ngFor="let title of termsTitles" [value]=title.id>
+                      {{title.title}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-6">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="Role" formControlName="role">
+                    <mat-option *ngFor="let role of roles" [value]=role.rolId>
+                      {{role.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-lg-12 ml-auto mr-auto">
+
+                <div class="row mt-5 mx-1 justify-content-end">
+                  <button [disabled]="loading" type="submit" mat-raised-button class="btn btn-rose">
+                    <i class="material-icons fa-spin" *ngIf="loading">refresh</i>
+                    <span *ngIf="loading">Saving</span>
+                    <span *ngIf="!loading">Save</span>
+                  </button>
+                  <a mat-raised-button (click)="clearForm()" class="btn btn-rose">
+                    New
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <app-basic-table [configTable]="configTable" (deleteObjectSelected)="deleteTermPerRole($event)">
+    </app-basic-table>
+  </div>
+</div>

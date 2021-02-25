@@ -1,0 +1,57 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-11 mr-auto ml-auto" #target>
+        <app-agent-search (newSearch)="setFilters($event)"></app-agent-search>
+      </div>
+      <div class="col-md-11 mr-auto ml-auto">
+        <app-agent-edit [agentToEdit]="agent"></app-agent-edit>
+      </div>
+      <div class="col-md-11 mr-auto ml-auto">
+        <div class="card" #pagination>
+          <div class="card-header card-header-icon card-header-rose">
+            <div class="card-icon">
+              <i class="material-icons">perm_identity</i>
+            </div>
+            <h4 class="card-title ">Agents</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary">
+                  <tr>
+                    <th *ngFor="let header of tableHeader">
+                      {{ header }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                  <tr *ngFor="let user of pageOfItems">
+                    <td>{{user.email}}</td>
+                    <td>{{user.agent.firstName}}</td>
+                    <td>{{user.agent.lastName}}</td>
+                    <td>{{user.role.name}}</td>
+                    <td>{{user.agent.branch == null ? "Not Available": user.agent.branch.agency.companyName }}</td>
+                    <td>{{user.agent.branch == null ? "Not Available": user.agent.branch.officeName }}</td>
+                    <td class="td-actions">
+                      <button (click)="getAgent(user); scrollUpTo(target)" type="button" rel="tooltip"
+                        class="btn btn-success btn-link">
+                        <i class="material-icons">edit</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+              <jw-pagination [items]="agents" [pageSize]="10"
+                (changePage)="onChangePage($event); scrollUpTo(pagination)">
+              </jw-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

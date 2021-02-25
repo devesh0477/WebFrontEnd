@@ -1,0 +1,165 @@
+.card {
+    margin-top: 0px;
+}
+
+.float-left {
+    margin-left: 2em;
+}
+
+.float-right {
+    margin-left: 3em;
+}
+
+.bottom-left-logo {
+    position: absolute;
+    bottom: 15px;
+}
+
+.relative {
+    position: relative;
+}
+
+.imgLogo {
+    margin: auto;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.titleColor {
+    color: #074099 !important;
+}
+
+.programTitle {
+    position: absolute;
+    bottom: 50px;
+    left: 150px;
+    color: Black;
+    font-size: x-large;
+}
+
+.schoolTitle {
+    position: absolute;
+    bottom: 20px;
+    left: 150px;
+    color: Black;
+    font-size: x-large;
+}
+
+.material-icons {
+    font-size: 18px !important;
+}
+
+ul {
+    list-style-type: square;
+}
+
+.small {
+    margin-left: 2.5em;
+    margin-right: 2.5em;
+}
+
+.float-center {
+    margin: 0 auto;
+}
+
+.height {
+    height: 220px;
+    width: 100%;
+
+}
+
+#searchButton {
+    padding: 7px 15px !important;
+    margin: 0 1px 0px 2px !important;
+}
+
+.buttonPosition {
+    padding-bottom: 10px;
+    padding-top: 1.5em !important;
+    padding-right: 5px;
+    padding-left: 22px;
+}
+
+.smallBtn {
+    font-size: 1% !important;
+    width: 1% !important;
+    padding: 10px 30px 10px 11px !important;
+    margin: auto !important;
+}
+
+.limitedHeightApplicants {
+    height: 15em;
+    overflow-y: hidden;
+}
+
+.transbox {
+    background-color: #ffffff;
+}
+
+.box {
+    margin: 0% 0% 1% 1%;
+    /* background-color: #ffffff; */
+    height: 7em;
+    width: 7em;
+    line-height: 7em;
+}
+
+.profile-link {
+    color: black;
+}
+
+.profile-link:hover {
+    font-weight: bolder;
+    color: #ec407a
+}
+
+.card .card-body {
+    padding: .9375rem 5px !important;
+}
+
+.padding-off {
+    padding: 11px 5px !important;
+}
+
+.pt-s {
+    padding-top: 4.8em !important;
+}
+
+.img-fit {
+    /* width: auto;
+    height: auto; */
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+
+.example-tooltip-red {
+    /* background: #ec407a;
+    color: white !important;
+    font-size: medium !important;
+     max-width: 400px;
+    max-height: 200px;
+    text-align: left; */
+    border-style: double;
+}
+
+.has_tooltip:hover {
+    cursor: pointer;
+
+}
+
+.card-center {
+    max-width: 90%;
+}
+
+
+
+@media only screen and (min-device-width: 991px) and (max-device-width: 1500px) {
+
+    .start-col,
+    .end-col,
+    .coop-col {
+        display: none;
+    }
+
+}
